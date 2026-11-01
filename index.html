@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>북 페어링 #01: 로봇 몽의 가슴 부품</title>
+  <style>
+    :root {
+      --bg-cream: #f8f5f0;
+      --text-dark: #22252a;
+      --accent-blue: #2563eb;
+      --accent-amber: #d97706;
+      --card-bg: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: var(--bg-cream); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* 상단 네비게이션 */
+    header {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+      padding: 14px 24px; background: #fff; border-bottom: 1px solid #e5e7eb;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .brand { font-weight: 800; font-size: 1.15rem; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }
+    .nav-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+    .nav-btns button {
+      padding: 8px 14px; border-radius: 20px; border: 1px solid #d1d5db;
+      background: #fff; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: all 0.2s;
+    }
+    .nav-btns button.active, .nav-btns button:hover {
+      background: var(--text-dark); color: #fff; border-color: var(--text-dark);
+    }
+
+    /* 메인 컨테이너 */
+    .viewer-container {
+      max-width: 920px; width: 100%; margin: 24px auto; padding: 0 16px; flex: 1;
+    }
+
+    /* 동화책 카드 */
+    .story-card {
+      background: var(--card-bg); border-radius: 20px; box-shadow: 0 12px 32px rgba(0,0,0,0.07);
+      overflow: hidden; display: flex; flex-direction: column;
+    }
+
+    /* 일러스트 영역 */
+    .illustration-box {
+      width: 100%; aspect-ratio: 16 / 9; background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 24px; text-align: center; position: relative; overflow: hidden;
+    }
+    .illustration-box img {
+      width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; display: none;
+    }
+    .page-badge {
+      position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.65);
+      color: #fff; padding: 5px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; z-index: 2;
+    }
+    .hint-toggle-btn {
+      position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.9);
+      color: #92400e; border: 1px solid #fde68a; padding: 5px 12px; border-radius: 20px;
+      font-size: 0.8rem; font-weight: 700; cursor: pointer; z-index: 2;
+    }
+    .art-placeholder {
+      max-width: 82%; color: #374151; font-size: 0.95rem; line-height: 1.6;
+      background: rgba(255,255,255,0.88); padding: 20px 24px; border-radius: 14px;
+      border: 1px dashed #9ca3af; backdrop-filter: blur(4px); z-index: 1;
+    }
+    .art-placeholder strong { display: block; margin-bottom: 6px; color: var(--accent-blue); font-size: 0.85rem; }
+
+    /* 본문 텍스트 영역 */
+    .story-text-box {
+      padding: 36px 28px 28px; text-align: center; min-height: 190px;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+    }
+    .story-text {
+      font-size: 1.45rem; line-height: 1.65; font-weight: 600; word-break: keep-all;
+      white-space: pre-line; margin-bottom: 18px; color: #111827;
+    }
+    .parent-hint {
+      background: #fffbeb; border: 1px solid #fde68a; color: #92400e;
+      padding: 12px 20px; border-radius: 12px; font-size: 0.92rem; line-height: 1.5;
+      max-width: 92%; word-break: keep-all; transition: 0.2s;
+    }
+    .parent-hint.hidden { display: none; }
+
+    /* 12페이지 마지막 전환 배너 */
+    .end-banner {
+      display: none; margin-top: 16px; gap: 10px; justify-content: center; flex-wrap: wrap;
+    }
+    .end-banner button {
+      padding: 12px 20px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; font-size: 0.95rem;
+    }
+    .btn-essay-cta { background: #1e293b; color: #fff; }
+    .btn-play-cta { background: #fef3c7; color: #92400e; border: 1px solid #fde68a !important; }
+
+    /* 하단 컨트롤 바 */
+    .controls {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 24px; background: #f9fafb; border-top: 1px solid #f3f4f6;
+    }
+    .ctrl-btn {
+      padding: 12px 26px; border-radius: 10px; border: none; background: var(--accent-blue);
+      color: #fff; font-weight: 700; cursor: pointer; font-size: 0.95rem; transition: 0.15s;
+    }
+    .ctrl-btn:hover:not(:disabled) { background: #1d4ed8; }
+    .ctrl-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+    .key-guide { font-size: 0.85rem; color: #6b7280; }
+
+    /* 탭 섹션 (에세이 / 하버드 놀이 / 질문 대회) */
+    .drawer-section {
+      display: none; background: #fff; border-radius: 20px; padding: 36px 32px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.07); line-height: 1.8;
+    }
+    .drawer-section.open { display: block; }
+    .drawer-section h2 { font-size: 1.55rem; margin-bottom: 14px; color: #111827; letter-spacing: -0.5px; }
+    .drawer-section h3 { font-size: 1.2rem; margin: 28px 0 10px; color: var(--accent-blue); }
+    .drawer-section p { margin-bottom: 14px; color: #374151; }
+    .tag {
+      display: inline-block; background: #dbeafe; color: #1e40af; padding: 4px 10px;
+      border-radius: 6px; font-size: 0.8rem; font-weight: 700; margin-bottom: 10px;
+    }
+    .quote-box {
+      background: #f8fafc; border-left: 4px solid var(--accent-blue); padding: 16px 20px;
+      margin: 16px 0; border-radius: 0 8px 8px 0; font-size: 0.95rem;
+    }
+
+    /* 질문 배틀 아레나 */
+    .arena-box {
+      background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 14px; padding: 24px; margin-top: 20px;
+    }
+    .question-card {
+      background: #fff; border: 1px solid #e2e8f0; padding: 18px; border-radius: 12px;
+      margin-top: 12px; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    }
+    .upvote-btn {
+      background: #f1f5f9; border: 1px solid #cbd5e1; padding: 10px 16px; border-radius: 10px;
+      cursor: pointer; font-weight: 700; white-space: nowrap; transition: 0.2s;
+    }
+    .upvote-btn:hover { background: #e2e8f0; }
+    textarea, input[type="text"] {
+      width: 100%; padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 8px;
+      margin-top: 10px; font-size: 0.95rem;
+    }
+
+    @media (max-width: 640px) {
+      .story-text { font-size: 1.2rem; }
+      .key-guide { display: none; }
+      .drawer-section { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">📚 PHILO-PAIRING <span style="font-weight:400; font-size:0.9rem; color:#6b7280;">| Ep.01 로봇 몽</span></div>
+  <div class="nav-btns">
+    <button onclick="showTab('story')" id="btn-story" class="active">📖 동화책 (12p)</button>
+    <button onclick="showTab('essay')" id="btn-essay">☕ 부모용 에세이</button>
+    <button onclick="showTab('harvard')" id="btn-harvard">🎲 하버드 뇌놀이</button>
+    <button onclick="showTab('arena')" id="btn-arena">🔥 질문 배틀</button>
+  </div>
+</header>
+
+<div class="viewer-container">
+
+  <!-- [탭 1] 동화책 뷰어 -->
+  <div id="tab-story" class="story-card">
+    <div class="illustration-box">
+      <span class="page-badge" id="page-indicator">1 / 12</span>
+      <button class="hint-toggle-btn" onclick="toggleHint()" id="hint-toggle">💡 부모 힌트 숨기기</button>
+      <img id="story-img" src="" alt="동화 삽화" onerror="this.style.display='none'; document.getElementById('art-box').style.display='block';">
+      <div class="art-placeholder" id="art-box"></div>
+    </div>
+
+    <div class="story-text-box">
+      <p class="story-text" id="text-box"></p>
+      <div class="parent-hint" id="hint-box"></div>
+      <div class="end-banner" id="end-cta">
+        <button class="btn-essay-cta" onclick="showTab('essay')">☕ 엄마·아빠를 위한 에세이 읽기</button>
+        <button class="btn-play-cta" onclick="showTab('harvard')">🎲 아이와 5분 하버드 뇌놀이 하기</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="ctrl-btn" id="prev-btn" onclick="changePage(-1)">◀ 이전</button>
+      <span class="key-guide">키보드 ◀ ▶ 방향키로도 넘길 수 있습니다</span>
+      <button class="ctrl-btn" id="next-btn" onclick="changePage(1)">다음 ▶</button>
+    </div>
+  </div>
+
+  <!-- [탭 2] 성인용 페어링 에세이 -->
+  <div id="tab-essay" class="drawer-section">
+    <span class="tag">생각노트 #01 | 정체성과 연속성</span>
+    <h2>어제와 다른 세포로 출근하는 당신에게</h2>
+    <p>아이와 함께 로봇 몽의 이야기를 잘 읽으셨나요? 온몸의 나무 부품이 금속으로 바뀐 뒤 연못 앞에서 서성이던 몽의 모습은, 서양 철학사에서 2천 년 넘게 이어져 온 가장 유명한 사고 실험 <strong>‘테세우스의 배(Ship of Theseus)’</strong>를 그대로 옮겨놓은 것입니다.</p>
+    <p>고대 그리스의 역사가 플루타르코스는 이런 질문을 던졌습니다. 영웅 테세우스가 타고 돌아온 목선의 썩은 널빤지를 하나씩 새 나무로 교체하다가, 마침내 원래의 나무 조각이 단 하나도 남지 않게 된다면 그 배는 여전히 ‘테세우스의 배’일까요? 나아가 17세기 철학자 토마스 홉스는 여기에 짓궂은 가정을 하나 더 추가합니다. 만약 누군가가 버려진 낡은 널빤지들을 모아서 옆에 똑같은 배를 한 척 더 조립해 냈다면, 두 척 중 어느 것이 ‘진짜’일까요?</p>
+
+    <h3>1. 우리는 모두 걸어 다니는 ‘테세우스의 배’다</h3>
+    <p>생물학적으로 인간의 위벽 세포는 며칠마다, 피부는 한 달마다, 적혈구는 4개월마다 교체됩니다. 가장 단단해 보이는 골격조차 10년이면 완전히 새로운 세포로 물갈이됩니다. 물질적 구성 요소만 놓고 본다면, 10년 전 결혼식 사진 속에 서 있는 당신과 오늘 밤 아이 옆에 앉아 동화책을 읽어주는 당신은 물리적으로 전혀 다른 물질 덩어리입니다.</p>
+    <p>첫 직장에서 달았던 명함, 20대에 밤새워 몰두했던 전공, 예전의 직무가 세월과 함께 하나씩 떨어져 나갑니다. 회사를 옮기거나 업(業)을 피벗할 때, 혹은 ‘누군가의 부모’라는 거대한 부품이 삶에 이식되면서 예전의 루틴이 사라질 때, 우리는 연못 앞의 로봇 몽처럼 문득 멈춰 서게 됩니다.</p>
+
+    <h3>2. ‘물질’에서 ‘패턴과 기억’으로</h3>
+    <p>철학자 존 로크(John Locke)는 이 난제를 돌파하기 위해 정체성의 기준을 ‘물질’에서 <strong>‘의식과 기억의 연속성’</strong>으로 옮겨 놓았습니다. 현대 시스템 이론은 이를 <strong>‘패턴 동일성(Pattern Identity)’</strong>으로 설명합니다. 강물은 매 순간 새로운 물방울로 채워지지만, 물이 흐르는 고유한 소용돌이와 궤적이 유지되는 한 우리는 그것을 같은 강이라고 부릅니다.</p>
+    <p>당신의 직함이 바뀌고 삶의 우선순위가 바뀌었더라도, 당신이 세상을 해석하는 고유의 시선과 태도라는 ‘패턴’이 작동하고 있다면 낡은 부품에 얽매일 필요가 없습니다. 부품을 제때 갈아 끼우지 않는 배는 항해를 계속할 수 없고 박물관에 박제될 뿐입니다.</p>
+
+    <div class="quote-box">
+      <strong>💬 아이의 대답을 읽는 부모용 가이드</strong><br>
+      • 아이가 <strong>"옛날 나무 부품으로 만든 게 진짜야!"</strong>라고 답한다면: 기원과 물질적 구성을 중시하는 <em>물질적 본질주의(Material Essentialism)</em> 직관입니다. "만약 그 나무 로봇이 다람쥐랑 놀았던 기억을 하나도 못 한다면 어떨까?"라고 질문을 확장해 보세요.<br>
+      • 아이가 <strong>"새 부품을 단 은빛 로봇이 진짜야!"</strong>라고 답한다면: 형태보다 기억과 관계를 본질로 보는 <em>심리적 연속성(Psychological Continuity)</em> 관점입니다. "너도 아기 때 쓰던 작은 옷들을 다 안 쓰게 됐지만, 엄마 아빠랑 놀았던 기억이 있어서 여전히 우리 아이인 것처럼 말이야"라고 공감해 주세요.
+    </div>
+  </div>
+
+  <!-- [탭 3] 하버드 뇌과학 액티비티 -->
+  <div id="tab-harvard" class="drawer-section">
+    <span class="tag">Harvard Center on the Developing Child 핵심 개념 적용</span>
+    <h2>오늘 밤 전두엽을 깨우는 5가지 생각 놀이</h2>
+
+    <h3>🎾 놀이 1. "만약에" 핑퐁 릴레이 (Serve and Return)</h3>
+    <p><strong>과학적 원리:</strong> 아이가 던진 상상(Serve)을 부모가 받아서 살짝 비틀어 되돌려줄 때(Return) 전두엽 시냅스가 폭발적으로 연결됩니다.<br>
+    <strong>활동 방법:</strong> "만약 네 몸의 딱 한 군데를 재미있는 재료로 바꿀 수 있다면 어디를 뭘로 바꾸고 싶어?" 아이가 "젤리 팔!"이라고 답하면 "우와, 말랑해서 부러지진 않겠다! 그런데 더운 여름날 밖에 나가면 젤리 팔이 어떻게 될까?"라고 5번 이상 핑퐁 대화를 이어가세요.</p>
+
+    <h3>🧠 놀이 2. 너구리 할아버지의 거꾸로 수리점 (Executive Function)</h3>
+    <p><strong>과학적 원리:</strong> 기존 규칙을 억제(Inhibition)하고 새 규칙으로 머리를 회전(Cognitive Flexibility)시키는 실행 기능 훈련입니다.<br>
+    <strong>활동 방법:</strong> 일상 물건 4개(예: 숟가락=오른팔, 양말=왼발, 크레파스=머리, 동전=가슴)를 정합니다. 익숙해지면 "수리점 규칙이 바뀌었습니다!"라고 선언한 뒤, 부모가 '오른팔'을 부르면 정반대인 '왼발(양말)'을 집게 하세요.</p>
+
+    <h3>🕸️ 놀이 3. 몽의 기억 실뜨기 지도 (Brain Architecture)</h3>
+    <p><strong>과학적 원리:</strong> 부품이 바뀌어도 '기억의 연결망'이 남는다는 주제를 뇌의 신경망 구조와 직접 연결합니다.<br>
+    <strong>활동 방법:</strong> 종이 가운데에 아이 이름을 쓰고, 아기 때부터 지금까지 '사라지거나 바뀐 것들(빠진 앞니, 작아진 신발)'은 파란 펜으로, '여전히 남아있는 기억과 좋아하는 마음'은 빨간 펜으로 적은 뒤 중심의 나와 거미줄처럼 선으로 연결해 보세요.</p>
+
+    <h3>⚖️ 놀이 4. 내 안의 유리 심장 보석함 (Resilience)</h3>
+    <p><strong>과학적 원리:</strong> 실패나 변화라는 무게가 실려도 긍정적 관계와 내면의 자원을 반대편에 올려놓아 회복탄력성 저울의 균형을 맞춥니다.<br>
+    <strong>활동 방법:</strong> 투명 컵을 '몽의 유리 심장'이라 부르고, 이번 주 속상했던 일(부러진 나무 조각)을 이겨낼 수 있는 우리 가족의 따뜻한 기억을 색종이나 구슬로 만들어 컵에 채워 넣으세요.</p>
+
+    <h3>🎭 놀이 5. 삐걱삐걱 로봇 몸짓 극장 (Play & Stress Reduction)</h3>
+    <p><strong>활동 방법:</strong> 아이가 거실을 걷다가 "삐빅! 오른쪽 다리 고장!"이라며 외발로 서면, 부모가 달려가 다리를 간지럽히며 "위이잉~ 슈퍼 개구리 용수철 다리 장착 완료!"라고 외쳐주세요. 아이는 새로 장착된 부품(개구리 점프, 문어 팔 등)에 맞춰 온몸을 움직이며 스트레스를 발산합니다.</p>
+  </div>
+
+  <!-- [탭 4] 미니 철학 대회 아레나 -->
+  <div id="tab-arena" class="drawer-section">
+    <span class="tag">AI 시대의 질문 올림픽 상시 예선장</span>
+    <h2>🔥 장면 딜레마 & 질문 배틀 아레나</h2>
+    <p>고리타분한 고전 암기 대신, <strong>이야기 속 결정적 갈등 장면</strong>에서 가장 날카로운 철학적 질문을 도출해 보세요. AI의 뻔한 양비론을 깨부수는 인간의 통찰에 투표(Upvote)해 주세요!</p>
+
+    <div class="arena-box">
+      <strong>🎬 [제시 장면: 로봇 몽 9페이지 딜레마]</strong>
+      <p style="margin-top:8px; font-size:0.95rem;">너구리 할아버지가 버려진 옛날 나무 부품을 모두 모아 '예전의 나무 몽'을 다시 조립했습니다. 나무 몽은 옛날 기억만 가지고 있고, 새 은빛 몽은 최근의 기억까지 모두 가지고 있습니다. 두 로봇이 마주 서서 서로 자신이 진짜 우체부 몽이라고 주장합니다.</p>
+
+      <h3 style="margin-top:18px; font-size:1.05rem;">✍️ 나만의 철학적 질문 & AI 크리틱 등판시키기</h3>
+      <input type="text" id="new-q" placeholder="이 장면의 핵심을 찌르는 단 하나의 철학적 질문을 작성하세요 (100자 이내)">
+      <textarea id="new-critic" rows="2" placeholder="AI에게 물으면 '두 로봇 모두 각자의 방식으로 진짜입니다'라는 뻔한 중립 답변을 내놓습니다. 이 AI 답변의 맹점을 어떻게 비판하시겠습니까?"></textarea>
+      <button class="ctrl-btn" style="margin-top:10px;" onclick="addQuestion()">질문 등록하기</button>
+    </div>
+
+    <div id="question-list" style="margin-top:20px;">
+      <div class="question-card">
+        <div>
+          <strong>Q. "기억의 연속성이 인격의 본질이라면, 기억을 잃은 치매 환자는 어제의 그 사람이 아닌가?"</strong>
+          <p style="font-size:0.88rem; color:#64748b; margin-top:4px;">💡 AI 크리틱: 존 로크식 기억 기준만 적용할 때 발생하는 생명윤리적 사각지대 타격</p>
+        </div>
+        <button class="upvote-btn" onclick="upvote(this)">👍 31</button>
+      </div>
+      <div class="question-card">
+        <div>
+          <strong>Q. "누가 진짜 몽인지는 몽 자신이 결정하는가, 아니면 편지를 받는 숲속 동물들의 승인(사회적 계약)이 결정하는가?"</strong>
+          <p style="font-size:0.88rem; color:#64748b; margin-top:4px;">💡 AI 크리틱: 정체성을 개체 내부의 속성에서 '관계망의 위치'로 전환</p>
+        </div>
+        <button class="upvote-btn" onclick="upvote(this)">👍 24</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const pages = [
+    {
+      art: "참나무 숲속의 작은 언덕. 나무껍질 몸통과 구리빛 태엽을 등에 단 작은 로봇 '몽'이 편지 가방을 메고 서 있다. 몸 곳곳에 나뭇결이 선명하다.",
+      text: "깊고 푸른 숲속에는 나무 로봇 몽이 살았어요.\n몽은 삐걱거리는 나뭇가지 다리로 숲 구석구석 편지를 배달했지요.",
+      hint: "💡 부모 힌트: 몽의 원래 모습(나무 몸통과 태엽)을 아이와 함께 손가락으로 짚어보며 시작하세요."
+    },
+    {
+      art: "울퉁불퉁한 돌밭. 몽의 오른쪽 나무 발이 바위 틈에 끼어 '뚝' 부러지는 순간. 몽은 당황한 표정이고 흩어진 편지들이 날린다.",
+      text: "어느 날, 뾰족한 돌밭을 지나다 그만 오른쪽 다리가 '뚝!' 부러지고 말았어요.\n몽은 더 이상 걸을 수 없게 되었지요.",
+      hint: "💡 부모 힌트: '아이고, 몽 다리가 부러졌네. 이제 편지 배달은 어떻게 해야 할까?' 하고 가볍게 물어보세요."
+    },
+    {
+      art: "너구리 할아버지의 수리점. 부러진 나무 다리 대신 반짝이는 튼튼한 '파란색 강철 다리'를 달아주는 장면. 몽이 신기한 듯 다리를 내려다본다.",
+      text: "너구리 수리공 할아버지가 튼튼한 파란 강철 다리를 달아주었어요.\n\"다리가 하나 바뀌었지만, 난 여전히 달릴 수 있는 몽이야!\"",
+      hint: "💡 부모 힌트: 다리 하나가 나무에서 쇠로 바뀌어도 몽은 여전히 몽일까요?"
+    },
+    {
+      art: "세찬 소나기가 내리는 숲길. 몽의 왼쪽 나무 팔이 빗물에 젖어 퉁퉁 붓고, 노란 황동 팔로 교체되는 장면.",
+      text: "얼마 뒤 큰 비가 쏟아졌고, 나무로 된 왼쪽 팔이 썩어 움직이지 않았어요.\n이번에는 노란 페인트가 칠해진 황동 팔로 교체했지요.",
+      hint: "💡 부모 힌트: 나무 부품이 하나씩 금속으로 바뀌어 가는 과정을 아이와 함께 세어보세요."
+    },
+    {
+      art: "바람 부는 가을과 눈 내리는 겨울 몽타주. 몽의 태엽이 매끄러운 톱니로, 나무 머리가 은빛 헬멧으로 하나둘 교체되는 모습.",
+      text: "계절이 바뀔 때마다 몽의 부품은 하나씩 새로워졌어요.\n삐걱거리던 태엽은 매끄러운 톱니로, 나무 머리는 은빛 헬멧으로 바뀌었죠.",
+      hint: "💡 부모 힌트: 원래 몽의 몸에 있던 나무 부품들이 이제 거의 남지 않았어요."
+    },
+    {
+      art: "수리점 작업대 클로즈업. 몽의 가슴 한가운데 남아있던 마지막 참나무 조각을 떼어내고, 반짝이는 유리 큐브 모터를 끼우는 순간.",
+      text: "그리고 마침내, 처음 만들어졌을 때부터 가슴에 품고 있던\n마지막 나무 부품마저 은빛 모터로 바꾸게 되었습니다.",
+      hint: "💡 부모 힌트: (테세우스의 배 임계점) 이제 처음의 나무 조각이 단 하나도 남지 않았습니다."
+    },
+    {
+      art: "맑은 숲속 연못가에 비친 자신의 모습을 멍하니 바라보는 몽. 온몸이 은빛, 파란색, 노란색 금속으로 빛나고 있지만 고민에 잠겨 있다.",
+      text: "맑은 연못에 비친 자신의 모습을 본 몽은 우뚝 멈춰 섰어요.\n\"어? 나무 부품이 하나도 없잖아. 그럼… 나는 아직도 몽이 맞는 걸까?\"",
+      hint: "💡 부모 힌트: 페이지를 넘기기 전 잠시 멈추고 물어보세요. '연못에 비친 로봇은 몽일까, 아니면 완전히 새로운 로봇일까?'"
+    },
+    {
+      art: "너구리 할아버지의 작업실 한구석. 먼지 쌓인 나무 상자 안에 몽이 그동안 떼어낸 부러진 나뭇가지 다리, 나무 머리, 녹슨 태엽들이 가득 모여 있다.",
+      text: "한편, 수리점 구석 상자에는 몽이 떼어낸 옛날 나무 부품들이 고스란히 쌓여 있었어요.\n부러진 다리, 벗겨진 머리, 낡은 태엽들까지 전부 다요.",
+      hint: "💡 부모 힌트: 버려진 옛날 부품들이 상자 안에 다 모여있다는 복선을 아이에게 짚어주세요."
+    },
+    {
+      art: "상상 구름 장면. 옛날 나무 부품들을 다시 이어 붙여 조립한 '나무 몽'과 현재의 '은빛 몽'이 서로 마주 보고 고개를 갸웃거리는 모습.",
+      text: "\"만약 할아버지가 저 낡은 부품들을 다시 모아서 조립한다면?\n저 나무 로봇이 진짜 몽일까, 아니면 지금 서 있는 내가 진짜 몽일까?\"",
+      hint: "💡 핵심 철학 질문: '새 부품을 단 은빛 로봇과, 옛날 부품을 다시 모아 만든 나무 로봇 중 누가 진짜 몽일까?'"
+    },
+    {
+      art: "숲속 길목. 다람쥐 우체부와 아기 토끼가 편지를 들고 달려와 은빛 몽의 다리를 반갑게 껴안는 장면.",
+      text: "고민하던 몽에게 다람쥐 우체부와 아기 토끼가 달려왔어요.\n\"몽! 지난번 비 올 때 날 업어줬던 튼튼한 팔이 더 멋있어졌네!\"",
+      hint: "💡 부모 힌트: '동물 친구들은 몽의 겉모습이 다 바뀌었는데 어떻게 한눈에 몽인 줄 알았을까?'"
+    },
+    {
+      art: "몽의 유리 가슴 모터 속에서 따뜻한 황금빛이 번져 나오고, 친구들과 함께했던 기억의 실루엣이 은은하게 피어오르는 모습.",
+      text: "몽은 알게 되었어요.\n몸의 나무 조각들은 모두 사라졌지만, 친구들과 나눈 이야기와\n편지를 전하며 쌓아온 따뜻한 기억들은 고스란히 남아있다는 걸요.",
+      hint: "💡 부모 힌트: 겉모습(물질)이 바뀌어도 기억과 마음의 연결은 이어진다는 것을 함께 느껴보세요."
+    },
+    {
+      art: "해질녘 황금빛 노을 속에서 숲길을 힘차게 달려 나가는 은빛 몽. 멀리서 숲속 동물들이 손을 흔들며 배웅한다.",
+      text: "\"내 모습이 전부 바뀌어도, 나는 여전히 몽이야!\"\n몽은 씩씩하게 새 다리를 구르며 다음 편지를 배달하러 떠났답니다.",
+      hint: "🎉 완독! 아래 버튼을 눌러 엄마·아빠를 위한 에세이와 5분 하버드 뇌놀이를 이어가 보세요."
+    }
+  ];
+
+  let currentPage = 0;
+  let showHint = true;
+
+  function renderPage() {
+    const p = pages[currentPage];
+    document.getElementById('page-indicator').innerText = `${currentPage + 1} / ${pages.length}`;
+    
+    // 이미지 파일(images/page1.jpg 등)이 있으면 보여주고, 없으면 삽화 연출 지문 박스를 표시
+    const imgEl = document.getElementById('story-img');
+    const artBox = document.getElementById('art-box');
+    imgEl.style.display = 'block';
+    artBox.style.display = 'none';
+    imgEl.src = `images/page${currentPage + 1}.jpg`;
+    
+    artBox.innerHTML = `<strong>🎨 [삽화 연출 가이드 - Page ${currentPage + 1}]</strong>${p.art}`;
+    document.getElementById('text-box').innerText = p.text;
+    document.getElementById('hint-box').innerText = p.hint;
+
+    document.getElementById('prev-btn').disabled = (currentPage === 0);
+    document.getElementById('next-btn').disabled = (currentPage === pages.length - 1);
+
+    // 마지막 페이지 도달 시 전환 CTA 버튼 노출
+    document.getElementById('end-cta').style.display = (currentPage === pages.length - 1) ? 'flex' : 'none';
+  }
+
+  function changePage(step) {
+    const next = currentPage + step;
+    if (next >= 0 && next < pages.length) {
+      currentPage = next;
+      renderPage();
+    }
+  }
+
+  function toggleHint() {
+    showHint = !showHint;
+    const hintBox = document.getElementById('hint-box');
+    const toggleBtn = document.getElementById('hint-toggle');
+    if (showHint) {
+      hintBox.classList.remove('hidden');
+      toggleBtn.innerText = '💡 부모 힌트 숨기기';
+    } else {
+      hintBox.classList.add('hidden');
+      toggleBtn.innerText = '💡 부모 힌트 보기';
+    }
+  }
+
+  function showTab(tabName) {
+    document.getElementById('tab-story').style.display = (tabName === 'story') ? 'flex' : 'none';
+    ['essay', 'harvard', 'arena'].forEach(t => {
+      document.getElementById('tab-' + t).classList.toggle('open', tabName === t);
+    });
+    ['story', 'essay', 'harvard', 'arena'].forEach(t => {
+      document.getElementById('btn-' + t).classList.toggle('active', tabName === t);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function upvote(btn) {
+    const parts = btn.innerText.split(' ');
+    const count = parseInt(parts[1], 10) + 1;
+    btn.innerText = `👍 ${count}`;
+  }
+
+  function addQuestion() {
+    const q = document.getElementById('new-q').value.trim();
+    const c = document.getElementById('new-critic').value.trim();
+    if (!q) return alert('질문을 입력해 주세요!');
+    const list = document.getElementById('question-list');
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.innerHTML = `
+      <div>
+        <strong>Q. "${q}"</strong>
+        <p style="font-size:0.88rem; color:#64748b; margin-top:4px;">💡 AI 크리틱: ${c || '인간 고유의 실존적 시선 제시'}</p>
+      </div>
+      <button class="upvote-btn" onclick="upvote(this)">👍 1</button>
+    `;
+    list.prepend(card);
+    document.getElementById('new-q').value = '';
+    document.getElementById('new-critic').value = '';
+  }
+
+  // 키보드 좌우 화살표로 동화책 페이지 넘기기 지원
+  window.addEventListener('keydown', (e) => {
+    if (document.getElementById('tab-story').style.display !== 'none') {
+      if (e.key === 'ArrowRight') changePage(1);
+      if (e.key === 'ArrowLeft') changePage(-1);
+    }
+  });
+
+  renderPage();
+</script>
+
+</body>
+</html>
