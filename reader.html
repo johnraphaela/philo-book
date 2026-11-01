@@ -19,7 +19,7 @@
     .viewer-container { max-width: 920px; width: 100%; margin: 24px auto; padding: 0 16px; flex: 1; }
     .story-card { background: #fff; border-radius: 20px; box-shadow: 0 12px 32px rgba(0,0,0,0.07); overflow: hidden; display: flex; flex-direction: column; }
     .illustration-box { width: 100%; aspect-ratio: 16/9; background: #cfdef3; display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; }
-    .illustration-box img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; display: none; }
+    .illustration-box img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; display: block; }
     .page-badge { position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.65); color: #fff; padding: 5px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; z-index: 2; }
     
     .story-text-box { padding: 36px 28px; text-align: center; }
@@ -54,18 +54,18 @@
 <div class="viewer-container" id="app">
   <!-- 동화 뷰어 영역 -->
   <div id="tab-story" class="story-card">
-    <div class="illustration-box">
+    <div class="illustration-box" id="ill-box">
       <span class="page-badge" id="page-indicator">1 / 12</span>
-      <img id="story-img" src="" alt="삽화">
+      <img id="story-img" src="" alt="삽화" onerror="this.style.opacity=0.3; console.error('이미지 로드 실패:', this.src);">
     </div>
     <div class="story-text-box">
-      <p class="story-text" id="text-box"></p>
-      <div class="parent-hint" id="hint-box"></div>
+      <p class="story-text" id="text-box">데이터를 불러오는 중입니다...</p>
+      <div class="parent-hint" id="hint-box">잠시만 기다려주세요.</div>
     </div>
     <div class="controls">
-      <button class="ctrl-btn" id="prev-btn" onclick="changePage(-1)">◀ 이전</button>
+      <button class="ctrl-btn" id="prev-btn" onclick="changePage(-1)" disabled>◀ 이전</button>
       <span id="book-title-sub" style="font-size:0.9rem; color:#6b7280;">로딩 중...</span>
-      <button class="ctrl-btn" id="next-btn" onclick="changePage(1)">다음 ▶</button>
+      <button class="ctrl-btn" id="next-btn" onclick="changePage(1)" disabled>다음 ▶</button>
     </div>
   </div>
 
@@ -95,8 +95,12 @@
   const urlParams = new URLSearchParams(window.location.search);
   const bookId = urlParams.get('book') || 'book1';
 
+  // JSON 데이터 불러오기 시도
   fetch(`data/${bookId}.json`)
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error(`데이터 파일을 찾을 수 없습니다 (상태 코드: ${res.status})`);
+      return res.json();
+    })
     .then(data => {
       bookData = data;
       document.title = `${data.title} - 필로 페어링`;
@@ -118,49 +122,27 @@
       renderPage();
     })
     .catch(err => {
-      document.getElementById('app').innerHTML = `<div style="text-align:center; padding:50px;"><h2>책을 불러오지 못했습니다.</h2><p>${err}</p><a href="index.html">서재로 돌아가기</a></div>`;
+      document.getElementById('app').innerHTML = `
+        <div style="background:#fff; padding:40px; border-radius:16px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <h2 style="color:#dc2626; margin-bottom:12px;">⚠️ 오류가 발생했습니다</h2>
+          <p style="color:#4b5563; margin-bottom:20px; font-family:monospace; background:#f3f4f6; padding:10px; border-radius:6px;">${err.message}</p>
+          <p style="font-size:0.9rem; color:#6b7280; margin-bottom:20px;">
+            1. <code>data/${bookId}.json</code> 파일이 GitHub의 <code>data</code> 폴더 안에 정확히 들어있는지 확인해 주세요.<br>
+            2. GitHub Pages가 최신 버전을 반영하는 데 1~2분 정도 걸릴 수 있습니다.
+          </p>
+          <a href="index.html" style="background:#2563eb; color:#fff; padding:10px 20px; border-radius:8px; text-decoration:none; font-weight:700;">서재로 돌아가기</a>
+        </div>`;
     });
-
-  // GitHub 단일 폴더 인식 특성('images/book1')에 맞춘 이미지 로더
-  function loadBookImage(bookId, pageNum) {
-    const imgEl = document.getElementById('story-img');
-    const pageNumStr = String(pageNum);
-    
-    const candidates = [
-      `images/${bookId}/page${pageNumStr}.jpg`,
-      `images/${bookId}/page${pageNumStr}.png`,
-      `images/${bookId}/page${pageNumStr}.jpeg`,
-      `images/${bookId}/page${pageNumStr}.webp`,
-      `images/${bookId}/Page${pageNumStr}.jpg`,
-      `images/${bookId}/page${pageNumStr}.JPG`,
-      `images/${bookId}/page${pageNumStr}.PNG`,
-      `images/${bookId}/page${pageNumStr}.jpg.png`
-    ];
-
-    let idx = 0;
-    function tryNext() {
-      if (idx >= candidates.length) {
-        imgEl.style.display = 'none';
-        return;
-      }
-      imgEl.src = candidates[idx];
-      idx++;
-    }
-
-    imgEl.onload = function() {
-      imgEl.style.display = 'block';
-    };
-
-    imgEl.onerror = tryNext;
-    tryNext();
-  }
 
   function renderPage() {
     if (!bookData) return;
     const p = bookData.pages[currentPage];
     document.getElementById('page-indicator').innerText = `${currentPage + 1} / ${bookData.pages.length}`;
     
-    loadBookImage(bookId, currentPage + 1);
+    // 이미지 경로 설정 (GitHub 단일 폴더 구조 대응)
+    const imgEl = document.getElementById('story-img');
+    const pageNum = currentPage + 1;
+    imgEl.src = `images/book1/page${pageNum}.jpg`;
 
     document.getElementById('text-box').innerText = p.text;
     document.getElementById('hint-box').innerText = p.hint;
@@ -177,4 +159,17 @@
     }
   }
 
-  function showTab(tab
+  function showTab(tabName) {
+    document.getElementById('tab-story').style.display = (tabName === 'story') ? 'flex' : 'none';
+    ['essay', 'harvard'].forEach(t => {
+      document.getElementById('tab-' + t).classList.toggle('open', tabName === t);
+    });
+    ['story', 'essay', 'harvard'].forEach(t => {
+      document.getElementById('btn-' + t).classList.toggle('active', tabName === t);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
