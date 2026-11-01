@@ -49,7 +49,7 @@
       padding: 24px; text-align: center; position: relative; overflow: hidden;
     }
     .illustration-box img {
-      width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; display: none;
+      width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; display: none; z-index: 1;
     }
     .page-badge {
       position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.65);
@@ -106,7 +106,7 @@
     .ctrl-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
     .key-guide { font-size: 0.85rem; color: #6b7280; }
 
-    /* 탭 섹션 (에세이 / 하버드 놀이 / 질문 대회) */
+    /* 탭 섹션 */
     .drawer-section {
       display: none; background: #fff; border-radius: 20px; padding: 36px 32px;
       box-shadow: 0 12px 32px rgba(0,0,0,0.07); line-height: 1.8;
@@ -168,7 +168,7 @@
     <div class="illustration-box">
       <span class="page-badge" id="page-indicator">1 / 12</span>
       <button class="hint-toggle-btn" onclick="toggleHint()" id="hint-toggle">💡 부모 힌트 숨기기</button>
-      <img id="story-img" src="" alt="동화 삽화" onerror="this.style.display='none'; document.getElementById('art-box').style.display='block';">
+      <img id="story-img" src="" alt="동화 삽화">
       <div class="art-placeholder" id="art-box"></div>
     </div>
 
@@ -338,25 +338,68 @@
   let currentPage = 0;
   let showHint = true;
 
-  function renderPage() {
-    const p = pages[currentPage];
-    document.getElementById('page-indicator').innerText = `${currentPage + 1} / ${pages.length}`;
-    
-    // 이미지 파일(images/page1.jpg 등)이 있으면 보여주고, 없으면 삽화 연출 지문 박스를 표시
+  // 가능한 모든 확장자와 경로(images/ 폴더 내부 및 루트 폴더, 이중 확장자까지) 자동 탐색
+  function loadPageImage(pageNumber) {
     const imgEl = document.getElementById('story-img');
     const artBox = document.getElementById('art-box');
-    imgEl.style.display = 'block';
-    artBox.style.display = 'none';
-    imgEl.src = `images/page${currentPage + 1}.jpg`;
+
+    const candidates = [
+      `images/page${pageNumber}.jpg`,
+      `images/page${pageNumber}.jpeg`,
+      `images/page${pageNumber}.png`,
+      `images/page${pageNumber}.webp`,
+      `images/page${pageNumber}.JPG`,
+      `images/page${pageNumber}.JPEG`,
+      `images/page${pageNumber}.PNG`,
+      `images/page${pageNumber}.jpg.png`,
+      `images/page${pageNumber}.jpeg.png`,
+      `page${pageNumber}.jpg`,
+      `page${pageNumber}.jpeg`,
+      `page${pageNumber}.png`,
+      `page${pageNumber}.jpeg.png`,
+      `page${pageNumber}.jpg.png`
+    ];
+
+    let idx = 0;
+
+    function tryNext() {
+      if (idx >= candidates.length) {
+        // 모든 후보 경로에 이미지가 없으면 가이드 텍스트 박스 표시
+        imgEl.style.display = 'none';
+        artBox.style.display = 'block';
+        return;
+      }
+      imgEl.src = candidates[idx];
+      idx++;
+    }
+
+    imgEl.onload = function() {
+      imgEl.style.display = 'block';
+      artBox.style.display = 'none';
+    };
+
+    imgEl.onerror = tryNext;
+
+    tryNext();
+  }
+
+  function renderPage() {
+    const p = pages[currentPage];
+    const pageNum = currentPage + 1;
+    document.getElementById('page-indicator').innerText = `${pageNum} / ${pages.length}`;
     
-    artBox.innerHTML = `<strong>🎨 [삽화 연출 가이드 - Page ${currentPage + 1}]</strong>${p.art}`;
+    artBox = document.getElementById('art-box');
+    artBox.innerHTML = `<strong>🎨 [삽화 연출 가이드 - Page ${pageNum}]</strong>${p.art}`;
+    
+    // 만능 이미지 로더 실행
+    loadPageImage(pageNum);
+
     document.getElementById('text-box').innerText = p.text;
     document.getElementById('hint-box').innerText = p.hint;
 
     document.getElementById('prev-btn').disabled = (currentPage === 0);
     document.getElementById('next-btn').disabled = (currentPage === pages.length - 1);
 
-    // 마지막 페이지 도달 시 전환 CTA 버튼 노출
     document.getElementById('end-cta').style.display = (currentPage === pages.length - 1) ? 'flex' : 'none';
   }
 
@@ -417,7 +460,6 @@
     document.getElementById('new-critic').value = '';
   }
 
-  // 키보드 좌우 화살표로 동화책 페이지 넘기기 지원
   window.addEventListener('keydown', (e) => {
     if (document.getElementById('tab-story').style.display !== 'none') {
       if (e.key === 'ArrowRight') changePage(1);
