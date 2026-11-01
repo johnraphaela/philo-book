@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>필로 페어링 서재 - 철학 동화 & 부모 에세이</title>
+  <style>
+    :root { --bg-cream: #f8f5f0; --text-dark: #22252a; --accent-blue: #2563eb; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; }
+    body { background-color: var(--bg-cream); color: var(--text-dark); padding: 40px 20px; max-width: 1000px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 40px; }
+    header h1 { font-size: 2rem; margin-bottom: 8px; }
+    header p { color: #6b7280; font-size: 1rem; }
+    .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+    .book-card {
+      background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; color: inherit; display: flex; flex-direction: column;
+    }
+    .book-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+    .book-thumb { width: 100%; aspect-ratio: 16/9; background: #e0eafc; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #1e40af; }
+    .book-info { padding: 20px; }
+    .book-tag { display: inline-block; background: #dbeafe; color: #1e40af; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; margin-bottom: 8px; }
+    .book-info h3 { font-size: 1.15rem; margin-bottom: 6px; color: #111827; }
+    .book-info p { font-size: 0.9rem; color: #4b5563; line-height: 1.4; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📚 필로 페어링 (Philo-Pairing) 서재</h1>
+    <p>아이에게는 상상력을, 부모에게는 지적 통찰을 주는 철학 동화 플랫폼</p>
+  </header>
+
+  <div class="book-grid" id="book-list">
+    <!-- 책 데이터가 자바스크립트로 자동 렌더링됩니다 -->
+  </div>
+
+  <script>
+    // 등록된 책 목록 (나중에 book3, book4 계속 추가 가능)
+    const books = [
+      { id: "book1", title: "로봇 몽의 가슴 부품", theme: "정체성과 연속성 (테세우스의 배)", desc: "부품이 전부 바뀐 로봇 몽은 여전히 나일까?", thumbBg: "#dbeafe" },
+      { id: "book2", title: "숲속 동물들의 비밀 뽑기 상자", theme: "공정과 정의 (존 롤스의 무지의 베일)", desc: "내가 어떤 동물이 될지 모를 때 어떤 규칙을 고를까?", thumbBg: "#fef3c7" }
+    ];
+
+    const grid = document.getElementById('book-list');
+    books.forEach(b => {
+      const card = document.createElement('a');
+      card.className = 'book-card';
+      card.href = `reader.html?book=${b.id}`;
+      card.innerHTML = `
+        <div class="book-thumb" style="background:${b.thumbBg};">Ep.01 Cover</div>
+        <div class="book-info">
+          <span class="book-tag">${b.theme}</span>
+          <h3>${b.title}</h3>
+          <p>${b.desc}</p>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  </script>
+
+</body>
+</html>
