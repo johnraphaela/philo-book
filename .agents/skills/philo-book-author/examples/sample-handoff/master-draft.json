@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "id": "handoff-example",
+  "status": "draft",
+  "metadata": {
+    "title": "강가에서 생각하기",
+    "theme": "기다림과 선택",
+    "categories": [
+      "철학"
+    ],
+    "ageGroups": [
+      "5-7세"
+    ]
+  },
+  "story": {
+    "scenes": [
+      {
+        "id": "river-observation",
+        "text": "작은 돌은 강물을 바라보았어요."
+      }
+    ]
+  },
+  "essay": {
+    "title": "기다리는 동안의 발견",
+    "tags": [
+      "선택"
+    ],
+    "body": "## 바라보는 시간\n\n기다림을 관찰의 시간으로 읽는 것은 이 이야기의 교육적 해석입니다."
+  },
+  "thinking": {
+    "activities": [
+      {
+        "id": "parent-guide",
+        "title": "먼저 함께 바라보기",
+        "description": "아이의 느낌을 듣고 충분히 기다립니다.",
+        "extensions": {
+          "presentation": {
+            "type": "guide",
+            "section": "dialogue-guide",
+            "order": 1,
+            "numbering": "none"
+          }
+        }
+      },
+      {
+        "id": "river-conversation",
+        "title": "다른 마음 듣기",
+        "steps": [
+          {
+            "id": "listen-and-ask",
+            "title": "생각을 묻기",
+            "questions": [
+              "돌이 되어 기다린다면 어떤 느낌일까?"
+            ],
+            "extensions": {
+              "turns": [
+                {
+                  "speaker": "아이",
+                  "text": "조금 더 보고 싶어."
+                },
+                {
+                  "speaker": "부모",
+                  "text": "무엇이 궁금하니?"
+                }
+              ]
+            }
+          }
+        ],
+        "extensions": {
+          "presentation": {
+            "type": "conversation",
+            "section": "dialogue-guide",
+            "order": 2,
+            "numberingGroup": "dialogue"
+          },
+          "closing": "다른 느낌을 말해도 괜찮습니다."
+        }
+      },
+      {
+        "id": "daily-observation",
+        "title": "주변의 변화를 찾아보기",
+        "steps": [
+          {
+            "id": "notice-change",
+            "title": "가까이 살펴보기",
+            "explanation": "주변에서 달라진 것을 함께 찾아봅니다."
+          },
+          {
+            "id": "draw-change",
+            "title": "그려 보기",
+            "explanation": "보고 싶은 것을 그려봅니다."
+          }
+        ],
+        "extensions": {
+          "presentation": {
+            "type": "practice",
+            "section": "daily-play",
+            "order": 3,
+            "numberingGroup": "practice"
+          },
+          "materials": [
+            "종이"
+          ]
+        }
+      }
+    ]
+  },
+  "images": [
+    {
+      "sceneId": "river-observation",
+      "prompt": "강물을 바라보는 작은 돌",
+      "alt": "강가의 작은 돌"
+    }
+  ]
+}
