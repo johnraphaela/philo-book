@@ -49,3 +49,25 @@ test('simple legacy activity stays intact without fabricated steps; references a
   assert.equal(isReferenceActivity('놀이 1'), false);
   assert.match(await renderActivityMarkdown(desc), /<strong>강조<\/strong>/);
 });
+
+test('opt-in dialogue/activity markers preserve paragraphs and leave legacy Markdown headings alone', () => {
+  const parsed = parseActivity('도입\n\n대화 1 [이야기 나누기]\n질문과 대화:\n- **아이:** 첫 말\n- **부모:** 답\n\n두 번째 문단\n\n마무리:\n끝 문장');
+  assert.equal(parsed.steps[0].title, '이야기 나누기');
+  assert.ok(parsed.steps[0].blocks[0].text.includes('\n\n두 번째 문단'));
+  assert.equal(parsed.outro, '끝 문장');
+  assert.deepEqual(parseActivity('#### 1) 일반 Markdown 제목\n본문'), {intro:'#### 1) 일반 Markdown 제목\n본문',steps:[]});
+});
+
+test('all ep01 and ep02 activities preserve legacy text and step headings', () => {
+  for (const id of ['ep01-robot-mong', 'ep02-self-esteem']) {
+    const book = JSON.parse(fs.readFileSync(`src/content/books/${id}.json`, 'utf8'));
+    for (const activity of book.harvardPlay ?? []) {
+      const parsed = parseActivity(activity.desc);
+      const rebuilt = [parsed.intro, ...parsed.steps.flatMap(step => [
+        `${step.number}단계 [${step.title}]: ${step.goal}`, ...step.blocks.map(block => block.text),
+      ])].join('\n').replace(/\s+/g, '');
+      assert.equal(rebuilt, activity.desc.replace(/\s+/g, ''), `${id}: ${activity.title}`);
+      assert.ok(parsed.steps.every(step => step.label === undefined));
+    }
+  }
+});

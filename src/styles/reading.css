@@ -58,3 +58,5 @@
   .activity-step, .reading-special { padding: 20px 16px; }
   .step-question { padding: 16px 12px; }
 }
+
+.activity-outro { margin-top: 32px; padding-top: 24px; border-top: 1px solid #ece6db; }

@@ -1,4 +1,6 @@
 import test from 'node:test';
+import fs from 'node:fs';
+import { parseActivity as parse } from '../src/lib/activities.ts';
 import assert from 'node:assert/strict';
 import { imported, previewBook, publishedMdx, verify, book } from '../content-authoring/pilots/ep03-hope/pilot.ts';
 import { validateMasterDraft } from '../content-authoring/schema.ts';
@@ -37,12 +39,33 @@ test('ep03 uses its uploaded first image as cover and moves essay sections 3 onw
   assert.equal(previewBook.cover, '/images/ep03/page1.jpg');
   assert.ok(!publishedMdx.includes('### 3.'));
   assert.ok(!publishedMdx.includes('### 4.'));
-  const moved = previewBook.harvardPlay[2];
+  const moved = previewBook.harvardPlay[0];
   assert.ok(moved);
   assert.ok(moved.title.includes('5~7세 아이와 나누는 대화법'));
-  assert.ok(moved.desc.includes('일상에서 실천하는 철학 놀이'));
+  assert.equal(previewBook.harvardPlay[1].title, '일상에서 실천하는 철학 놀이');
   const html = await renderActivityMarkdown(moved.desc);
   assert.ok(html.includes('부모 (Return)'));
-  assert.ok(html.includes('소망의 디딤돌 그리기'));
+  assert.ok(previewBook.harvardPlay[1].desc.includes('소망의 디딤돌 그리기'));
   assert.equal(verify().sourceRoundTrip, 'passed');
+});
+
+
+test('rearranged ep03 preserves every unique source line and has two independent numbering sequences', () => {
+  const source = fs.readFileSync('content-authoring/pilots/ep03-hope/source/ep03-hope.mdx.txt', 'utf8');
+  const tail = source.slice(source.indexOf('### 3. '));
+  const output = previewBook.harvardPlay.map((item: {title: string; desc: string}) => item.title + '\n' + item.desc).join('\n');
+  for (const line of tail.split('\n').filter(line => line.trim() && line !== '---')) {
+    const text = line.replace(/^#{3,4} (?:\d[.)] )?/, '').replace(/^\d\. /, '');
+    assert.ok(output.includes(text), text);
+  }
+  for (const activity of book.harvardPlay) assert.ok(output.includes(activity.desc));
+  const dialogue = parse(previewBook.harvardPlay[0].desc);
+  const practical = parse(previewBook.harvardPlay[1].desc);
+  assert.deepEqual(dialogue.steps.map(step => [step.label, step.number]), [['대화', '1'], ['대화', '2']]);
+  assert.deepEqual(practical.steps.map(step => [step.label, step.number]), [['활동', '1'], ['활동', '2']]);
+  assert.ok(dialogue.outro?.startsWith('희망은 미래의 기적이 아니라,'));
+  assert.ok(!dialogue.steps[1].blocks.some(block => block.text.includes('희망은 미래의 기적')));
+  for (const step of practical.steps) assert.deepEqual(step.blocks.map(block => block.label), ['준비물', '방법']);
+  assert.ok(!output.includes('####'));
+  assert.ok(!output.includes('### 4.'));
 });
