@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { activities: NonNullable<CollectionEntry<'books'>['data']['harvardPlay']> }
+const { activities } = Astro.props;
+---
+
+<div class="content-container">
+  <span class="tag">Harvard Center on the Developing Child 핵심 개념 적용</span>
+  <h1 style="margin-top: 10px;">오늘 밤 전두엽을 깨우는 생각 놀이</h1>
+  <hr />
+  {activities.map((activity) => (
+    <div class="activity">
+      <h3>{activity.title}</h3>
+      <p>{activity.desc}</p>
+    </div>
+  ))}
+</div>
+
+<style>
+  .activity { margin-bottom: 28px; }
+  .activity h3 { margin-bottom: 8px; margin-top: 0; }
+  .activity p { color: #374151; margin: 0; white-space: pre-line; }
+</style>

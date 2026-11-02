@@ -1,108 +1,30 @@
 ---
-import { getCollection, getEntry, render } from 'astro:content';
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BookTabs from '../../components/book/BookTabs.astro';
+import EssayPanel from '../../components/book/EssayPanel.astro';
+import ActivityPanel from '../../components/book/ActivityPanel.astro';
 import StoryViewer from '../../components/StoryViewer';
+import { getLibrary } from '../../lib/content';
+import '../../styles/book.css';
 
-// 1. 모든 책의 URL 경로 생성
-export async function getStaticPaths() {
-  const books = await getCollection('books');
-  return books.map(book => ({
+export const getStaticPaths = (async () => {
+  const library = await getLibrary();
+  return library.map(({ book, essay }) => ({
     params: { id: book.id },
-    props: { book },
+    props: { book, essay },
   }));
-}
+}) satisfies GetStaticPaths;
 
-const { book } = Astro.props;
-
-// 2. 에세이(MDX) 데이터 불러오기
-const essayEntry = await getEntry('essays', book.id);
-const { Content } = essayEntry ? await render(essayEntry) : { Content: () => null };
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { book, essay } = Astro.props;
+const activities = book.data.harvardPlay ?? [];
 ---
 
-<html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{book.data.title} | PHILO-PAIRING</title>
-    <style>
-      body { background-color: #f8f5f0; color: #22252a; font-family: 'Pretendard', sans-serif; margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
-      header { display: flex; flex-wrap: wrap; gap: 15px; padding: 14px 24px; background: #fff; border-bottom: 1px solid #e5e7eb; align-items: center; position: sticky; top: 0; z-index: 100; }
-      .back-btn { text-decoration: none; color: #4b5563; font-weight: bold; font-size: 1.1rem; margin-right: 20px; }
-      
-      /* 탭 버튼 스타일 */
-      .nav-btns { display: flex; gap: 8px; flex-wrap: wrap; }
-      .nav-btns button { padding: 8px 16px; border-radius: 20px; border: 1px solid #d1d5db; background: #fff; cursor: pointer; font-weight: 600; transition: 0.2s; }
-      .nav-btns button.active, .nav-btns button:hover { background: #22252a; color: #fff; border-color: #22252a; }
-
-      /* 탭 콘텐츠 영역 스타일 */
-      .tab-content { display: none; max-width: 920px; margin: 24px auto; padding: 0 16px; width: 100%; }
-      .tab-content.active { display: block; }
-      
-      /* 에세이 및 뇌놀이 내부 공통 스타일 */
-      .content-container { background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 12px 32px rgba(0,0,0,0.07); line-height: 1.8; }
-      .content-container h1 { font-size: 1.8rem; margin-bottom: 10px; }
-      .content-container h3 { color: #2563eb; margin-top: 30px; font-size: 1.2rem; }
-      .content-container blockquote { background: #f8fafc; border-left: 4px solid #2563eb; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
-      .tag { display: inline-block; background: #dbeafe; color: #1e40af; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; }
-    </style>
-  </head>
-  <body>
-    <header>
-      <a href="/" class="back-btn">← 서재로 돌아가기</a>
-      <div class="nav-btns" id="tab-buttons">
-        <button data-target="story" class="active">📖 동화책</button>
-        <button data-target="essay">☕ 부모용 에세이</button>
-        <button data-target="harvard">🎲 하버드 뇌놀이</button>
-      </div>
-    </header>
-    
-    <main>
-      <!-- 탭 1: 동화책 뷰어 -->
-      <div id="story" class="tab-content active">
-        <StoryViewer client:load pages={book.data.pages} />
-      </div>
-
-      <!-- 탭 2: 에세이 -->
-      <div id="essay" class="tab-content">
-        <div class="content-container">
-          {essayEntry?.data.tags && (
-            <span class="tag">{essayEntry.data.tags.join(' | ')}</span>
-          )}
-          <h1>{essayEntry?.data.title}</h1>
-          <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 20px 0;" />
-          <Content />
-        </div>
-      </div>
-
-      <!-- 탭 3: 하버드 뇌놀이 -->
-      <div id="harvard" class="tab-content">
-        <div class="content-container">
-          <span class="tag">Harvard Center on the Developing Child 핵심 개념 적용</span>
-          <h1 style="margin-top: 10px;">오늘 밤 전두엽을 깨우는 생각 놀이</h1>
-          <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 20px 0;" />
-          
-          {book.data.harvardPlay && book.data.harvardPlay.map((play) => (
-            <div style="margin-bottom: 28px;">
-              <h3 style="margin-bottom: 8px; margin-top: 0;">{play.title}</h3>
-              <p style="color: #374151; margin: 0;">{play.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </main>
-
-    <script>
-      const buttons = document.querySelectorAll('#tab-buttons button');
-      const contents = document.querySelectorAll('.tab-content');
-
-      buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-          buttons.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          
-          contents.forEach(c => c.classList.remove('active'));
-          document.getElementById(btn.dataset.target).classList.add('active');
-        });
-      });
-    </script>
-  </body>
-</html>
+<BaseLayout title={`${book.data.title} | PHILO-PAIRING`} pageClass="book-page">
+  <BookTabs hasEssay={Boolean(essay)} hasActivities={activities.length > 0}>
+    <StoryViewer slot="story" client:load pages={book.data.pages} title={book.data.title} />
+    {essay && <EssayPanel slot="essay" essay={essay} />}
+    {activities.length > 0 && <ActivityPanel slot="activities" activities={activities} />}
+  </BookTabs>
+</BaseLayout>

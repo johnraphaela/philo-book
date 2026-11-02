@@ -1,0 +1,13 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+interface Props { essay: CollectionEntry<'essays'> }
+const { essay } = Astro.props;
+const { Content } = await render(essay);
+---
+
+<div class="content-container">
+  {essay.data.tags.length > 0 && <span class="tag">{essay.data.tags.join(' | ')}</span>}
+  <h1>{essay.data.title}</h1>
+  <hr />
+  <Content />
+</div>

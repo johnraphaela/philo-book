@@ -1,0 +1,80 @@
+---
+interface Props { hasEssay: boolean; hasActivities: boolean }
+const { hasEssay, hasActivities } = Astro.props;
+const tabs = [
+  { id: 'story', label: '📖 동화책' },
+  ...(hasEssay ? [{ id: 'essay', label: '☕ 부모용 에세이' }] : []),
+  ...(hasActivities ? [{ id: 'harvard', label: '🎲 하버드 뇌놀이' }] : []),
+];
+---
+
+<book-tabs>
+  <header>
+    <a href="/" class="back-btn">← 서재로 돌아가기</a>
+    <div class="nav-btns" role="tablist" aria-label="책 읽기와 교육 자료">
+      {tabs.map((tab, index) => (
+        <button id={`tab-${tab.id}`} role="tab" type="button"
+          aria-controls={tab.id} aria-selected={index === 0 ? 'true' : 'false'}
+          tabindex={index === 0 ? 0 : -1} data-target={tab.id}>
+          {tab.label}
+        </button>
+      ))}
+    </div>
+  </header>
+  <main>
+    {tabs.map((tab, index) => (
+      <section id={tab.id} role="tabpanel" aria-labelledby={`tab-${tab.id}`}
+        tabindex="0" class="tab-content" hidden={index !== 0}>
+        {tab.id === 'story' && <slot name="story" />}
+        {tab.id === 'essay' && <slot name="essay" />}
+        {tab.id === 'harvard' && <slot name="activities" />}
+      </section>
+    ))}
+  </main>
+</book-tabs>
+
+<script>
+  class BookTabs extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.initialized) return;
+      this.dataset.initialized = 'true';
+      const buttons = Array.from(this.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+      const panels = this.querySelectorAll<HTMLElement>('[role="tabpanel"]');
+      const activate = (button: HTMLButtonElement) => {
+        buttons.forEach((item) => {
+          const selected = item === button;
+          item.setAttribute('aria-selected', String(selected));
+          item.tabIndex = selected ? 0 : -1;
+        });
+        panels.forEach((panel) => { panel.hidden = panel.id !== button.dataset.target; });
+      };
+      buttons.forEach((button, index) => {
+        button.addEventListener('click', () => activate(button));
+        button.addEventListener('keydown', (event) => {
+          let next: number;
+          switch (event.key) {
+            case 'ArrowRight': next = (index + 1) % buttons.length; break;
+            case 'ArrowLeft': next = (index - 1 + buttons.length) % buttons.length; break;
+            case 'Home': next = 0; break;
+            case 'End': next = buttons.length - 1; break;
+            default: return;
+          }
+          event.preventDefault();
+          activate(buttons[next]);
+          buttons[next].focus();
+        });
+      });
+    }
+  }
+  if (!customElements.get('book-tabs')) customElements.define('book-tabs', BookTabs);
+</script>
+
+<style>
+  book-tabs { display: block; }
+  header { display: flex; flex-wrap: wrap; gap: 15px; padding: 14px 24px; background: #fff; border-bottom: 1px solid #e5e7eb; align-items: center; position: sticky; top: 0; z-index: 100; }
+  .back-btn { text-decoration: none; color: #4b5563; font-weight: bold; font-size: 1.1rem; margin-right: 20px; }
+  .nav-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav-btns button { padding: 8px 16px; border-radius: 20px; border: 1px solid #d1d5db; background: #fff; cursor: pointer; font-weight: 600; transition: 0.2s; }
+  .nav-btns button[aria-selected='true'], .nav-btns button:hover { background: #22252a; color: #fff; border-color: #22252a; }
+  .tab-content { box-sizing: border-box; max-width: 920px; margin: 24px auto; padding: 0 16px; width: 100%; }
+</style>

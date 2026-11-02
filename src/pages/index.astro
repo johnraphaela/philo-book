@@ -1,40 +1,21 @@
 ---
-import { getCollection } from 'astro:content';
-
-const allBooks = await getCollection('books');
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BookCard from '../components/library/BookCard.astro';
+import { getLibrary } from '../lib/content';
+const library = await getLibrary();
 ---
 
-<html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>PHILO-PAIRING | 우리의 그림책 서가</title>
-    <style>
-      body { background-color: #f8f5f0; color: #22252a; font-family: 'Pretendard', sans-serif; padding: 20px; }
-      .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
-      .book-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-decoration: none; color: inherit; }
-      .book-card:hover { transform: translateY(-5px); transition: 0.2s; }
-      .tag { display: inline-block; background: #dbeafe; color: #1e40af; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; margin-right: 5px; }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1 style="margin-bottom: 5px;">📚 PHILO-PAIRING</h1>
-      <p style="color: #666;">아이와 부모가 함께 읽는 생각 동화책</p>
-    </header>
+<BaseLayout title="PHILO-PAIRING | 우리의 그림책 서가" pageClass="library-page">
+  <header>
+    <h1 style="margin-bottom: 5px;">📚 PHILO-PAIRING</h1>
+    <p style="color: #666;">아이와 부모가 함께 읽는 생각 동화책</p>
+  </header>
+  <main class="book-grid">
+    {library.map(({ book }) => <BookCard book={book} />)}
+  </main>
+</BaseLayout>
 
-    <main class="book-grid">
-      {allBooks.map((book) => (
-        <a href={`/book/${book.id}`} class="book-card">
-          <h2 style="font-size: 1.25rem; margin-bottom: 10px;">{book.data.title}</h2>
-          <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">{book.data.theme}</p>
-          <div>
-            {book.data.categories.map((cat) => (
-              <span class="tag">{cat}</span>
-            ))}
-          </div>
-        </a>
-      ))}
-    </main>
-  </body>
-</html>
+<style>
+  :global(body.library-page) { padding: 20px; }
+  .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
+</style>
