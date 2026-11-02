@@ -1,0 +1,26 @@
+/** Builds a disposable site copy, never writes src/content in this checkout. */
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
+import { directory, book, mdx, verify } from './pilot.ts';
+verify();
+const root = path.resolve(directory, '../../..');
+const destination = fs.mkdtempSync(path.join(os.tmpdir(), 'philo-hope-preview-'));
+for (const name of ['src', 'public', 'astro.config.mjs', 'tsconfig.json', 'package.json', 'package-lock.json']) {
+  fs.cpSync(path.join(root, name), path.join(destination, name), { recursive: true });
+}
+fs.symlinkSync(path.join(root, 'node_modules'), path.join(destination, 'node_modules'), 'dir');
+// Proven lossless by verify(): this fixture is the preview publication artifact.
+fs.writeFileSync(path.join(destination, 'src/content/books/ep03-hope.json'), JSON.stringify(book, null, 2), { flag: 'wx' });
+fs.writeFileSync(path.join(destination, 'src/content/essays/ep03-hope.mdx'), mdx, { flag: 'wx' });
+console.log(`PREVIEW_ROOT=${destination}`);
+const build = spawnSync(process.execPath, [path.join(root, 'node_modules/astro/bin/astro.mjs'), 'build'], { cwd: destination, stdio: 'inherit', env: { ...process.env, ASTRO_TELEMETRY_DISABLED: '1' } });
+if (build.status !== 0) process.exit(build.status ?? 1);
+const html = fs.readFileSync(path.join(destination, 'dist/book/ep03-hope/index.html'), 'utf8');
+for (const value of [book.title, '희망의 두 얼굴', ...book.harvardPlay.map((item: any) => item.title)]) assert.ok(html.includes(value), `Rendered content missing: ${value}`);
+assert.ok(html.includes('/images/ep03/page1.jpeg'));
+console.log('PASS: actual Astro collection schemas, MDX build, book/essay pairing, both activity titles in generated HTML.');
+console.log('INCOMPLETE: 12 images are absent; this is a text/layout preview, not a finished book.');
+console.log(`To inspect on your own machine: cd ${destination} && npm run dev -- --background`);
