@@ -11,6 +11,7 @@ const rendered = await Promise.all(activities.map(async activity => {
     title: activity.title,
     reference: isReferenceActivity(activity.title),
     intro: await renderActivityMarkdown(parsed.intro),
+    outro: await renderActivityMarkdown(parsed.outro ?? ''),
     steps: await Promise.all(parsed.steps.map(async step => ({
       ...step,
       blocks: await Promise.all(step.blocks.map(async block => ({
@@ -34,12 +35,12 @@ const rendered = await Promise.all(activities.map(async activity => {
         <ol class="activity-steps">
           {activity.steps.map(step => (
             <li class="activity-step">
-              <span class="step-number">{step.number}단계</span>
+              <span class="step-number">{step.label ? `${step.label} ${step.number}` : `${step.number}단계`}</span>
               <h3>{step.title}</h3>
               {step.goal && <div class="step-goal"><h4>목표</h4><p>{step.goal}</p></div>}
               {step.blocks.map(block => (
                 <section class:list={['step-block', `step-${block.kind}`]}>
-                  <h4>{block.kind === 'question' ? '질문과 대화' : '설명'}</h4>
+                  <h4>{block.label ?? (block.kind === 'question' ? '질문과 대화' : '설명')}</h4>
                   <div class="reading-prose" set:html={block.html} />
                 </section>
               ))}
@@ -47,6 +48,7 @@ const rendered = await Promise.all(activities.map(async activity => {
           ))}
         </ol>
       )}
+      {activity.outro && <div class="reading-prose activity-outro" set:html={activity.outro} />}
     </section>
   ))}
   {rendered.filter(activity => activity.reference).map(activity => (
@@ -54,7 +56,7 @@ const rendered = await Promise.all(activities.map(async activity => {
       <h2>{activity.title}</h2>
       <div class="reading-prose" set:html={activity.intro} />
       {activity.steps.map(step => <div class="reading-prose">
-        <h3>{step.number}단계 [{step.title}]: {step.goal}</h3>
+        <h3>{step.label ? `${step.label} ${step.number}` : `${step.number}단계`} [{step.title}]: {step.goal}</h3>
         {step.blocks.map(block => <div set:html={block.html} />)}
       </div>)}
     </section>

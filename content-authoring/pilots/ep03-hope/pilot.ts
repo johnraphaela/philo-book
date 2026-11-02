@@ -4,6 +4,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { arrangeHopeActivities } from './activities.ts';
 import { validateMasterDraft } from '../../schema.ts';
 import { inspectAstroDraft } from '../../adapter.ts';
 
@@ -57,9 +58,7 @@ const boundaryWhitespace = essayPrefix.slice(publishedMdx.length);
 const movedPlay = body.slice(playStart + playHeading.length);
 assert.equal(publishedMdx + boundaryWhitespace + playHeading + movedPlay, mdx, 'Publication split must preserve every original character');
 export const previewBook = { ...book, cover: imported.images[0].assetPath,
-  harvardPlay: [...book.harvardPlay, {
-    title: '5~7세 아이와 나누는 대화법 (하버드 Serve & Return 적용)', desc: movedPlay,
-  }], pages: book.pages.map((page: any, i: number) => ({
+  harvardPlay: arrangeHopeActivities(book.harvardPlay, movedPlay), pages: book.pages.map((page: any, i: number) => ({
   ...page, image: imported.images[i].assetPath,
 })) };
 
