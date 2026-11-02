@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "seed-and-wind",
+  "status": "draft",
+  "metadata": {
+    "title": "씨앗과 바람",
+    "theme": "선택과 변화"
+  },
+  "story": {
+    "scenes": [
+      { "id": "seed-meets-wind", "text": "씨앗은 바람에게 물었어요. 나는 어디로 가게 될까?" },
+      { "id": "seed-pauses", "parentHint": "씨앗이 잠시 멈춘 까닭을 함께 상상해 보세요." }
+    ]
+  },
+  "essay": { "title": "기다리는 시간", "body": "## 함께 생각할 질문\n\n선택하기 전에 잠시 기다리는 시간은 어떤 의미일까요?" },
+  "thinking": {
+    "activities": [{
+      "id": "imagine-a-path",
+      "title": "씨앗의 길 상상하기",
+      "steps": [{ "id": "ask-first", "questions": ["씨앗은 어떤 길로 가고 싶을까요?"] }]
+    }]
+  },
+  "images": [{
+    "sceneId": "seed-meets-wind",
+    "prompt": "따뜻한 색감의 그림책 삽화. 바람을 만나는 작은 씨앗."
+  }],
+  "extensions": { "editorial": { "note": "제작 흐름 설명용 새 초안. 출판에 필요한 본문·분류·이미지는 아직 준비하지 않았습니다." } }
+}
