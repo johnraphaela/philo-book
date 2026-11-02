@@ -87,7 +87,14 @@ test('image references, existence claims, filenames and extensions are checked a
 
 test('reject dangling/duplicate scene mappings and wrong cover references/modes', t => {
   const f = fixture(t);
-  for (const mutation of ['scene', 'duplicate', 'cover', 'mode', 'book']) {
+  const expectedCodes = {
+    scene: ['unknown-scene', 'scene-image-unlisted'],
+    duplicate: ['duplicate-image-id', 'duplicate-image-scene'],
+    cover: ['cover-reference'],
+    mode: ['cover-mode'],
+    book: ['book-id-mismatch'],
+  };
+  for (const mutation of Object.keys(expectedCodes) as (keyof typeof expectedCodes)[]) {
     const manifest = load('image-manifest.json');
     if (mutation === 'scene') manifest.images[0].sceneId = 'missing';
     if (mutation === 'duplicate') manifest.images.push(manifest.images[0]);
@@ -95,7 +102,29 @@ test('reject dangling/duplicate scene mappings and wrong cover references/modes'
     if (mutation === 'mode') manifest.cover.mode = 'separate';
     if (mutation === 'book') manifest.bookId = 'wrong-book';
     f.write('image-manifest.json', manifest);
-    assert.ok(reviewHandoff(f.dir).errors.length, mutation);
+    assert.deepEqual(reviewHandoff(f.dir).errors.map(issue => issue.code).sort(), [...expectedCodes[mutation]].sort(), mutation);
+  }
+});
+
+test('asset path differences require review without rewriting either package file', t => {
+  const f = fixture(t);
+  const draft = load('master-draft.json');
+  const manifest = load('image-manifest.json');
+  const assetPath = '/images/example/scene.jpg';
+  draft.images[0].assetPath = assetPath;
+  f.write('master-draft.json', draft);
+  for (const publicationPath of [undefined, '/images/example/other.jpg', assetPath]) {
+    if (publicationPath === undefined) delete manifest.images[0].publicationPath;
+    else manifest.images[0].publicationPath = publicationPath;
+    f.write('image-manifest.json', manifest);
+    const files = ['master-draft.json', 'image-manifest.json'];
+    const before = files.map(name => fs.readFileSync(path.join(f.dir, name), 'utf8'));
+    const result = reviewHandoff(f.dir);
+    assert.deepEqual(result.errors, []);
+    assert.deepEqual(result.reviewRequired.filter(issue => issue.code === 'asset-path-review').map(issue => issue.path),
+      publicationPath === assetPath ? [] : ['images.0']);
+    assert.equal(result.publicationReady, false);
+    assert.deepEqual(files.map(name => fs.readFileSync(path.join(f.dir, name), 'utf8')), before);
   }
 });
 
@@ -155,6 +184,28 @@ test('explicit order conflict is an error while array-only ordering remains vali
   assert.ok(reviewPresentation(draft).errors.some(issue => issue.code === 'order-conflict'));
   draft.thinking.activities.forEach((activity: any) => delete activity.extensions.presentation.order);
   assert.deepEqual(reviewPresentation(draft).errors, []);
+});
+
+test('repeated display numbers are advisory while duplicate order values are errors', () => {
+  const draft = load('master-draft.json');
+  const steps = draft.thinking.activities[2].steps;
+  steps[0].title = '활동 1 첫 번째';
+  steps[1].title = '활동 1 두 번째';
+  const before = structuredClone(draft);
+  const advisory = reviewPresentation(draft);
+  assert.deepEqual(advisory.errors, []);
+  assert.deepEqual(advisory.warnings.filter(issue => issue.code === 'numbered-title').map(issue => issue.path),
+    ['thinking.activities.2.steps.0', 'thinking.activities.2.steps.1']);
+  assert.deepEqual(draft, before);
+
+  steps.forEach((step: any) => { step.extensions = { presentation: { order: 1 } }; });
+  const duplicate = reviewPresentation(draft);
+  assert.deepEqual(duplicate.errors.map(issue => [issue.code, issue.path]),
+    [['order-conflict', 'thinking.activities.2.steps.1']]);
+  steps[1].extensions.presentation.order = 2;
+  const corrected = reviewPresentation(draft);
+  assert.deepEqual(corrected.errors, []);
+  assert.equal(corrected.warnings.filter(issue => issue.code === 'numbered-title').length, 2);
 });
 
 test('ep03 production and authoring may differ; inspection never imports production back into draft', () => {
