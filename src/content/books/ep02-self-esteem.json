@@ -1,5 +1,9 @@
 {
   "title": "꼬마 등대 루미의 반짝이는 불빛",
+  "summary": "아무도 바라보지 않아도 나의 빛은 소중해요. 꼬마 등대 루미와 함께 스스로의 힘을 발견해요.",
+  "order": 2,
+  "recommendedAge": { "min": 6, "max": 11 },
+  "topics": ["self-esteem", "identity"],
   "theme": "스피노자의 자기만족과 진짜 자긍심",
   "categories": ["철학", "자존감", "자기만족", "코나투스"],
   "ageGroups": ["6-8세", "9-11세"],

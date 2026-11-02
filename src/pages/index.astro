@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BookCard from '../components/library/BookCard.astro';
+import LibraryShelf from '../components/library/LibraryShelf.astro';
 import { getLibrary } from '../lib/content';
 const library = await getLibrary();
 ---
@@ -10,12 +10,12 @@ const library = await getLibrary();
     <h1 style="margin-bottom: 5px;">📚 PHILO-PAIRING</h1>
     <p style="color: #666;">아이와 부모가 함께 읽는 생각 동화책</p>
   </header>
-  <main class="book-grid">
-    {library.map(({ book }) => <BookCard book={book} />)}
+  <main>
+    <LibraryShelf books={library.map(({ book }) => book)} />
   </main>
 </BaseLayout>
 
 <style>
   :global(body.library-page) { padding: 20px; }
-  .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
+
 </style>

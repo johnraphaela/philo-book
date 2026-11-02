@@ -4,15 +4,25 @@ interface Props { book: CollectionEntry<'books'> }
 const { book } = Astro.props;
 ---
 
-<a href={`/book/${book.id}`} class="book-card">
+<a href={`/book/${book.id}`} class="book-card" data-book={JSON.stringify({ id: book.id, data: { title: book.data.title, theme: book.data.theme, summary: book.data.summary, categories: book.data.categories, recommendedAge: book.data.recommendedAge, topics: book.data.topics } })}>
+  <div class="cover">
+    {book.data.cover ? <img src={book.data.cover} alt="" loading="lazy" width="640" height="360" /> : <span class="cover-placeholder" aria-hidden="true">📖</span>}
+  </div>
   <h2>{book.data.title}</h2>
-  <p>{book.data.theme}</p>
+  <p class="theme">{book.data.theme}</p>
+  {book.data.summary && <p class="summary">{book.data.summary}</p>}
+  <p class="age">{book.data.recommendedAge ? `${book.data.recommendedAge.min}–${book.data.recommendedAge.max}세 추천` : book.data.ageGroups.join(" · ")}</p>
   <div>
     {book.data.categories.map((category) => <span class="tag">{category}</span>)}
   </div>
 </a>
 
 <style>
+  .cover { aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; background: #cfdef3; display: grid; place-items: center; }
+  .cover img { width: 100%; height: 100%; object-fit: cover; }
+  .cover-placeholder { font-size: 3rem; }
+  .summary { line-height: 1.6; }
+  .age { font-weight: 600; }
   .book-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-decoration: none; color: inherit; }
   .book-card:hover { transform: translateY(-5px); transition: 0.2s; }
   h2 { font-size: 1.25rem; margin-bottom: 10px; }

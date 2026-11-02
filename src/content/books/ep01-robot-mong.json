@@ -1,5 +1,10 @@
 {
   "title": "로봇 몽의 가슴 부품",
+  "summary": "몸의 부품이 달라져도 나는 여전히 나일까요? 로봇 몽과 함께 변화 속의 나를 생각해요.",
+  "cover": "/images/ep01/page1.jpg",
+  "order": 1,
+  "recommendedAge": { "min": 5, "max": 9 },
+  "topics": ["identity", "change"],
   "theme": "정체성과 연속성",
   "categories": ["자아", "변화", "테세우스의 배"],
   "ageGroups": ["5-7세", "초등 저학년"],

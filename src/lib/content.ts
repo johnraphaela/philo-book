@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import { sortBooks } from './library';
 import { indexEssays } from './relationships';
 
 export async function getLibrary() {
@@ -7,5 +8,5 @@ export async function getLibrary() {
     getCollection('essays'),
   ]);
   const essaysByBook = indexEssays(books.map((book) => book.id), essays);
-  return books.map((book) => ({ book, essay: essaysByBook.get(book.id) }));
+  return sortBooks(books).map((book) => ({ book, essay: essaysByBook.get(book.id) }));
 }
