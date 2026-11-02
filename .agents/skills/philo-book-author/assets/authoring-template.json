@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "replace-book-id",
+  "status": "draft",
+  "extensions": {
+    "research": {
+      "sources": [],
+      "claims": [],
+      "questions": [],
+      "limitations": []
+    }
+  }
+}
