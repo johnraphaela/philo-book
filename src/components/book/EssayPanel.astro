@@ -1,13 +1,21 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
+import '../../styles/reading.css';
 interface Props { essay: CollectionEntry<'essays'> }
 const { essay } = Astro.props;
 const { Content } = await render(essay);
 ---
 
-<div class="content-container">
-  {essay.data.tags.length > 0 && <span class="tag">{essay.data.tags.join(' | ')}</span>}
-  <h1>{essay.data.title}</h1>
-  <hr />
-  <Content />
-</div>
+<article class="reading-paper essay-reading" aria-labelledby="essay-title">
+  <header class="reading-heading">
+    <p class="reading-eyebrow">부모용 에세이</p>
+    <h1 id="essay-title">{essay.data.title}</h1>
+    {essay.data.subtitle && <p class="reading-subtitle">{essay.data.subtitle}</p>}
+    {essay.data.tags.length > 0 && (
+      <ul class="reading-tags" aria-label="에세이 주제">
+        {essay.data.tags.map(tag => <li>{tag}</li>)}
+      </ul>
+    )}
+  </header>
+  <div class="reading-prose"><Content /></div>
+</article>

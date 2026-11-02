@@ -1,23 +1,62 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { parseActivity, isReferenceActivity } from '../../lib/activities';
+import { renderActivityMarkdown } from '../../lib/activity-markdown';
+import '../../styles/reading.css';
 interface Props { activities: NonNullable<CollectionEntry<'books'>['data']['harvardPlay']> }
 const { activities } = Astro.props;
+const rendered = await Promise.all(activities.map(async activity => {
+  const parsed = parseActivity(activity.desc);
+  return {
+    title: activity.title,
+    reference: isReferenceActivity(activity.title),
+    intro: await renderActivityMarkdown(parsed.intro),
+    steps: await Promise.all(parsed.steps.map(async step => ({
+      ...step,
+      blocks: await Promise.all(step.blocks.map(async block => ({
+        ...block, html: await renderActivityMarkdown(block.text),
+      }))),
+    }))),
+  };
+}));
 ---
 
-<div class="content-container">
-  <span class="tag">Harvard Center on the Developing Child 핵심 개념 적용</span>
-  <h1 style="margin-top: 10px;">오늘 밤 전두엽을 깨우는 생각 놀이</h1>
-  <hr />
-  {activities.map((activity) => (
-    <div class="activity">
-      <h3>{activity.title}</h3>
-      <p>{activity.desc}</p>
-    </div>
+<article class="reading-paper activity-reading" aria-labelledby="activity-title">
+  <header class="reading-heading">
+    <p class="reading-eyebrow">Harvard Center on the Developing Child 핵심 개념 적용</p>
+    <h1 id="activity-title">오늘 밤 전두엽을 깨우는 생각 놀이</h1>
+  </header>
+  {rendered.filter(activity => !activity.reference).map(activity => (
+    <section class="activity-guide">
+      <h2>{activity.title}</h2>
+      <div class="reading-prose activity-intro" set:html={activity.intro} />
+      {activity.steps.length > 0 && (
+        <ol class="activity-steps">
+          {activity.steps.map(step => (
+            <li class="activity-step">
+              <span class="step-number">{step.number}단계</span>
+              <h3>{step.title}</h3>
+              {step.goal && <div class="step-goal"><h4>목표</h4><p>{step.goal}</p></div>}
+              {step.blocks.map(block => (
+                <section class:list={['step-block', `step-${block.kind}`]}>
+                  <h4>{block.kind === 'question' ? '질문과 대화' : '설명'}</h4>
+                  <div class="reading-prose" set:html={block.html} />
+                </section>
+              ))}
+            </li>
+          ))}
+        </ol>
+      )}
+    </section>
   ))}
-</div>
-
-<style>
-  .activity { margin-bottom: 28px; }
-  .activity h3 { margin-bottom: 8px; margin-top: 0; }
-  .activity p { color: #374151; margin: 0; white-space: pre-line; }
-</style>
+  {rendered.filter(activity => activity.reference).map(activity => (
+    <section class="reading-special reading-references">
+      <h2>{activity.title}</h2>
+      <div class="reading-prose" set:html={activity.intro} />
+      {activity.steps.map(step => <div class="reading-prose">
+        <h3>{step.number}단계 [{step.title}]: {step.goal}</h3>
+        {step.blocks.map(block => <div set:html={block.html} />)}
+      </div>)}
+    </section>
+  ))}
+</article>
