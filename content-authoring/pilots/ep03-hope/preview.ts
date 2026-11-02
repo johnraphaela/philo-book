@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { directory, book, previewBook, mdx, verify } from './pilot.ts';
+import { directory, book, verify } from './pilot.ts';
 verify();
 const root = path.resolve(directory, '../../..');
 const destination = fs.mkdtempSync(path.join(os.tmpdir(), 'philo-hope-preview-'));
@@ -13,8 +13,8 @@ for (const name of ['src', 'public', 'astro.config.mjs', 'tsconfig.json', 'packa
 }
 fs.symlinkSync(path.join(root, 'node_modules'), path.join(destination, 'node_modules'), 'dir');
 // Proven lossless by verify(): only the explicitly recorded .jpeg → .jpg asset mapping differs in the preview.
-fs.writeFileSync(path.join(destination, 'src/content/books/ep03-hope.json'), JSON.stringify(previewBook, null, 2), { flag: 'wx' });
-fs.writeFileSync(path.join(destination, 'src/content/essays/ep03-hope.mdx'), mdx, { flag: 'wx' });
+// The publication files are now tracked and already copied with src; verify() checks them.
+
 console.log(`PREVIEW_ROOT=${destination}`);
 const build = spawnSync(process.execPath, [path.join(root, 'node_modules/astro/bin/astro.mjs'), 'build'], { cwd: destination, stdio: 'inherit', env: { ...process.env, ASTRO_TELEMETRY_DISABLED: '1' } });
 if (build.status !== 0) process.exit(build.status ?? 1);

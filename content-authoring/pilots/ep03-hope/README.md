@@ -1,8 +1,14 @@
 # 첫 파일럿: Gemini → Master Draft v1
 
+## 후속 수정: 실제 사이트 컬렉션 등록
+
+사용자의 배포 후 미표시 보고에 따라 ep03을 실제 사이트에 등록했다. 최초 파일럿은 `src/content` 밖에만 저장했으므로 병합·배포해도 서재는 2권이었다. 이제 `src/content/books/ep03-hope.json`과 `src/content/essays/ep03-hope.mdx`를 추적하므로 일반 `npm run build`에서도 서재와 `/book/ep03-hope/`가 생성된다. 책은 이미지 경로만 실제 .jpg로 매핑하고 본문·힌트·활동을 보존했으며 에세이는 원본 파일 전체와 동일하다. 기존 두 책과 UI는 변경하지 않았다. Master Draft의 draft 상태와 편집 검수 미완료 기록은 그대로 보존한다.
+
+`pilot.ts`는 실제 출판 파일이 원본 및 명시적 이미지 매핑과 같은지 검사한다. `preview.ts`는 이제 등록된 출판 파일을 임시 사본에 복사하여 재검증한다. 아래 최초 파일럿의 검사 기록은 그 시점의 결과다.
+
 ## 변환 결과와 보존
 
-『유리병 속 무지개와 파랑새 림보』, 주제 「희망과 능동적 실천」을 `master-draft.v1.json`에 가져왔다. 상태는 `draft`이며 출판 승인을 뜻하지 않는다. 기존 Master Draft·Astro 스키마, 어댑터, UI, `src/content`는 변경하지 않았다.
+『유리병 속 무지개와 파랑새 림보』, 주제 「희망과 능동적 실천」을 `master-draft.v1.json`에 가져왔다. 상태는 `draft`이며 출판 승인을 뜻하지 않는다. 기존 Master Draft·Astro 스키마, 어댑터, UI는 변경하지 않았다. 후속 수정에서 ep03 출판 파일 두 개만 `src/content`에 추가했다.
 
 | 입력 | Master Draft v1 |
 | --- | --- |
@@ -39,7 +45,7 @@ node --experimental-strip-types content-authoring/pilots/ep03-hope/preview.ts
 
 `pilot.ts --import`는 원본이 없는 최초 1회만 사용한다. 기존 Master Draft 덮어쓰기를 거부한다. frontmatter 파서는 이 파일의 JSON 호환 값만 지원하며 범용 YAML/MDX 가져오기가 아니다.
 
-preview.ts는 새 임시 디렉터리 경로를 `PREVIEW_ROOT`로 출력한다. 기존 사이트 소스를 복사하고, 역매핑 검증을 통과한 출판 JSON(명시적 .jpg 경로 매핑 적용)/원본 MDX를 **임시 사본에만** 추가해 실제 Astro 컬렉션 스키마와 MDX 통합으로 빌드한다. node_modules만 원래 체크아웃과 공유한다. 이 파일럿은 범용 PublicationAdapter.convert를 구현하거나 출판 준비 검사를 우회하는 API를 추가하지 않는다.
+preview.ts는 새 임시 디렉터리 경로를 `PREVIEW_ROOT`로 출력한다. 기존 사이트 소스를 복사하고, 등록된 출판 JSON(명시적 .jpg 경로 매핑 적용)/원본 MDX를 복사해 실제 Astro 컬렉션 스키마와 MDX 통합으로 빌드한다. node_modules만 원래 체크아웃과 공유한다. 이 파일럿은 범용 PublicationAdapter.convert를 구현하거나 출판 준비 검사를 우회하는 API를 추가하지 않는다.
 
 출력된 디렉터리에서 다음으로 시작한다:
 
@@ -49,7 +55,7 @@ ASTRO_TELEMETRY_DISABLED=1 npm exec astro dev status
 ASTRO_TELEMETRY_DISABLED=1 npm exec astro dev logs
 ```
 
-자신의 개발 환경에서 해당 서버의 `/book/ep03-hope/` 경로로 접속하여 기존 탭의 그림책·에세이·뇌놀이를 확인한다. 화면은 기존 UI 그대로이며 업로드된 12개 .jpg 이미지를 참조한다. `dist/book/ep03-hope/index.html`도 빌드 산출물이다. 공유 배포 URL은 생성하지 않았다. 중지는 해당 임시 디렉터리에서 `npm exec astro dev stop`. 다시 preview.ts를 실행하면 새 사본을 만들어 반복 가능하다. 원래 체크아웃을 일반 빌드하면 ep03은 출판되지 않는다.
+자신의 개발 환경에서 해당 서버의 `/book/ep03-hope/` 경로로 접속하여 기존 탭의 그림책·에세이·뇌놀이를 확인한다. 화면은 기존 UI 그대로이며 업로드된 12개 .jpg 이미지를 참조한다. `dist/book/ep03-hope/index.html`도 빌드 산출물이다. 공유 배포 URL은 생성하지 않았다. 중지는 해당 임시 디렉터리에서 `npm exec astro dev stop`. 다시 preview.ts를 실행하면 새 사본을 만들어 반복 가능하다. 후속 수정 이후 원래 체크아웃을 일반 빌드해도 ep03이 포함된다.
 
 ## 실행 검증 결과
 
