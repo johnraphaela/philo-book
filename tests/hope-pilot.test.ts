@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { imported, verify, book } from '../content-authoring/pilots/ep03-hope/pilot.ts';
+import { imported, previewBook, verify, book } from '../content-authoring/pilots/ep03-hope/pilot.ts';
 import { validateMasterDraft } from '../content-authoring/schema.ts';
 import { parseActivity } from '../src/lib/activities.ts';
 import { renderActivityMarkdown } from '../src/lib/activity-markdown.ts';
@@ -22,5 +22,13 @@ test('both original unstructured activities render without invented steps or los
     const html = await renderActivityMarkdown(parsed.intro);
     assert.ok(html.includes('<p>'));
     assert.ok(html.includes(item.desc.includes('스펙트럼') ? '스펙트럼' : '내일 먼저 인사하기'));
+  }
+});
+
+test('uploaded jpg assets are mapped explicitly while original jpeg paths survive', () => {
+  assert.deepEqual(verify().missingImages, []);
+  for (let i = 0; i < 12; i++) {
+    assert.equal(imported.images[i].extensions.sourceAssetPath, book.pages[i].image);
+    assert.equal(previewBook.pages[i].image, `/images/ep03/page${i + 1}.jpg`);
   }
 });

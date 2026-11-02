@@ -121,51 +121,87 @@
   "images": [
     {
       "sceneId": "ep03-empty-jar",
-      "assetPath": "/images/ep03/page1.jpeg"
+      "assetPath": "/images/ep03/page1.jpg",
+      "extensions": {
+        "sourceAssetPath": "/images/ep03/page1.jpeg"
+      }
     },
     {
       "sceneId": "ep03-golden-cloud",
-      "assetPath": "/images/ep03/page2.jpeg"
+      "assetPath": "/images/ep03/page2.jpg",
+      "extensions": {
+        "sourceAssetPath": "/images/ep03/page2.jpeg"
+      }
     },
     {
       "sceneId": "ep03-busy-friends",
-      "assetPath": "/images/ep03/page3.jpeg"
+      "assetPath": "/images/ep03/page3.jpg",
+      "extensions": {
+        "sourceAssetPath": "/images/ep03/page3.jpeg"
+      }
     },
     {
       "sceneId": "ep03-rainy-expectation",
-      "assetPath": "/images/ep03/page4.jpeg"
+      "assetPath": "/images/ep03/page4.jpg",
+      "extensions": {
+        "sourceAssetPath": "/images/ep03/page4.jpeg"
+      }
     },
     {
       "sceneId": "ep03-grey-sky",
-      "assetPath": "/images/ep03/page5.jpeg"
+      "assetPath": "/images/ep03/page5.jpg",
+      "extensions": {
+        "sourceAssetPath": "/images/ep03/page5.jpeg"
+      }
     },
     {
       "sceneId": "ep03-disappointment",
-      "assetPath": "/images/ep03/page6.jpeg"
+      "assetPath": "/images/ep03/page6.jpg",
+      "extensions": {
+        "sourceAssetPath": "/images/ep03/page6.jpeg"
+      }
     },
     {
       "sceneId": "ep03-falling-drop",
-      "assetPath": "/images/ep03/page7.jpeg"
+      "assetPath": "/images/ep03/page7.jpg",
+      "extensions": {
+        "sourceAssetPath": "/images/ep03/page7.jpeg"
+      }
     },
     {
       "sceneId": "ep03-color-discovery",
-      "assetPath": "/images/ep03/page8.jpeg"
+      "assetPath": "/images/ep03/page8.jpg",
+      "extensions": {
+        "sourceAssetPath": "/images/ep03/page8.jpeg"
+      }
     },
     {
       "sceneId": "ep03-gathering-drops",
-      "assetPath": "/images/ep03/page9.jpeg"
+      "assetPath": "/images/ep03/page9.jpg",
+      "extensions": {
+        "sourceAssetPath": "/images/ep03/page9.jpeg"
+      }
     },
     {
       "sceneId": "ep03-finding-angle",
-      "assetPath": "/images/ep03/page10.jpeg"
+      "assetPath": "/images/ep03/page10.jpg",
+      "extensions": {
+        "sourceAssetPath": "/images/ep03/page10.jpeg"
+      }
     },
     {
       "sceneId": "ep03-rainbow-result",
-      "assetPath": "/images/ep03/page11.jpeg"
+      "assetPath": "/images/ep03/page11.jpg",
+      "extensions": {
+        "sourceAssetPath": "/images/ep03/page11.jpeg"
+      }
     },
     {
       "sceneId": "ep03-active-hope",
-      "assetPath": "/images/ep03/page12.jpeg"
+      "assetPath": "/images/ep03/page12.jpg",
+      "extensions": {
+        "sourceAssetPath": "/images/ep03/page12.jpeg"
+      }
     }
   ],
   "extensions": {
@@ -180,7 +216,7 @@
           "sha256": "4e8aed55016f65b938979a8a4921b8484feda69b867319755f77d2c667fe93bf"
         }
       ],
-      "imageStatus": "unverified-source-paths",
+      "imageStatus": "mapped-to-uploaded-jpg-assets",
       "missing": [
         "summary",
         "cover",

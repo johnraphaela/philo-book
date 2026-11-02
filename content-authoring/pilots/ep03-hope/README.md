@@ -8,7 +8,7 @@
 | --- | --- |
 | title/theme/categories/ageGroups | metadata의 동일 필드. 연령 원문 `5-7세` 보존 |
 | pages 12개 text/hint | story.scenes의 text/parentHint, 원래 순서 |
-| pages[].image | images[].assetPath, sceneId로 연결 |
+| pages[].image | images[].assetPath는 실제 .jpg로 연결, 원래 .jpeg는 각 images[].extensions.sourceAssetPath에 보존 |
 | MDX title/tags/본문 | essay.title/tags/body (본문의 선행 공백·줄바꿈 포함) |
 | MDX bookId | extensions.sourceFrontmatter 및 루트 id와 일치 검사 |
 | harvardPlay 2개 title/desc | thinking.activities[].title/description |
@@ -20,7 +20,7 @@
 
 ## 누락 데이터
 
-이미지 `/images/ep03/page1.jpeg` ~ `/images/ep03/page12.jpeg`는 public 아래에 **12개 모두 없다**. 경로 원문만 보존했고 이미지를 생성·대체·삭제하지 않았다. 완성된 그림책이 아니다.
+사용자가 올린 최신 main의 `public/images/ep03/page1.jpg` ~ `page12.jpg` **12개 모두 존재**한다. 실제 파일 헤더는 JPEG, 크기는 1024×765이다. 입력 원고는 `.jpeg`라 그대로는 404가 된다. 원본 파일은 그대로 두고 Master Draft의 assetPath를 `.jpg`로 명시 매핑했으며 원래 경로는 각 이미지 extensions.sourceAssetPath에 보존했다. 사용자가 제공한 이미지를 참조하며 새 이미지를 생성하거나 기존 이미지를 수정하지 않았다. 이미지의 장면별 내용·화풍에 대한 시각적 감수와 출판 승인은 별개로 남아 있다.
 
 원본에는 summary, cover, order, recommendedAge, topics, 에세이 부제, 이미지 대체 텍스트·프롬프트, 활동별 구조화된 단계·준비물·소요시간·참고문헌, 검증된 서지 정보가 없다. 모두 추정하지 않았다. `ageGroups`는 있으나 숫자형 recommendedAge는 별도 데이터다. Astro가 order=100, topics=[]를 기본 처리하는 것은 컬렉션 동작이며 가져오기에서 값을 작성한 것이 아니다.
 
@@ -39,7 +39,7 @@ node --experimental-strip-types content-authoring/pilots/ep03-hope/preview.ts
 
 `pilot.ts --import`는 원본이 없는 최초 1회만 사용한다. 기존 Master Draft 덮어쓰기를 거부한다. frontmatter 파서는 이 파일의 JSON 호환 값만 지원하며 범용 YAML/MDX 가져오기가 아니다.
 
-preview.ts는 새 임시 디렉터리 경로를 `PREVIEW_ROOT`로 출력한다. 기존 사이트 소스를 복사하고, 역매핑 검증을 통과한 원본 출판 JSON/MDX를 **임시 사본에만** 추가해 실제 Astro 컬렉션 스키마와 MDX 통합으로 빌드한다. node_modules만 원래 체크아웃과 공유한다. 이 파일럿은 범용 PublicationAdapter.convert를 구현하거나 출판 준비 검사를 우회하는 API를 추가하지 않는다.
+preview.ts는 새 임시 디렉터리 경로를 `PREVIEW_ROOT`로 출력한다. 기존 사이트 소스를 복사하고, 역매핑 검증을 통과한 출판 JSON(명시적 .jpg 경로 매핑 적용)/원본 MDX를 **임시 사본에만** 추가해 실제 Astro 컬렉션 스키마와 MDX 통합으로 빌드한다. node_modules만 원래 체크아웃과 공유한다. 이 파일럿은 범용 PublicationAdapter.convert를 구현하거나 출판 준비 검사를 우회하는 API를 추가하지 않는다.
 
 출력된 디렉터리에서 다음으로 시작한다:
 
@@ -49,17 +49,17 @@ ASTRO_TELEMETRY_DISABLED=1 npm exec astro dev status
 ASTRO_TELEMETRY_DISABLED=1 npm exec astro dev logs
 ```
 
-자신의 개발 환경에서 해당 서버의 `/book/ep03-hope/` 경로로 접속하여 기존 탭의 그림책·에세이·뇌놀이를 확인한다. 화면은 기존 UI 그대로이며 이미지가 깨질 수 있다. `dist/book/ep03-hope/index.html`도 빌드 산출물이다. 공유 배포 URL은 생성하지 않았다. 중지는 해당 임시 디렉터리에서 `npm exec astro dev stop`. 다시 preview.ts를 실행하면 새 사본을 만들어 반복 가능하다. 원래 체크아웃을 일반 빌드하면 ep03은 출판되지 않는다.
+자신의 개발 환경에서 해당 서버의 `/book/ep03-hope/` 경로로 접속하여 기존 탭의 그림책·에세이·뇌놀이를 확인한다. 화면은 기존 UI 그대로이며 업로드된 12개 .jpg 이미지를 참조한다. `dist/book/ep03-hope/index.html`도 빌드 산출물이다. 공유 배포 URL은 생성하지 않았다. 중지는 해당 임시 디렉터리에서 `npm exec astro dev stop`. 다시 preview.ts를 실행하면 새 사본을 만들어 반복 가능하다. 원래 체크아웃을 일반 빌드하면 ep03은 출판되지 않는다.
 
 ## 실행 검증 결과
 
 - Master Draft v1 구조·장면 참조 통과. 장면 12개·활동 2개 ID는 전체 14개 모두 유일하다.
 - JSON 왕복 값 동등성·MDX 본문 공백 포함 원문 대조·bookId 연결 통과.
-- 기존 tests 28개와 파일럿 2개: **30 passed, 0 failed, 0 skipped**.
-- `astro check`: 28 files, 오류/경고/힌트 0. 기존 사이트 빌드: 3 routes.
+- 기존 tests 28개와 파일럿 3개: **31 passed, 0 failed, 0 skipped**.
+- `astro check`: 29 files, 오류/경고/힌트 0. 기존 사이트 빌드: 3 routes.
 - 임시 파일럿 빌드: 4 routes. 실제 MDX 문법·출판 스키마 통과. 생성 HTML에 책 제목·에세이 첫 절·활동 제목 2개가 존재한다.
 - ActivityPanel은 desc를 parseActivity로 읽고 Markdown으로 렌더링한다. 이번 두 설명은 단계 표시가 없어서 intro 단락으로 표시되며 임의 단계를 만들지 않는다. 테스트로 설명 보존과 Markdown 출력을 확인했다.
-- `draft:check -- --publication ...`: **exit 1**. draft 상태로 출판 승인이 없어 정상 차단된다. 이미지 경로 12개 존재 여부는 이 검사 외에 실제 파일 검사로 전부 누락 확인. extensions 출판 미매핑 경고도 유지된다.
+- `draft:check -- --publication ...`: **exit 1**. draft 상태로 출판 승인이 없어 정상 차단된다. 이 검사 자체는 실제 파일을 검사하지 않아 asset-unverified 경고가 남는다. 별도 파일 검사에서는 매핑된 이미지 12개 존재를 확인했다. extensions 출판 미매핑 경고도 유지된다.
 - 시각적 브라우저 검수 및 그림책 전체 페이지 전환의 사용자 상호작용은 자동 HTML 검사와 별개이며 수행하지 않았다.
 
 초기 네트워크 실패는 실행 샌드박스의 프록시 연결 제한으로 분리했고 승인된 확장 실행으로 npm 설치와 Git read가 성공했다. TLS·lockfile 검증은 유지했다. Astro telemetry의 기본 설정 경로 쓰기 실패는 ASTRO_TELEMETRY_DISABLED=1 실행 설정으로 해결했다. 공식 Astro 콘텐츠 컬렉션 가이드 URL은 403으로 열람하지 못했으며 설치된 코드와 실제 빌드로 검증했다.
@@ -86,7 +86,7 @@ ASTRO_TELEMETRY_DISABLED=1 npm exec astro dev logs
 
 ## STEP 3 자동 변환기에 반영할 사항
 
-1. Master Draft 스키마 검증, 출판 필수값, 실제 이미지 존재, 편집 승인 상태를 독립 진단으로 보고한다. 스키마 통과를 완성/게시 가능으로 해석하지 않는다.
+1. Master Draft 스키마 검증, 출판 필수값, 실제 이미지 존재 및 확장자 불일치, 편집 승인 상태를 독립 진단으로 보고한다. 스키마 통과를 완성/게시 가능으로 해석하지 않는다.
 2. 최초 ID 매핑을 저장하고 재가져오기 때 유지한다. 원래 순서와 이미지 sceneId 참조·여러 원본의 책 ID 충돌을 검증한다.
 3. YAML frontmatter는 검증된 파서로 처리하고 미지원 필드·원본 해시·원문 바이트를 보존한다. 본문 trim·문장 교정은 가져오기 단계에서 하지 않는다.
 4. extensions에는 출판에 없는 bookId 메타데이터·출처·미지원 필드를 보존하되 실제 출력 정책을 명시한다. 임의 디폴트·연령·태그·참고문헌을 만들지 않는다.
@@ -94,6 +94,8 @@ ASTRO_TELEMETRY_DISABLED=1 npm exec astro dev logs
 6. 미리보기 산출물과 실제 출판 쓰기를 분리한다. 기존 파일 덮어쓰기 방지, 경로 안전성, 충돌 확인, MDX 컴파일·실제 스키마·UI 렌더 검증이 필요하다. 외부 입력 MDX의 실행 코드 안전성은 별도 정책으로 다룬다.
 7. 원고 검수는 근거 확인/창작 해석/연령 적합성 판단을 분리해 별도 보고한다. 이번 최소 파일럿 코드를 범용 변환기나 효능 검증기로 간주하지 않는다.
 
-추가 실행 증거: 임시 사본에서 Astro background 서버 시작 성공. `/book/ep03-hope/`에 내부 HTTP GET으로 200을 받고 책 제목·에세이 본문·활동 두 개를 확인했다. 첫 이미지 경로는 HTTP 404로 누락 상태도 확인했다. 검증 당시 임시 경로는 `/tmp/philo-hope-preview-acOX3D`이며 세션 밖에서는 유지되지 않을 수 있으므로 재현 명령의 새 출력 경로를 사용한다.
+최종 내부 HTTP 검증: 책·에세이·활동 응답 200, 12개 JPEG 모두 200 및 image/jpeg MIME 확인. 각 응답은 업로드된 원본 이미지 바이트와 완전히 일치했다.
+
+추가 실행 증거: 최초에는 .jpeg 경로가 404였다. 사용자 안내 후 최신 main의 업로드 이미지를 파일럿 브랜치에 병합하고 실제 .jpg로 매핑했다. 최종 임시 경로는 `/tmp/philo-hope-preview-zYUfF4`이며 세션 밖에서는 유지되지 않을 수 있으므로 재현 명령의 새 출력 경로를 사용한다.
 
 클라우드 환경 설정 초안에 `install_script`, `start_skill`, GitHub API에 필요한 커스텀 허용 도메인 `api.github.com`을 저장했다. 기존 네트워크 프리셋은 보존했다. 초안 저장은 실행 환경 적용이나 게시가 아니며 사용자 환경 설정의 검토·저장 후 환경 게시가 필요하다. 새 작업으로 복원한 환경 검증은 수행하지 않았다.

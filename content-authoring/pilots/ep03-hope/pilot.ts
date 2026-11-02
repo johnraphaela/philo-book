@@ -37,15 +37,20 @@ export const imported = {
   essay: { title: frontmatter.title, tags: frontmatter.tags, body,
     extensions: { sourceFrontmatter: frontmatter } },
   thinking: { activities: book.harvardPlay.map((item: any, i: number) => ({ id: activityIds[i], title: item.title, description: item.desc })) },
-  images: book.pages.map((page: any, i: number) => ({ sceneId: sceneIds[i], assetPath: page.image })),
+  images: book.pages.map((page: any, i: number) => ({ sceneId: sceneIds[i], assetPath: page.image.replace(/\.jpeg$/, '.jpg'),
+    extensions: { sourceAssetPath: page.image } })),
   extensions: { geminiImport: {
     sourceFiles: [ { path: 'source/ep03-hope.json', sha256: hash(bookRaw) },
       { path: 'source/ep03-hope.mdx.txt', sha256: hash(mdx) } ],
-    imageStatus: 'unverified-source-paths',
+    imageStatus: 'mapped-to-uploaded-jpg-assets',
     missing: ['summary', 'cover', 'recommendedAge', 'topics', 'order', 'essay.subtitle',
       'imageAlt', 'imagePrompts', 'activity.steps', 'activity.references', 'verifiedBibliography'],
   } },
 };
+
+export const previewBook = { ...book, pages: book.pages.map((page: any, i: number) => ({
+  ...page, image: imported.images[i].assetPath,
+})) };
 
 export function verify() {
   const draft = JSON.parse(fs.readFileSync(path.join(directory, 'master-draft.v1.json'), 'utf8'));
@@ -56,7 +61,7 @@ export function verify() {
   const restoredBook = {
     ...draft.metadata,
     pages: draft.story.scenes.map((scene: any) => ({
-      image: draft.images.find((image: any) => image.sceneId === scene.id).assetPath,
+      image: draft.images.find((image: any) => image.sceneId === scene.id).extensions.sourceAssetPath,
       text: scene.text, hint: scene.parentHint,
     })),
     harvardPlay: draft.thinking.activities.map((item: any) => ({ title: item.title, desc: item.description })),
@@ -69,7 +74,7 @@ export function verify() {
     assert.ok(!fs.existsSync(path.join(root, 'src/content', collection, `ep03-hope.${collection === 'books' ? 'json' : 'mdx'}`)), 'Pilot leaked into publication');
   }
   const missingImages = draft.images.filter((image: any) => !fs.existsSync(path.join(root, 'public', image.assetPath.slice(1)))).map((image: any) => image.assetPath);
-  return { schema: 'passed', uniqueIds: allIds.length, scenes: 12, activities: 2,
+  return { mappedImagePaths: draft.images.map((image: any) => image.assetPath), schema: 'passed', uniqueIds: allIds.length, scenes: 12, activities: 2,
     sourceRoundTrip: 'passed', bookEssayLink: 'passed', missingImages,
     publicationDiagnostics: inspectAstroDraft(draft) };
 }
