@@ -70,9 +70,8 @@ export function verify() {
   assert.equal(draft.essay.body, body, 'Essay body including whitespace');
   assert.equal(draft.essay.extensions.sourceFrontmatter.bookId, draft.id);
   const root = path.resolve(directory, '../../..');
-  for (const collection of ['books', 'essays']) {
-    assert.ok(!fs.existsSync(path.join(root, 'src/content', collection, `ep03-hope.${collection === 'books' ? 'json' : 'mdx'}`)), 'Pilot leaked into publication');
-  }
+  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(root, 'src/content/books/ep03-hope.json'), 'utf8')), previewBook, 'Published book must preserve source values and mapped image paths');
+  assert.equal(fs.readFileSync(path.join(root, 'src/content/essays/ep03-hope.mdx'), 'utf8'), mdx, 'Published essay must preserve the complete original MDX');
   const missingImages = draft.images.filter((image: any) => !fs.existsSync(path.join(root, 'public', image.assetPath.slice(1)))).map((image: any) => image.assetPath);
   return { mappedImagePaths: draft.images.map((image: any) => image.assetPath), schema: 'passed', uniqueIds: allIds.length, scenes: 12, activities: 2,
     sourceRoundTrip: 'passed', bookEssayLink: 'passed', missingImages,
