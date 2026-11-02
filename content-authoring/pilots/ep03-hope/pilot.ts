@@ -48,7 +48,18 @@ export const imported = {
   } },
 };
 
-export const previewBook = { ...book, pages: book.pages.map((page: any, i: number) => ({
+const playHeading = '### 3. 5~7세 아이와 나누는 대화법 (하버드 Serve & Return 적용)\n\n';
+const playStart = body.indexOf(playHeading);
+assert.ok(playStart > 0, 'Expected explicit section 3 boundary');
+const essayPrefix = match[0] + body.slice(0, playStart);
+export const publishedMdx = essayPrefix.replace(/\n\n$/, '\n');
+const boundaryWhitespace = essayPrefix.slice(publishedMdx.length);
+const movedPlay = body.slice(playStart + playHeading.length);
+assert.equal(publishedMdx + boundaryWhitespace + playHeading + movedPlay, mdx, 'Publication split must preserve every original character');
+export const previewBook = { ...book, cover: imported.images[0].assetPath,
+  harvardPlay: [...book.harvardPlay, {
+    title: '5~7세 아이와 나누는 대화법 (하버드 Serve & Return 적용)', desc: movedPlay,
+  }], pages: book.pages.map((page: any, i: number) => ({
   ...page, image: imported.images[i].assetPath,
 })) };
 
@@ -71,7 +82,7 @@ export function verify() {
   assert.equal(draft.essay.extensions.sourceFrontmatter.bookId, draft.id);
   const root = path.resolve(directory, '../../..');
   assert.deepEqual(JSON.parse(fs.readFileSync(path.join(root, 'src/content/books/ep03-hope.json'), 'utf8')), previewBook, 'Published book must preserve source values and mapped image paths');
-  assert.equal(fs.readFileSync(path.join(root, 'src/content/essays/ep03-hope.mdx'), 'utf8'), mdx, 'Published essay must preserve the complete original MDX');
+  assert.equal(fs.readFileSync(path.join(root, 'src/content/essays/ep03-hope.mdx'), 'utf8'), publishedMdx, 'Published essay must preserve original sections 1 and 2');
   const missingImages = draft.images.filter((image: any) => !fs.existsSync(path.join(root, 'public', image.assetPath.slice(1)))).map((image: any) => image.assetPath);
   return { mappedImagePaths: draft.images.map((image: any) => image.assetPath), schema: 'passed', uniqueIds: allIds.length, scenes: 12, activities: 2,
     sourceRoundTrip: 'passed', bookEssayLink: 'passed', missingImages,

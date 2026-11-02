@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { imported, previewBook, verify, book } from '../content-authoring/pilots/ep03-hope/pilot.ts';
+import { imported, previewBook, publishedMdx, verify, book } from '../content-authoring/pilots/ep03-hope/pilot.ts';
 import { validateMasterDraft } from '../content-authoring/schema.ts';
 import { parseActivity } from '../src/lib/activities.ts';
 import { renderActivityMarkdown } from '../src/lib/activity-markdown.ts';
@@ -31,4 +31,18 @@ test('uploaded jpg assets are mapped explicitly while original jpeg paths surviv
     assert.equal(imported.images[i].extensions.sourceAssetPath, book.pages[i].image);
     assert.equal(previewBook.pages[i].image, `/images/ep03/page${i + 1}.jpg`);
   }
+});
+
+test('ep03 uses its uploaded first image as cover and moves essay sections 3 onwards into activities', async () => {
+  assert.equal(previewBook.cover, '/images/ep03/page1.jpg');
+  assert.ok(!publishedMdx.includes('### 3.'));
+  assert.ok(!publishedMdx.includes('### 4.'));
+  const moved = previewBook.harvardPlay[2];
+  assert.ok(moved);
+  assert.ok(moved.title.includes('5~7세 아이와 나누는 대화법'));
+  assert.ok(moved.desc.includes('일상에서 실천하는 철학 놀이'));
+  const html = await renderActivityMarkdown(moved.desc);
+  assert.ok(html.includes('부모 (Return)'));
+  assert.ok(html.includes('소망의 디딤돌 그리기'));
+  assert.equal(verify().sourceRoundTrip, 'passed');
 });
