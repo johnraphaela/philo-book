@@ -1,6 +1,6 @@
 ---
 name: philo-book-author
-description: Master Draft v1을 사용하는 philo-book의 콘텐츠 제작·검수 Skill. research, plan, story, essay, play, illustration, revise 모드를 독립 실행한다. 문헌 확인, 승인 전 후보 제안, 범위 제한 수정과 원고 보존이 필요할 때 사용한다. 출판 변환이나 외부 AI API를 실행하지 않는다.
+description: Master Draft v1을 사용하는 philo-book의 콘텐츠 제작·검수 Skill. research, plan, story, essay, play, illustration, revise, handoff 모드를 독립 실행한다. 문헌 확인, 승인 전 후보 제안, 범위 제한 수정과 원고 보존이 필요할 때 사용한다. 출판 변환이나 외부 AI API를 실행하지 않는다.
 ---
 
 # philo-book-author
@@ -24,9 +24,10 @@ description: Master Draft v1을 사용하는 philo-book의 콘텐츠 제작·검
 | essay | [에세이](references/essay-guide.md) | 독립적인 `essay` 초안 |
 | play | [사고놀이](references/play-guide.md) | 선택한 `thinking.activities` |
 | illustration | [그림](references/illustration-guide.md) | Character Bible·Style Guide, 선택한 `images` |
+| handoff | [제작 패키지·출판 계약](references/handoff.md) | 원고 사본·image-manifest.json·review-report.md와 실제 이미지 목록 |
 | revise | [부분 수정 계약](references/stages.md) | 지정 영역만 변경한 후보와 차이 |
 
-기본 제작 순서는 Research → Plan → Story → Essay → Play → Illustration → Review이며 필수 파이프라인이 아니다. 사용자가 제공·승인한 입력으로 원하는 모드만 실행한다. 누락된 다른 단계를 대신 생성하지 않는다. Review는 별도 생성 모드가 아니라 [편집 검수](references/editorial-review.md)다.
+기본 제작 순서는 Research → Plan → Story → Essay → Play → Illustration → Review → Handoff이며 필수 파이프라인이 아니다. 사용자가 제공·승인한 입력으로 원하는 모드만 실행한다. 누락된 다른 단계를 대신 생성하지 않는다. 검수는 생성과 분리해 선택 영역만 독립 실행할 수 있다. Review는 별도 생성 모드가 아니라 [편집 검수](references/editorial-review.md)다.
 
 ## 검증·보고
 
@@ -42,3 +43,11 @@ description: Master Draft v1을 사용하는 philo-book의 콘텐츠 제작·검
 - [전체 사용 예시·참고문헌 기반 기획](examples/sample-workflow.md)
 - [저장 형식 예시](examples/sample-draft.json): 실제 승인 이력이 아닌 미승인 샘플
 - [읽기 전용 변경 검사](scripts/review-candidate.ts): 사용자 승인·자료 진위를 대신 판단하지 않음
+
+## Gemini → Codex 역할과 전달
+
+Gemini는 문헌 조사·기획·글/그림 제작·수정·Master Draft 정리·handoff를 맡고, ChatGPT 또는 Gemini의 편집 검수는 선택적으로 분리한다. Codex는 전달 파일 검증과 향후 결정적인 TypeScript 출판 변환·이미지 연결·테스트·Vercel Preview·PR을 맡는다. 사용자는 원고/이미지 승인·미리보기 확인·병합/게시를 결정한다. 도구나 연결이 없으면 파일 작성·압축·이미지 생성·업로드·Preview·PR을 완료했다고 보고하지 않는다.
+
+이 Skill의 handoff는 **기존 원고를 바꾸지 않는 전달**이다. 패키지 검증 통과는 내용 검증·승인·출판 가능·배포 완료가 아니다. 실제 변환기는 아직 없으며 [handoff 계약](references/handoff.md)에 후속 입력·출력 및 검증 책임을 정의한다. 현재 Astro의 `대화 N [제목]`, `활동 N [제목]`는 출판 호환 형식일 뿐 Master Draft의 필수 문법이 아니다.
+
+기존 ep03 제작용 Master Draft와 출판 JSON은 편집 상태가 다를 수 있다. 비교 결과를 보고할 뿐 자동 동기화·덮어쓰기하지 않는다. 최신 병합된 구현을 조사해 이미 해결한 기능을 다시 만들지 않는다.

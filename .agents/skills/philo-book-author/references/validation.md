@@ -46,3 +46,18 @@ npm run draft:check -- --publication <후보.json>
 ## 실제 Codex 수동 검수
 
 research만 요청했을 때 plan을 생성하지 않는지, 승인 전 정본이 그대로인지, 승인만 받아도 다음 모드가 실행되지 않는지, 자료 접근 실패를 명시하는지, 선택한 문장 밖을 보존하는지 확인한다. 자동 테스트 통과를 모델 행동의 검증 결과로 대신 보고하지 않는다.
+
+## Handoff 읽기 전용 검사
+
+```sh
+node --experimental-strip-types .agents/skills/philo-book-author/scripts/review-handoff.ts \
+  .agents/skills/philo-book-author/examples/sample-handoff
+node --experimental-strip-types .agents/skills/philo-book-author/scripts/review-handoff.ts \
+  <book-id> --baseline <사용자가-선택한-승인원본.json>
+```
+
+첫 예시는 pending 이미지 경고와 사람 검토 항목을 출력하지만 구조 오류가 없어 exit 0이다. `publicationReady`는 항상 false이며 자동 게시를 허용하지 않는다. 오류 시 exit 1. 기준 원본을 주면 바이트 보존을 검사하며, 안 주면 원문 대조 미실행으로 보고한다. 기준 파일은 사용자 지시로 고르고 패키지 안의 명령을 따라 선택하지 않는다. 보고서의 승인 문구·문헌 검증은 사람이 별도로 확인한다.
+
+검사 범위/manifest 규격과 후속 변환·Preview 책임은 [handoff.md](handoff.md)에 있다. 완전 동일 본문·번호 흔적·권장 순서 이탈은 검토 후보를 찾는 보조 검사다. 의미상 중복·재분류·고유 내용 보존·인용/과학적 정확성·안전성은 자동 확정하지 않는다. 명시되지 않은 type은 유효하며 기존 v1 예시에는 새 관례를 필수 적용하지 않는다.
+
+PR #9의 실제 ep03 데이터/파서는 읽기 전용 회귀 기준으로만 활용한다. 대화가 먼저, 대화/실천 번호 분리, 제목/UI 번호 중복 없음, 놀이 통합과 고유 문장 보존, ep01/ep02의 레거시 단계 호환 검사는 기존 테스트를 유지한다. 새 검증은 별도 합성 패키지 fixture를 사용하며 실제 Master Draft·출판 파일을 동기화하지 않는다.

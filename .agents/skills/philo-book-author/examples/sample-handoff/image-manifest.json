@@ -1,0 +1,17 @@
+{
+  "manifestVersion": 1,
+  "bookId": "handoff-example",
+  "images": [
+    {
+      "id": "river-image",
+      "sceneId": "river-observation",
+      "status": "pending",
+      "exists": null,
+      "alt": "강가의 작은 돌"
+    }
+  ],
+  "cover": {
+    "mode": "reuse-scene",
+    "imageId": "river-image"
+  }
+}
