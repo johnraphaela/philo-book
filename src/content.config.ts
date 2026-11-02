@@ -38,6 +38,7 @@ const essaysCollection = defineCollection({
   loader: glob({ pattern: "*.mdx", base: "./src/content/essays" }),
   schema: z.object({
     title: z.string().min(1),
+    subtitle: z.string().min(1).optional(),
     bookId: z.string(),
     tags: z.array(z.string())
   })
