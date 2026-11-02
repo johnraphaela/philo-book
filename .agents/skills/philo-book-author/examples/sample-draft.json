@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "id": "little-stone",
+  "status": "draft",
+  "metadata": {
+    "title": "잠시 멈춘 작은 돌",
+    "theme": "변화와 선택",
+    "ageGroups": ["5-7세"]
+  },
+  "story": {
+    "scenes": [
+      {
+        "id": "stone-sees-river",
+        "text": "작은 돌은 강물을 바라보았어요. 물은 쉬지 않고 흘러갔지만, 돌은 그 자리에 있었지요.",
+        "parentHint": "강물과 돌의 다른 모습을 함께 찾아보세요."
+      },
+      {
+        "id": "stone-pauses",
+        "text": "돌은 생각했어요. 여기서 조금 더 바라보면 무엇을 알게 될까?"
+      }
+    ]
+  },
+  "essay": {
+    "title": "멈춰서 바라보는 선택",
+    "body": "## 이야기에서 생각해 보기\n\n돌의 멈춤을 선택을 위한 관찰로 읽어 볼 수 있습니다. 이는 이야기에 대한 하나의 철학적 해석입니다.\n\n## 함께 생각할 질문\n\n아이에게 기다림은 어떤 경험일까요?",
+    "tags": ["변화", "선택"]
+  },
+  "thinking": {
+    "activities": [
+      {
+        "id": "notice-and-respond",
+        "title": "서로의 발견 주고받기",
+        "description": "주변에서 눈에 띄는 것을 번갈아 말해 보는 창작 놀이입니다. 특정 기관이 검증한 프로그램이 아닙니다.",
+        "steps": [
+          { "id": "notice", "title": "발견하기", "goal": "주변의 한 가지를 살펴보기", "questions": ["지금 무엇이 눈에 들어오나요?"] },
+          { "id": "respond", "title": "되돌려 묻기", "goal": "서로의 발견에 응답하기", "questions": ["어떤 점이 궁금했나요?"], "explanation": "아이의 답을 듣고 관련된 질문 한 가지를 되돌려 주세요." },
+          { "id": "imagine", "title": "다른 모습 상상하기", "goal": "다른 가능성을 떠올리기", "questions": ["그 모습이 달라지면 어떨까요?"] }
+        ]
+      }
+    ]
+  },
+  "images": [
+    {
+      "sceneId": "stone-sees-river",
+      "prompt": "캐릭터 후보: 작고 둥근 회색 돌, 왼쪽 윗부분의 작은 흰 점. 따뜻한 수채화 그림책. 강가에서 흐르는 물을 바라보는 장면, 낮은 시점의 넓은 구도.",
+      "negativePrompt": "돌의 색이나 흰 점 위치 변경, 새로운 등장인물, 이미지 속 글자",
+      "extensions": { "characterIds": ["stone"] }
+    }
+  ],
+  "extensions": {
+    "philoBookAuthor": {
+      "plan": {
+        "reviewState": "proposed",
+        "audience": "5-7세",
+        "question": "멈춰 있는 것도 선택일까요?",
+        "interpretation": "멈춤을 관찰의 시간으로 읽어 보는 창작 기획",
+        "sceneOutline": [
+          { "sceneId": "stone-sees-river", "purpose": "움직임과 멈춤 관찰" },
+          { "sceneId": "stone-pauses", "purpose": "열린 질문으로 마무리" }
+        ]
+      },
+      "characters": [
+        {
+          "id": "stone",
+          "reviewState": "proposed",
+          "fixedTraits": ["작고 둥근 회색 돌", "왼쪽 윗부분의 작은 흰 점"],
+          "allowedVariations": ["자세", "주변의 빛"],
+          "style": "따뜻한 수채화 그림책"
+        }
+      ],
+      "evidence": {
+        "essay": { "interpretationNotes": ["서사에 대한 창작 해석이며 특정 철학자의 직접 인용이 아님"] },
+        "play": { "limitations": ["창작 놀이의 효과를 실증적으로 검증하지 않았으며 하버드 공식 프로그램으로 제시하지 않음"] }
+      }
+    }
+  }
+}
