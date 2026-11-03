@@ -1,5 +1,7 @@
 # EP04 승인 문구를 적용한 출판 후보
 
+후속 일반 서재 등록은 사용자 요청 “일반서재 등록해줘”에 따라 [library-registration.md](library-registration.md)와 별도 등록 입력/기록으로 진행한다. 이 문서의 draft 상태·출판 승인 구분은 후보 적용 당시의 이력으로 보존한다.
+
 사용자 지시 “승인, 출판후보적용”에 따라 publication-review의 E1/E2/E3/E4/S1/S2/H1과 EP04 한정 표시안을 적용했다. 후보는 publication-candidate.json이며 ID pico-silver-feather와 status:draft를 유지한다. master-draft.json/source/ 및 실제 이미지 파일은 바꾸지 않았다.
 
 publication-approval.json은 실제 승인 문구·대상 제안 ID·원본/후보 SHA-256·출판 옵션을 기록한다. 이것은 출판 후보 적용 승인으로, ready 승격·main 병합·정식 공개 승인은 아니다. 최초 proposed-edits.json의 approved:false는 승인 전 제안을 보관한 이력이며 현재 승인은 별도 승인 기록을 기준으로 본다.

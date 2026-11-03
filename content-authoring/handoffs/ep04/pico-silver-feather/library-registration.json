@@ -1,0 +1,209 @@
+{
+  "registrationVersion": 1,
+  "bookId": "pico-silver-feather",
+  "userInstruction": "일반서재 등록해줘",
+  "approvalDate": "2026-11-03",
+  "scope": "일반 서재 등록 및 main 통합. Vercel 등 외부 호스팅 배포 제외.",
+  "approvedForLibraryRegistration": true,
+  "externalDeploymentApproved": false,
+  "originalDraftStatus": "draft",
+  "candidateStatus": "draft",
+  "publicationSourceStatus": "ready",
+  "candidateSHA256": "8f840f9d0b22d36a33e6836ac86a90f8addf1f1f88f8dfbae5c3450a055b4262",
+  "publicationSourceSHA256": "9604ee1c9f6e3d5c68932fc47139ad134c7e53290cf27dbe70ae4b4ee064622b",
+  "options": {
+    "cover": {
+      "mode": "scene",
+      "sceneId": "scene-01"
+    },
+    "order": 101,
+    "recommendedAge": {
+      "min": 5,
+      "max": 10
+    }
+  },
+  "files": [
+    {
+      "relativePath": "src/content/books/pico-silver-feather.json",
+      "sha256": "a9103039818ae6ba5826514eb3b4a2309d8fad10efe2ebec0cc91864b538b005"
+    },
+    {
+      "relativePath": "src/content/essays/pico-silver-feather.mdx",
+      "sha256": "af345cccd0c62ab166061ab235fa1ac9bacaca4ed14ffe29fa5188deea04472c"
+    }
+  ],
+  "images": [
+    {
+      "source": "content-authoring/handoffs/ep04/pico-silver-feather/images/page1.png",
+      "publicationPath": "public/images/pico-silver-feather/page1.png",
+      "sha256": "36220387dc817f7012325be9691f25d73ccd27a1c28f6a423952dd30cf17a7f6"
+    },
+    {
+      "source": "content-authoring/handoffs/ep04/pico-silver-feather/images/page2.png",
+      "publicationPath": "public/images/pico-silver-feather/page2.png",
+      "sha256": "8e9e3e0b121bdf7bf8f53b12157fa418dc2fe7b6cd67c96e48f8b4e4ddb848bf"
+    },
+    {
+      "source": "content-authoring/handoffs/ep04/pico-silver-feather/images/page3.png",
+      "publicationPath": "public/images/pico-silver-feather/page3.png",
+      "sha256": "732eaac719634e871b607f4c5f44b99699a7489b6fbd14379db64f867aa7726b"
+    },
+    {
+      "source": "content-authoring/handoffs/ep04/pico-silver-feather/images/page4.png",
+      "publicationPath": "public/images/pico-silver-feather/page4.png",
+      "sha256": "e69eefa57732a1c8894a62093293bffdc9c89dcec191fd865c6f4c69805a079c"
+    },
+    {
+      "source": "content-authoring/handoffs/ep04/pico-silver-feather/images/page5.png",
+      "publicationPath": "public/images/pico-silver-feather/page5.png",
+      "sha256": "57894fda75ceb41f72348918d8984f8ebc5e30f0808bfa1ebb1d490256f45b5e"
+    },
+    {
+      "source": "content-authoring/handoffs/ep04/pico-silver-feather/images/page6.png",
+      "publicationPath": "public/images/pico-silver-feather/page6.png",
+      "sha256": "83dacc7898255ee2d0cd9101367c4b5241221288b5f9b8cc1af9ba8914b59df0"
+    },
+    {
+      "source": "content-authoring/handoffs/ep04/pico-silver-feather/images/page7.png",
+      "publicationPath": "public/images/pico-silver-feather/page7.png",
+      "sha256": "c9c8f463683053316cb5bd125631d1e190d92f45fde8c86c4a9494e7b3f14387"
+    },
+    {
+      "source": "content-authoring/handoffs/ep04/pico-silver-feather/images/page8.png",
+      "publicationPath": "public/images/pico-silver-feather/page8.png",
+      "sha256": "a2ed4d65fd826c80bff1743c3bc57f257871343e5185b6b1067533485a3596f9"
+    },
+    {
+      "source": "content-authoring/handoffs/ep04/pico-silver-feather/images/page9.png",
+      "publicationPath": "public/images/pico-silver-feather/page9.png",
+      "sha256": "b0bec99e4425e33855968b33fbc9559912111c5b15610072c9852cff2a9768f8"
+    },
+    {
+      "source": "content-authoring/handoffs/ep04/pico-silver-feather/images/page10.png",
+      "publicationPath": "public/images/pico-silver-feather/page10.png",
+      "sha256": "dcccab50bf95655bdad49716c7c6f8835898227060b6265457551b2ae6734fc4"
+    },
+    {
+      "source": "content-authoring/handoffs/ep04/pico-silver-feather/images/page11.png",
+      "publicationPath": "public/images/pico-silver-feather/page11.png",
+      "sha256": "613591965aa0543543142558f1af410449ee8fef10514970de5fd657a38219d8"
+    },
+    {
+      "source": "content-authoring/handoffs/ep04/pico-silver-feather/images/page12.png",
+      "publicationPath": "public/images/pico-silver-feather/page12.png",
+      "sha256": "57d9b7c2fe0b6ef956f32f5d94b0d87f3bb44d254a57721d7675839fd79d89b9"
+    }
+  ],
+  "activityMapping": [
+    {
+      "activityId": "book-conversation",
+      "stepId": "ask-feeling",
+      "numberingGroup": "dialogue",
+      "number": 1,
+      "label": "대화",
+      "output": "대화 1 [피코의 마음 공감하기]\n질문:\n피코는 시합에서 졌을 때 왜 구석에 숨어서 울었을까?"
+    },
+    {
+      "activityId": "book-conversation",
+      "stepId": "ask-conatus",
+      "numberingGroup": "dialogue",
+      "number": 2,
+      "label": "대화",
+      "output": "대화 2 [나만의 기쁨 찾기]\n질문:\nOO가 1등을 하지 않아도, 그냥 하는 것만으로도 너무너무 기분 좋은 일은 뭐야?"
+    },
+    {
+      "activityId": "make-feather",
+      "stepId": "draw-feather",
+      "numberingGroup": "practice",
+      "number": 1,
+      "label": "활동",
+      "output": "활동 1 [기쁨 채워 넣기]\n방법:\n도화지에 깃털을 그리고, 내가 좋아하고 즐거워하는 것들을 글이나 그림으로 채웁니다. 가위가 필요하면 보호자의 도움을 받아 끝이 둥근 가위를 사용합니다. 테이프는 피부나 얼굴·목이 아닌 옷에 붙이고, 작은 종이 조각과 테이프를 입에 넣지 않습니다."
+    },
+    {
+      "activityId": "make-feather",
+      "stepId": "play-fly",
+      "numberingGroup": "practice",
+      "number": 2,
+      "label": "활동",
+      "output": "활동 2 [자유로운 비행 놀이]\n방법:\n은빛 깃털을 옷에 붙이고, 눈을 뜬 채 양팔을 벌려 좋아하는 음악에 맞춰 제자리에서 천천히 날갯짓을 표현해 봅니다. 주변 가구와 물건을 치우고, 팔을 펼쳐도 부딪히지 않을 공간에서 보호자가 곁을 지켜봅니다. 눈을 감고 뺨에 닿는 바람을 상상하고 싶다면 바닥에 편안히 앉아 움직이지 않고 합니다. 높은 곳에서 뛰어내리거나 눈을 감고 이동하지 않습니다. 어지럽거나 불편하면 바로 멈춥니다."
+    }
+  ],
+  "excludedAuthoringFields": [
+    "schemaVersion",
+    "status",
+    "story.scenes.0.id",
+    "story.scenes.1.id",
+    "story.scenes.2.id",
+    "story.scenes.3.id",
+    "story.scenes.4.id",
+    "story.scenes.5.id",
+    "story.scenes.6.id",
+    "story.scenes.7.id",
+    "story.scenes.8.id",
+    "story.scenes.9.id",
+    "story.scenes.10.id",
+    "story.scenes.11.id",
+    "images.0.sceneId",
+    "images.1.sceneId",
+    "images.2.sceneId",
+    "images.3.sceneId",
+    "images.4.sceneId",
+    "images.5.sceneId",
+    "images.6.sceneId",
+    "images.7.sceneId",
+    "images.8.sceneId",
+    "images.9.sceneId",
+    "images.10.sceneId",
+    "images.11.sceneId",
+    "thinking.activities.0.id",
+    "thinking.activities.1.id",
+    "thinking.activities.2.id",
+    "thinking.activities.0.extensions",
+    "thinking.activities.1.extensions",
+    "thinking.activities.2.extensions",
+    "images.0.prompt",
+    "images.1.prompt",
+    "images.2.prompt",
+    "images.3.prompt",
+    "images.4.prompt",
+    "images.5.prompt",
+    "images.6.prompt",
+    "images.7.prompt",
+    "images.8.prompt",
+    "images.9.prompt",
+    "images.10.prompt",
+    "images.11.prompt",
+    "extensions"
+  ],
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "authoring-only",
+      "path": "images",
+      "message": "이미지 프롬프트는 제작용이며 현재 출판 스키마에는 포함되지 않습니다."
+    },
+    {
+      "severity": "warning",
+      "code": "extensions-unmapped",
+      "path": "extensions",
+      "message": "실험 필드의 출판 여부를 어댑터에서 명시적으로 결정해야 합니다."
+    },
+    {
+      "severity": "warning",
+      "code": "presentation-markers",
+      "path": "thinking.activities.1.description",
+      "message": "원문에 UI 분할 마커가 있습니다. 렌더링을 수동 검토하세요. 원문은 그대로 보존합니다."
+    },
+    {
+      "severity": "warning",
+      "code": "presentation-markers",
+      "path": "thinking.activities.2.description",
+      "message": "원문에 UI 분할 마커가 있습니다. 렌더링을 수동 검토하세요. 원문은 그대로 보존합니다."
+    }
+  ],
+  "orderAdjustment": {
+    "candidateOption": 4,
+    "registeredOption": 101,
+    "reason": "기존 EP03에 명시적 순서가 없어 기본값100을 사용한다. 기존 책을 수정하지 않고 EP04를 네 번째/마지막에 두기 위한 등록 설정."
+  }
+}

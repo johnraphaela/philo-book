@@ -1,0 +1,11 @@
+{
+  "cover": {
+    "mode": "scene",
+    "sceneId": "scene-01"
+  },
+  "order": 101,
+  "recommendedAge": {
+    "min": 5,
+    "max": 10
+  }
+}

@@ -3,3 +3,6 @@
 /content-authoring/pilots/ep03-hope/source/ep03-hope.json -text
 /content-authoring/pilots/ep03-hope/source/ep03-hope.mdx.txt -text
 /src/content/essays/ep03-hope.mdx text eol=lf
+# EP04 publication files are compared byte-for-byte with the approved conversion.
+/src/content/books/pico-silver-feather.json text eol=lf
+/src/content/essays/pico-silver-feather.mdx text eol=lf

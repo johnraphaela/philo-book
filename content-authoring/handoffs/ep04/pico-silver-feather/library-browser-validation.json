@@ -1,0 +1,226 @@
+[
+  {
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "site": "ordinary Astro site; no isolated candidate injection",
+    "libraryOrder": [
+      "ep01-robot-mong",
+      "ep02-self-esteem",
+      "ep03-hope",
+      "pico-silver-feather"
+    ],
+    "searchByTitle": true,
+    "ageFilter": true,
+    "scenes": [
+      {
+        "src": "/images/pico-silver-feather/page1.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page2.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page3.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page4.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page5.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page6.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page7.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page8.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page9.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page10.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page11.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page12.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      }
+    ],
+    "hints": 12,
+    "hintToggle": true,
+    "essayReferenceLinks": 3,
+    "activityNumbering": [
+      "대화 1",
+      "대화 2",
+      "활동 1",
+      "활동 2"
+    ],
+    "pageErrors": [],
+    "horizontalOverflow": false
+  },
+  {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "site": "ordinary Astro site; no isolated candidate injection",
+    "libraryOrder": [
+      "ep01-robot-mong",
+      "ep02-self-esteem",
+      "ep03-hope",
+      "pico-silver-feather"
+    ],
+    "searchByTitle": true,
+    "ageFilter": true,
+    "scenes": [
+      {
+        "src": "/images/pico-silver-feather/page1.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page2.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page3.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page4.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page5.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page6.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page7.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page8.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page9.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page10.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page11.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      },
+      {
+        "src": "/images/pico-silver-feather/page12.png",
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain",
+        "ratio": 1.3333333333333333
+      }
+    ],
+    "hints": 12,
+    "hintToggle": true,
+    "essayReferenceLinks": 3,
+    "activityNumbering": [
+      "대화 1",
+      "대화 2",
+      "활동 1",
+      "활동 2"
+    ],
+    "pageErrors": [],
+    "horizontalOverflow": false
+  }
+]
