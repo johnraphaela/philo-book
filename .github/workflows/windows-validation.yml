@@ -23,7 +23,9 @@ jobs:
           git config core.autocrlf true
           git checkout-index --all --force
       - run: npm.cmd ci
+      - run: npm.cmd run pilot:restore-checkout
       - run: npm.cmd test
-      - run: npm.cmd run content:check
+      - run: npm.cmd run content
       - run: npm.cmd run check
       - run: npm.cmd run build
+      - run: npm.cmd run test:site

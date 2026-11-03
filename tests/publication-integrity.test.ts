@@ -1,4 +1,4 @@
-import { directoryLink, fileLink } from './helpers/links.ts';
+import { directoryLink, fileLinkWithFallback, deniedFileLink } from './helpers/links.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
@@ -38,9 +38,13 @@ test('rejects unsafe paths and symlink escapes', async t => {
   await writeFile(path.join(outside, 'outside.png'), png);
   directoryLink(outside, path.join(publicRoot, 'images/escape'));
   assert.equal((await inspectImage(publicRoot, '/images/escape/outside.png'))[0].code, 'invalid-image-path');
-  await t.test('also rejects file symlinks when creation is permitted', async child => {
-    if (!fileLink(child, path.join(outside, 'outside.png'), path.join(publicRoot, 'images/escape.png'))) return;
-    assert.equal((await inspectImage(publicRoot, '/images/escape.png'))[0].code, 'invalid-image-path');
+  for (const forced of [false, true]) await t.test(`file-link escape rejection (forced fallback: ${forced})`, async () => {
+    const linked = fileLinkWithFallback(path.join(outside, 'outside.png'), path.join(publicRoot, `images/escape-${forced}.png`), () => {
+      directoryLink(outside, path.join(publicRoot, `images/escape-file-directory-${forced}`));
+      return path.join(publicRoot, `images/escape-file-directory-${forced}/outside.png`);
+    }, forced ? 'win32' : process.platform, forced ? deniedFileLink : undefined);
+    const asset = '/' + path.relative(publicRoot, linked).split(path.sep).join('/');
+    assert.equal((await inspectImage(publicRoot, asset))[0].code, 'invalid-image-path');
   });
 });
 test('ready requires actual images while ordinary unfinished drafts remain valid', async t => {

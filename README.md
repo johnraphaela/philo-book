@@ -114,6 +114,10 @@ Master Draft는 `npm run draft:check -- <원본.json>`으로 미완성 형식을
 
 ready 원본의 출판 후보는 `npm run draft:preview -- <원본.json>`으로 확인합니다. 실제 이미지·기존 파일 충돌을 검사하고 예상 JSON/MDX와 해시를 출력하며, 파일은 쓰지 않습니다. 여러 원본과 선택 표지/서재 메타데이터 설정은 [사용 안내](docs/publication-preview.md)를 참고하세요.
 
+변환 후보를 실제 사이트에서 검수하려면 `npm run draft:site -- <ready 원본.json>`을 실행합니다. 임시 사이트 사본에만 후보를 추가해 Astro 검사·빌드를 수행하고, 결과 경로·로그·로컬 미리보기 실행 정보를 반환합니다. [격리 사이트 미리보기 안내](docs/isolated-site-preview.md)를 참고하세요.
+
 ## Windows 로컬 검토
 
 PowerShell에서는 `npm.cmd ci`, `npm.cmd test`, `npm.cmd run content:check`, `npm.cmd run check`, `npm.cmd run build`를 사용합니다. 실행 정책 변경이나 관리자 권한은 기본 요구 사항이 아닙니다. EP03 보관 원본의 줄바꿈과 링크 권한 관련 안내는 [Windows 검토 안내](docs/windows-local-review.md)를 참고하세요.
+
+기존 Windows 체크아웃에 EP03 줄바꿈 오류가 남으면 `npm.cmd run pilot:restore-checkout`으로 Git 원본 바이트를 복원합니다. 세 파일을 모두 검사하며 줄바꿈 외의 편집이 있으면 아무것도 변경하지 않고 중단합니다.

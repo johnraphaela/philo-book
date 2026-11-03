@@ -1,6 +1,6 @@
 # 다음 PR: Master Draft v1 → Astro 출판 변환기 설계
 
-이 문서는 전체 변환기의 목표 설계다. 현재 순수 필드 변환과 읽기 전용 dry-run을 구현했으며 [출판 미리보기](publication-preview.md)에 실제 지원 범위를 명시했다. Handoff 통합·편집 매핑·격리 후보 빌드·파일 쓰기·갱신은 아직 구현하지 않았다. 기존 `adapter.ts` 계약은 유지하고 선택 서재 메타데이터는 확장된 산출물 타입으로 지원한다.
+이 문서는 전체 변환기의 목표 설계다. 현재 순수 필드 변환과 읽기 전용 dry-run을 구현했으며 [출판 미리보기](publication-preview.md)에 실제 지원 범위를 명시했다. 격리된 후보 사이트의 실제 Astro check/build와 로컬 화면 미리보기도 [draft:site](isolated-site-preview.md)로 제공한다. Handoff 통합·편집 매핑·파일 쓰기·갱신은 아직 구현하지 않았다. 기존 `adapter.ts` 계약은 유지하고 선택 서재 메타데이터는 확장된 산출물 타입으로 지원한다.
 
 ## 입력과 사전 조건
 
