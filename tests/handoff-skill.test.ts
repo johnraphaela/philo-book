@@ -1,4 +1,4 @@
-import { directoryLink, fileLink } from './helpers/links.ts';
+import { directoryLink, fileLinkWithFallback, deniedFileLink } from './helpers/links.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -141,10 +141,13 @@ test('package paths cannot read outside root, including directory-link escapes',
     f.write('image-manifest.json', manifest);
     assert.ok(reviewHandoff(f.dir).errors.some(issue => issue.code === 'image-unavailable'), file);
   }
-  await t.test('also rejects file symlinks when creation is permitted', child => {
-    if (!fileLink(child, path.join(outside, 'outside.jpg'), path.join(f.dir, 'escaped.jpg'))) return;
+  for (const forced of [false, true]) await t.test(`file-link escape rejection (forced fallback: ${forced})`, () => {
+    const linked = fileLinkWithFallback(path.join(outside, 'outside.jpg'), path.join(f.dir, `escaped-${forced}.jpg`), () => {
+      directoryLink(outside, path.join(f.dir, `escaped-file-directory-${forced}`));
+      return path.join(f.dir, `escaped-file-directory-${forced}/outside.jpg`);
+    }, forced ? 'win32' : process.platform, forced ? deniedFileLink : undefined);
     const manifest = load('image-manifest.json');
-    manifest.images[0] = { ...manifest.images[0], status: 'provided', exists: true, file: 'escaped.jpg' };
+    manifest.images[0] = { ...manifest.images[0], status: 'provided', exists: true, file: path.relative(f.dir, linked).split(path.sep).join('/') };
     f.write('image-manifest.json', manifest);
     assert.ok(reviewHandoff(f.dir).errors.some(issue => issue.code === 'image-unavailable'));
   });

@@ -1,5 +1,6 @@
-import { directoryLink, fileLink } from './helpers/links.ts';
+import { directoryLink, fileLinkWithFallback, deniedFileLink } from './helpers/links.ts';
 import test from 'node:test';
+import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, writeFile, readFile, readdir, rm } from 'node:fs/promises';
 import os from 'node:os';
@@ -118,10 +119,20 @@ test('blocks output symlinks, invalid source and empty batches, and CLI stays re
   assert.equal(status, 0); assert.equal(JSON.parse(output).dryRun, true);
   assert.equal(await previewCommand([], root, () => {}, () => {}), 1);
   assert.deepEqual(await readdir(root, { recursive: true }), before);
-  await t.test('also rejects file symlinks when creation is permitted', async child => {
-    if (!fileLink(child, file, path.join(root, 'src/content/books/new-book.json'))) return;
+  for (const forced of [false, true]) await t.test(`output link rejection (forced fallback: ${forced})`, async () => {
+    const books = path.join(root, 'src/content/books');
+    let junction = false;
+    const linked = fileLinkWithFallback(file, path.join(books, `new-book-${forced}.json`), () => {
+      const alternate = path.join(root, `file-link-fallback-books-${forced}`);
+      fs.mkdirSync(alternate);
+      fs.rmdirSync(books);
+      directoryLink(alternate, books);
+      junction = true;
+      return books;
+    }, forced ? 'win32' : process.platform, forced ? deniedFileLink : undefined);
     assert.ok((await planPublication(root, [{ source }])).diagnostics.some(d => d.code === 'repository-unavailable'));
-    await rm(path.join(root, 'src/content/books/new-book.json'));
+    if (junction) { fs.unlinkSync(linked); await mkdir(books); }
+    else await rm(linked);
   });
   const otherBooks = path.join(root, 'other-books');
   await mkdir(otherBooks);

@@ -51,7 +51,9 @@ export const imported = {
 
 const playHeading = '### 3. 5~7세 아이와 나누는 대화법 (하버드 Serve & Return 적용)\n\n';
 const playStart = body.indexOf(playHeading);
-assert.ok(playStart > 0, 'Expected explicit section 3 boundary');
+assert.ok(playStart > 0, mdx.includes('\r\n')
+  ? 'Expected explicit section 3 boundary: EP03 archived source was checked out as CRLF. Restore the three fixture files using docs/windows-local-review.md; do not edit manuscript text or source hashes.'
+  : 'Expected explicit section 3 boundary');
 const essayPrefix = match[0] + body.slice(0, playStart);
 export const publishedMdx = essayPrefix.replace(/\n\n$/, '\n');
 const boundaryWhitespace = essayPrefix.slice(publishedMdx.length);

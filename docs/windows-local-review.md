@@ -29,6 +29,14 @@ npm.cmd test
 
 파일 symlink는 Windows에서 Developer Mode나 별도 권한이 필요할 수 있다. 경로 이탈의 필수 테스트는 일반 권한으로 만들 수 있는 디렉터리 junction을 사용하고, Linux/macOS에서는 디렉터리 symlink를 사용한다. 이 검사는 건너뛰지 않으며 실제 파일 경로가 허용 루트 밖으로 향하는지 검증한다.
 
-기존 파일 symlink 사례도 별도 하위 테스트로 유지한다. Windows에서 해당 링크 생성 자체가 EPERM/EACCES로 거부될 때 그 하위 사례만 명시적으로 skip한다. 절대 경로·상위 경로·junction·CLI 읽기 전용 검사와 다른 기능 테스트는 계속 실행한다. 권한 오류 이외의 실패나 Linux/macOS 오류는 skip하지 않는다. 관리자 실행이나 Developer Mode 활성화를 기본 요구하지 않는다.
+파일 링크 보안 사례도 항상 실행한다. Windows가 파일 symlink 생성을 EPERM/EACCES로 거부하면 실제 디렉터리 junction을 만들어 같은 루트 이탈/출력 경계 거부를 확인한다. 별도로 권한 거부를 강제로 주입한 하위 사례를 Windows와 Linux 모두에서 실행하므로 대체 경로도 반드시 검증된다. skip이나 무조건 성공 처리는 없다. 다른 오류는 실패하며, junction 자체를 만들 수 없는 파일시스템에서도 명확한 오류와 함께 실패한다. 관리자 실행이나 Developer Mode 활성화를 기본 요구하지 않는다.
 
 GitHub Actions의 Windows validation은 Node 24와 `core.autocrlf=true` 체크아웃으로 설치·테스트·콘텐츠 검사·Astro 검사·빌드를 실행한다. 이 워크플로는 배포하거나 Vercel 연결을 변경하지 않는다.
+
+## `Expected explicit section 3 boundary`의 정확한 원인
+
+파일럿 `pilot.ts`는 업로드 원본의 3절 제목과 뒤의 빈 줄을 `### 3. 5~7세 아이와 나누는 대화법 (하버드 Serve & Return 적용)\n\n`으로 찾는다. 저장소의 실제 보관 원본은 LF이며 제목/섹션이 누락된 것이 아니다. Windows `core.autocrlf=true`가 원본 MDX의 LF를 CRLF로 바꾸면 실제 문자열은 `...\r\n\r\n`이 되어 `indexOf`가 -1을 반환한다. 이것이 초기 assertion의 직접 원인이다.
+
+제목 검색만 CRLF 허용으로 바꾸면 이어지는 Master Draft 본문 동등성·보관 원본 SHA-256 검사도 실패한다. JSON 문자열 내부의 `\n`은 checkout으로 바뀌지 않지만 원본 MDX 파일 자체의 개행은 바뀌기 때문이다. 따라서 원문을 고치거나 해시를 갱신하지 않고 보관 원본의 체크아웃 바이트를 보존한다. 일반 제작 원고와 변환기의 CRLF 보존 규칙은 변경하지 않았다.
+
+기존 main을 core.autocrlf=true로 체크아웃한 뒤 속성 수정 커밋으로 이동하는 재현에서도 파일 3개의 기존 CRLF가 자동으로 사라지지 않음을 확인했다. 그래서 기존 로컬 사본에는 위의 세 파일 재체크아웃이 필요할 수 있다. 새 clone/Windows CI에서는 속성 규칙이 처음부터 적용된다.

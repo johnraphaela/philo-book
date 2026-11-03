@@ -89,7 +89,8 @@ export async function createSitePreview(rootPath: string, input: PlanInput[], ru
     await mkdir(path.join(stage, 'node_modules'));
     // Separate directory, package-level links: .astro/.vite caches remain inside the temporary site.
     for (const name of (await readdir(dependencies)).filter(n => !n.startsWith('.'))) {
-      await symlink(path.join(dependencies, name), path.join(stage, 'node_modules', name), process.platform === 'win32' ? 'junction' : 'dir');
+      try { await symlink(path.join(dependencies, name), path.join(stage, 'node_modules', name), process.platform === 'win32' ? 'junction' : 'dir'); }
+      catch (error) { throw new Error(`임시 의존성 연결 실패: ${name}. Windows는 junction을 지원하는 로컬 파일시스템과 설치된 node_modules가 필요합니다. 원본에 적용하지 않았습니다.`, { cause: error }); }
     }
     for (const file of copied.files) {
       const dest = path.join(stage, file.relativePath);
