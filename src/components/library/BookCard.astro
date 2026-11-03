@@ -1,19 +1,26 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { getLibraryCopy } from '../../lib/library-copy';
 interface Props { book: CollectionEntry<'books'> }
 const { book } = Astro.props;
+const copy = getLibraryCopy(book.id, book.data);
+const ageLabel = book.data.recommendedAge
+  ? `${book.data.recommendedAge.min}~${book.data.recommendedAge.max}세`
+  : book.data.ageGroups.map(age => age.replace(/\\~/g, '~').replace(/(\d)–(?=\d)|(\d)-(?=\d)/g, '$1$2~')).join(' · ');
 ---
 
-<a href={`/book/${book.id}`} class="book-card" data-book={JSON.stringify({ id: book.id, data: { title: book.data.title, theme: book.data.theme, summary: book.data.summary, categories: book.data.categories, recommendedAge: book.data.recommendedAge, topics: book.data.topics } })}>
+<a href={`/book/${book.id}`} class="book-card" data-book={JSON.stringify({ id: book.id, data: { title: book.data.title, theme: book.data.theme, summary: [copy.summary, book.data.summary, copy.theme].filter(Boolean).join(' '), categories: book.data.categories, recommendedAge: book.data.recommendedAge, topics: book.data.topics } })}>
   <div class="cover">
     {book.data.cover ? <img src={book.data.cover} alt="" loading="lazy" width="640" height="360" /> : <span class="cover-placeholder" aria-hidden="true">📖</span>}
   </div>
   <h2>{book.data.title}</h2>
-  <p class="theme">{book.data.theme}</p>
-  {book.data.summary && <p class="summary">{book.data.summary}</p>}
-  <p class="age">{book.data.recommendedAge ? `${book.data.recommendedAge.min}–${book.data.recommendedAge.max}세 추천` : book.data.ageGroups.map(age => age.replace(/\\~/g, "~")).join(" · ")}</p>
-  <div>
-    {book.data.categories.map((category) => <span class="tag">{category}</span>)}
+  <p class="theme">{copy.theme}</p>
+  {copy.summary && <p class="summary">{copy.summary}</p>}
+  <div class="card-meta">
+    <p class="age">{ageLabel} 추천</p>
+    <div class="tags">
+      {book.data.categories.map((category) => <span class="tag">{category}</span>)}
+    </div>
   </div>
 </a>
 
@@ -21,11 +28,14 @@ const { book } = Astro.props;
   .cover { aspect-ratio: 4 / 3; border-radius: 8px; overflow: hidden; background: #cfdef3; display: grid; place-items: center; }
   .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .cover-placeholder { font-size: 3rem; }
-  .summary { line-height: 1.6; }
+  .theme { min-height: 1.6em; line-height: 1.6; }
+  .summary { min-height: 4.8em; line-height: 1.6; }
+  .card-meta { margin-top: auto; }
+  .tags { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 4px; font-size: 0.8rem; line-height: 1.5; min-height: calc(3em + 20px); }
   .age { font-weight: 600; }
-  .book-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-decoration: none; color: inherit; }
+  .book-card { display: flex; flex-direction: column; min-width: 0; overflow-wrap: anywhere; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-decoration: none; color: inherit; }
   .book-card:hover { transform: translateY(-5px); transition: 0.2s; }
-  h2 { font-size: 1.25rem; margin-bottom: 10px; }
-  p { color: #666; font-size: 0.9rem; margin-bottom: 15px; }
-  .tag { display: inline-block; background: #dbeafe; color: #1e40af; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; margin-right: 5px; }
+  h2 { font-size: 1.25rem; line-height: 1.5; min-height: 3em; margin: 16px 0 10px; }
+  p { color: #666; font-size: 0.9rem; margin: 0 0 15px; }
+  .tag { display: inline-block; background: #dbeafe; color: #1e40af; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; }
 </style>
