@@ -40,5 +40,7 @@
   "candidateStatus": "draft",
   "approvedForPublication": false,
   "readyStatusChangeApproved": false,
-  "mainMergeApproved": false
+  "mainMergeApproved": true,
+  "mergeInstruction": "이제 vercel 빼고는 다 병합하면안돼?",
+  "mergeScope": "현재 출판 후보 PR #25의 main 통합. Vercel Git 자동 배포 비활성화. ready 승격·공개 컬렉션 등록·정식 공개는 별도."
 }

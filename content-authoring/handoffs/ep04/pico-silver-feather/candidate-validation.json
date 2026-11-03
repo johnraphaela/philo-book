@@ -78,7 +78,8 @@
   "existingPublishedManuscriptsAndImagesUnchanged": true,
   "physicalWindowsCandidatePreview": "not-run in this session; Windows CI is separate",
   "readyStatusChange": false,
-  "mainMerge": false,
+  "mainMerge": "requested after candidate validation; verify PR merge state",
   "publicationCollectionRegistration": false,
-  "deploymentCommandRun": false
+  "deploymentCommandRun": false,
+  "vercelGitDeploymentEnabled": false
 }

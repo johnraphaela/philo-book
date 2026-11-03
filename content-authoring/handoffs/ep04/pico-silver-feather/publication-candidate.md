@@ -13,7 +13,7 @@ publication-approval.json은 실제 승인 문구·대상 제안 ID·원본/후�
 - 실제 EP04 본문/표지를 4:3·contain으로 표시해 그림 전체를 보여 줌. 탭은 ‘생각 놀이’, 제목은 ‘함께 나누는 생각 놀이’로 표시.
 - 대화1/2·활동1/2, 원래 제목·질문·준비물·단계 ID와 배열 순서는 유지.
 
-src/lib/book-presentation.ts가 pico-silver-feather ID에만 표시 설정을 반환한다. 다른 책과 모르는 ID는 기존 컴포넌트 기본값인16:9/cover 및 기존 놀이 제목을 사용한다. 출판 스키마는 바꾸지 않았다. 이 표시 코드는 승인된 검토 브랜치에만 있으며 main에 병합하지 않았다.
+src/lib/book-presentation.ts가 pico-silver-feather ID에만 표시 설정을 반환한다. 다른 책과 모르는 ID는 기존 컴포넌트 기본값인16:9/cover 및 기존 놀이 제목을 사용한다. 출판 스키마는 바꾸지 않았다. 사용자는 후속 지시로 현재 후보 PR의 main 병합도 요청했다. 실제 서재 등록과 정식 공개는 여전히 별도다.
 
 ## Windows에서 후보 미리보기
 
@@ -47,7 +47,9 @@ candidate-validation.json과 candidate-browser-validation.json에 실제 실행 
 
 ## 다음 결정
 
-사용자가 이 승인 후보의 문구·그림 비율·번호·모바일 화면을 확인한 후 별도 공개 등록 여부를 결정한다. ready 상태 변경, 공개 컬렉션 등록 및 출판 PR 병합은 이번 적용 범위와 구분한다. Vercel 배포 명령은 실행하지 않는다.
+사용자가 이 승인 후보의 문구·그림 비율·번호·모바일 화면을 확인한 후 별도 공개 등록 여부를 결정한다. 현재 후보 PR의 main 병합은 후속 지시에 포함하며, ready 상태 변경·공개 컬렉션 등록·정식 출판은 구분한다. Vercel 배포 명령은 실행하지 않는다.
+
+사용자가 “vercel 빼고는 다 병합”을 요청해 루트 vercel.json에 git.deploymentEnabled:false를 추가했다. 이는 모든 브랜치의 Git 자동 배포를 끄는 [Vercel 공식 설정](https://vercel.com/docs/project-configuration/git-configuration#turning-off-all-automatic-deployments)이다. 로컬 Astro 명령과 기존 배포 파일은 바꾸지 않는다.
 
 
 ## 이번 후보의 실제 검사 결과
