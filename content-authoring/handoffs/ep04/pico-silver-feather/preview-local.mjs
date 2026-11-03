@@ -29,13 +29,17 @@ async function snapshot(base) {
   return result;
 }
 
-async function main() {
-  if (process.argv.length !== 2) throw new Error('Usage: node --experimental-strip-types preview-local.mjs');
+export async function previewEP04({
+  sourceFile = 'master-draft.json',
+  expectedSourceHash = expectedDraft,
+  publicationOptions = { cover: { mode: 'scene', sceneId: 'scene-01' }, order: 4 },
+} = {}) {
+  assert.ok(['master-draft.json', 'publication-candidate.json'].includes(sourceFile));
   const original = await snapshot(root);
   let workspace;
   try {
-    const raw = await fs.readFile(path.join(here, 'master-draft.json'));
-    assert.equal(hash(raw), expectedDraft, 'Manuscript changed: review the new revision before previewing.');
+    const raw = await fs.readFile(path.join(here, sourceFile));
+    assert.equal(hash(raw), expectedSourceHash, 'Manuscript changed: review the new revision before previewing.');
     const source = JSON.parse(raw.toString('utf8'));
     const manifest = JSON.parse(await fs.readFile(path.join(here, 'image-manifest.json'), 'utf8'));
     const observed = JSON.parse(await fs.readFile(path.join(here, 'validation/images.json'), 'utf8'));
@@ -106,7 +110,7 @@ async function main() {
     const deps = await fs.realpath(path.join(root, 'node_modules'));
     await fs.symlink(deps, path.join(workspace, 'node_modules'), process.platform === 'win32' ? 'junction' : 'dir');
     const input = JSON.stringify(candidate, null, 2) + '\n';
-    const options = { cover: { mode: 'scene', sceneId: 'scene-01' }, order: 4 };
+    const options = publicationOptions;
     await fs.writeFile(path.join(workspace, 'test-candidate.json'), input, { flag: 'wx' });
     await fs.writeFile(path.join(workspace, 'test-options.json'), JSON.stringify(options, null, 2) + '\n', { flag: 'wx' });
     await fs.writeFile(path.join(workspace, 'activity-mapping.json'), JSON.stringify(mappings, null, 2) + '\n', { flag: 'wx' });
@@ -133,7 +137,7 @@ async function main() {
     }
     const { createSitePreview } = await import(pathToFileURL(path.join(root, 'content-authoring/site-preview.ts')).href);
     const site = await createSitePreview(workspace, [{ source: input, options }]);
-    const result = { technicalPreviewOnly: true, approvedForPublication: false, sourceStatus: source.status,
+    const result = { technicalPreviewOnly: true, approvedForPublication: false, sourceStatus: source.status, sourceFile,
       workspace, input: path.join(workspace, 'test-candidate.json'), plan: path.join(workspace, 'publication-plan.json'), site };
     await fs.writeFile(path.join(workspace, 'ep04-local-preview.json'), JSON.stringify(result, null, 2) + '\n', { flag: 'wx' });
     console.log(JSON.stringify(result, null, 2));
@@ -146,4 +150,8 @@ async function main() {
     if (workspace) console.error(`Technical test workspace: ${workspace}`);
   }
 }
-main().catch(error => { console.error(error); process.exitCode = 1; });
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  if (process.argv.length !== 2) {
+    console.error('Usage: node --experimental-strip-types preview-local.mjs'); process.exitCode = 1;
+  } else previewEP04().catch(error => { console.error(error); process.exitCode = 1; });
+}

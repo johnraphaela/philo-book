@@ -1,0 +1,44 @@
+{
+  "approvalVersion": 1,
+  "bookId": "pico-silver-feather",
+  "userInstruction": "승인, 출판후보적용",
+  "approvalDate": "2026-11-03",
+  "scope": "제안 E1/E2/E3/E4/S1/S2/H1 및 EP04 한정 4:3/중립적 놀이 표시를 출판 후보에 적용",
+  "approvedChangeIds": [
+    "E1",
+    "E2",
+    "E3",
+    "S1",
+    "S2",
+    "H1",
+    "E4"
+  ],
+  "displayProposal": {
+    "approved": true,
+    "scope": "EP04 only; preserve EP01–EP03",
+    "storyAspectRatio": "4 / 3",
+    "coverAspectRatio": "4 / 3",
+    "cropImages": false,
+    "playTab": "생각 놀이",
+    "playHeading": "함께 나누는 생각 놀이",
+    "playEyebrow": "반응적 상호작용을 참고한 부모·아이 놀이",
+    "note": "사용자가 출판 후보 적용을 승인. 정식 공개 승인은 별도."
+  },
+  "publicationOptions": {
+    "cover": {
+      "mode": "scene",
+      "sceneId": "scene-01"
+    },
+    "order": 4,
+    "recommendedAge": {
+      "min": 5,
+      "max": 10
+    }
+  },
+  "baselineSHA256": "b666aeccc59efb74459018e73246015e633dc68d021df7948e737a70f30ae55c",
+  "candidateSHA256": "8f840f9d0b22d36a33e6836ac86a90f8addf1f1f88f8dfbae5c3450a055b4262",
+  "candidateStatus": "draft",
+  "approvedForPublication": false,
+  "readyStatusChangeApproved": false,
+  "mainMergeApproved": false
+}

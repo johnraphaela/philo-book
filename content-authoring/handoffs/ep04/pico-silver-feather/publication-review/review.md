@@ -1,5 +1,7 @@
 # EP04 출판 전 수정 제안
 
+이 문서는 승인 전 문장별 비교를 보관한 이력이다. 사용자가 “승인, 출판후보적용”을 요청해 별도 승인 후보에 반영했다. 현재 적용 범위·실행 방법은 [승인 후보 안내](../publication-candidate.md), 실제 승인 기록은 [publication-approval.json](../publication-approval.json)을 확인한다. 최초 proposed-edits.json의 approved:false는 역사적 제안 상태이며 정식 출판 승인과는 구분한다.
+
 **미승인 검토안** — 원본 원고와 공개 콘텐츠에 적용하지 않았습니다. 기준 main: 28b70f0b5f8a0105db40ce1c99788d5581648984.
 
 원고 ID·draft 상태, 12장면 본문·부모 힌트·순서, 이미지·프롬프트는 유지하는 안입니다. 아래 7개 변경의 범위 밖 문장은 그대로 보존합니다.

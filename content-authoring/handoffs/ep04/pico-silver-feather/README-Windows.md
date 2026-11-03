@@ -1,5 +1,7 @@
 # EP04 부모 힌트 보완본 — Windows 로컬 미리보기
 
+최신 승인 후보: 사용자가 “승인, 출판후보적용”을 요청한 뒤 반영한 문구·4:3 표시를 확인하려면 [publication-candidate.md](publication-candidate.md)의 preview-publication.mjs를 사용한다. 아래 preview-local.mjs 안내는 최초 Handoff 원고 검토 경로이며 그대로 보존한다.
+
 정본은 draft이며 정식 공개 승인이 아니다. 이 디렉터리의 preview-local.mjs는 원본을 쓰지 않고 임시 후보를 사용해 EP04의 실제 그림·부모 힌트·에세이·놀이를 검토한다. 임시 후보에만 기술 테스트용 ready 플래그가 있다. 본문과 이미지를 변경하거나 운영 src/public에 파일을 추가하지 않는다.
 
 ## 작업 결과와 전달 상태

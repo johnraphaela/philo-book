@@ -1,0 +1,84 @@
+{
+  "validationVersion": 1,
+  "candidateSHA256": "8f840f9d0b22d36a33e6836ac86a90f8addf1f1f88f8dfbae5c3450a055b4262",
+  "originalDraftSHA256": "b666aeccc59efb74459018e73246015e633dc68d021df7948e737a70f30ae55c",
+  "candidateAppliedWithUserApproval": true,
+  "approvedForPublication": false,
+  "candidateStatus": "draft",
+  "canonicalDraftPreserved": true,
+  "approvedEditsApplied": 7,
+  "allowedChangedPaths": [
+    "/essay/body",
+    "/thinking/activities/0/description",
+    "/thinking/activities/2/steps/0/explanation",
+    "/thinking/activities/2/steps/1/explanation"
+  ],
+  "scopeValidationErrors": 0,
+  "tests": {
+    "passed": 79,
+    "failed": 0,
+    "skipped": 0
+  },
+  "contentCheck": true,
+  "astroCheck": {
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "existingSiteBuildRoutes": 4,
+  "isolatedCandidateSite": {
+    "ok": true,
+    "sourceFile": "publication-candidate.json",
+    "checks": [
+      {
+        "command": "check",
+        "exitCode": 0
+      },
+      {
+        "command": "build",
+        "exitCode": 0
+      }
+    ],
+    "routes": [
+      "/book/pico-silver-feather/"
+    ],
+    "builtRouteCount": 5,
+    "sourceBytesUnchangedDuringPreview": true
+  },
+  "testSiteSmoke": true,
+  "browser": {
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "scenesEach": 12,
+    "hintsEach": 12,
+    "hintToggle": true,
+    "aspectRatio": "4:3",
+    "imageFit": "contain",
+    "essayReferenceLinks": 3,
+    "activityNumbering": [
+      "대화 1",
+      "대화 2",
+      "활동 1",
+      "활동 2"
+    ],
+    "pageErrors": 0,
+    "horizontalOverflow": false,
+    "legacyStoryPixelComparisons": 6,
+    "legacyStoriesPixelsIdentical": true,
+    "legacyActivityLabelsPreserved": true
+  },
+  "existingPublishedManuscriptsAndImagesUnchanged": true,
+  "physicalWindowsCandidatePreview": "not-run in this session; Windows CI is separate",
+  "readyStatusChange": false,
+  "mainMerge": false,
+  "publicationCollectionRegistration": false,
+  "deploymentCommandRun": false
+}
