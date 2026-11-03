@@ -1,3 +1,4 @@
+import { directoryLink, fileLink } from './helpers/links.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -128,16 +129,25 @@ test('asset path differences require review without rewriting either package fil
   }
 });
 
-test('package paths cannot read outside root, including symlink escapes', t => {
+test('package paths cannot read outside root, including directory-link escapes', async t => {
   const f = fixture(t);
-  fs.writeFileSync(path.join(f.root, 'outside.jpg'), 'outside fixture');
-  fs.symlinkSync(path.join(f.root, 'outside.jpg'), path.join(f.dir, 'escaped.jpg'));
-  for (const file of ['../outside.jpg', path.join(f.root, 'outside.jpg'), 'escaped.jpg']) {
+  const outside = path.join(f.root, 'outside-images');
+  fs.mkdirSync(outside);
+  fs.writeFileSync(path.join(outside, 'outside.jpg'), 'outside fixture');
+  directoryLink(outside, path.join(f.dir, 'escaped'));
+  for (const file of ['../outside-images/outside.jpg', path.join(outside, 'outside.jpg'), 'escaped/outside.jpg']) {
     const manifest = load('image-manifest.json');
     manifest.images[0] = { ...manifest.images[0], status: 'provided', exists: true, file };
     f.write('image-manifest.json', manifest);
     assert.ok(reviewHandoff(f.dir).errors.some(issue => issue.code === 'image-unavailable'), file);
   }
+  await t.test('also rejects file symlinks when creation is permitted', child => {
+    if (!fileLink(child, path.join(outside, 'outside.jpg'), path.join(f.dir, 'escaped.jpg'))) return;
+    const manifest = load('image-manifest.json');
+    manifest.images[0] = { ...manifest.images[0], status: 'provided', exists: true, file: 'escaped.jpg' };
+    f.write('image-manifest.json', manifest);
+    assert.ok(reviewHandoff(f.dir).errors.some(issue => issue.code === 'image-unavailable'));
+  });
 });
 
 test('trusted baseline detects manuscript loss or change but never synchronizes files', t => {

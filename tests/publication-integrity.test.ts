@@ -1,6 +1,7 @@
+import { directoryLink, fileLink } from './helpers/links.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, writeFile, symlink, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import sharp from 'sharp';
@@ -32,9 +33,15 @@ test('rejects unsafe paths and symlink escapes', async t => {
   for (const asset of ['https://a/b.png', '/images/../a.png', '/images/%2e%2e/a.png', '/images/a.png?x', '/images/a\\b.png', '/images//a.png', '']) {
     assert.equal((await inspectImage(publicRoot, asset))[0].code, 'invalid-image-path', asset);
   }
-  await writeFile(path.join(root, 'outside.png'), png);
-  await symlink(path.join(root, 'outside.png'), path.join(publicRoot, 'images/escape.png'));
-  assert.equal((await inspectImage(publicRoot, '/images/escape.png'))[0].code, 'invalid-image-path');
+  const outside = path.join(root, 'outside-images');
+  await mkdir(outside);
+  await writeFile(path.join(outside, 'outside.png'), png);
+  directoryLink(outside, path.join(publicRoot, 'images/escape'));
+  assert.equal((await inspectImage(publicRoot, '/images/escape/outside.png'))[0].code, 'invalid-image-path');
+  await t.test('also rejects file symlinks when creation is permitted', async child => {
+    if (!fileLink(child, path.join(outside, 'outside.png'), path.join(publicRoot, 'images/escape.png'))) return;
+    assert.equal((await inspectImage(publicRoot, '/images/escape.png'))[0].code, 'invalid-image-path');
+  });
 });
 test('ready requires actual images while ordinary unfinished drafts remain valid', async t => {
   const { publicRoot } = await fixture(t);

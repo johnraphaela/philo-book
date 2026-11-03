@@ -1,0 +1,29 @@
+name: Windows validation
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Exercise Windows CRLF checkout policy
+        shell: pwsh
+        run: |
+          git config core.autocrlf true
+          git checkout-index --all --force
+      - run: npm.cmd ci
+      - run: npm.cmd test
+      - run: npm.cmd run content:check
+      - run: npm.cmd run check
+      - run: npm.cmd run build
