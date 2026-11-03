@@ -113,3 +113,7 @@ Master Draft는 `npm run draft:check -- <원본.json>`으로 미완성 형식을
 [점검 결과와 수동 검수 항목](docs/publication-audit.md), [변환기 전체 설계](docs/publication-adapter-plan.md)를 참고하세요. 현재는 [읽기 전용 변환 미리보기](docs/publication-preview.md)를 지원합니다. 자동 파일 생성·자동 출판은 제공하지 않습니다.
 
 ready 원본의 출판 후보는 `npm run draft:preview -- <원본.json>`으로 확인합니다. 실제 이미지·기존 파일 충돌을 검사하고 예상 JSON/MDX와 해시를 출력하며, 파일은 쓰지 않습니다. 여러 원본과 선택 표지/서재 메타데이터 설정은 [사용 안내](docs/publication-preview.md)를 참고하세요.
+
+## Windows 로컬 검토
+
+PowerShell에서는 `npm.cmd ci`, `npm.cmd test`, `npm.cmd run content:check`, `npm.cmd run check`, `npm.cmd run build`를 사용합니다. 실행 정책 변경이나 관리자 권한은 기본 요구 사항이 아닙니다. EP03 보관 원본의 줄바꿈과 링크 권한 관련 안내는 [Windows 검토 안내](docs/windows-local-review.md)를 참고하세요.
