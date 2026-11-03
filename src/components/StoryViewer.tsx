@@ -3,9 +3,14 @@ import type { CollectionEntry } from 'astro:content';
 import '../styles/story-viewer.css';
 
 type StoryPage = CollectionEntry<'books'>['data']['pages'][number];
-interface Props { pages: StoryPage[]; title: string }
+interface Props {
+  pages: StoryPage[];
+  title: string;
+  illustrationAspectRatio?: '16/9' | '4/3';
+  illustrationFit?: 'cover' | 'contain';
+}
 
-function Illustration({ page, title, number }: { page: StoryPage; title: string; number: number }) {
+function Illustration({ page, title, number, fit }: { page: StoryPage; title: string; number: number; fit: 'cover' | 'contain' }) {
   const [failed, setFailed] = useState(false);
   const image = useRef<HTMLImageElement>(null);
   useEffect(() => {
@@ -16,10 +21,10 @@ function Illustration({ page, title, number }: { page: StoryPage; title: string;
     return <div className="illustration-pending" role="status">그림을 준비하고 있어요.</div>;
   }
   return <img ref={image} src={page.image} alt={page.imageAlt ?? `${title} ${number}쪽 삽화`}
-    onError={() => setFailed(true)} style={{ width: '100%', height: '100%', objectFit: page.teachingPoint ? 'contain' : 'cover' }} />;
+    onError={() => setFailed(true)} style={{ width: '100%', height: '100%', objectFit: fit, display: fit === 'contain' ? 'block' : undefined }} />;
 }
 
-export default function StoryViewer({ pages, title }: Props) {
+export default function StoryViewer({ pages, title, illustrationAspectRatio = '16/9', illustrationFit = 'cover' }: Props) {
   const [currentPage, setCurrentPage] = useState(0);
   const [showHint, setShowHint] = useState(true);
 
@@ -32,7 +37,7 @@ export default function StoryViewer({ pages, title }: Props) {
       <div style={{ background: '#fff', borderRadius: '20px', boxShadow: '0 12px 32px rgba(0,0,0,0.07)', overflow: 'hidden' }}>
         
         {/* 일러스트 영역 */}
-        <div style={{ width: '100%', aspectRatio: '16/9', background: '#cfdef3', position: 'relative' }}>
+        <div style={{ width: '100%', aspectRatio: illustrationAspectRatio, background: '#cfdef3', position: 'relative' }}>
           <span aria-live="polite" aria-atomic="true" style={{ position: 'absolute', top: '16px', left: '16px', background: 'rgba(0,0,0,0.65)', color: '#fff', padding: '5px 14px', borderRadius: '20px', zIndex: 2 }}>
             {currentPage + 1} / {pages.length}
           </span>
@@ -42,7 +47,7 @@ export default function StoryViewer({ pages, title }: Props) {
           >
             {showHint ? '💡 부모 힌트 숨기기' : '💡 부모 힌트 보기'}
           </button>
-          <Illustration key={page.image} page={page} title={title} number={currentPage + 1} />
+          <Illustration key={page.image} page={page} title={title} number={currentPage + 1} fit={page.teachingPoint ? 'contain' : illustrationFit} />
         </div>
 
         {/* 텍스트 영역 */}

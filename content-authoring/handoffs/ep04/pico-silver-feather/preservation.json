@@ -1,0 +1,195 @@
+{
+  "bookId": "pico-silver-feather",
+  "status": "draft",
+  "baseline": "source/Master Draft.md",
+  "byteIdentical": true,
+  "sha256": "b666aeccc59efb74459018e73246015e633dc68d021df7948e737a70f30ae55c",
+  "previousToUserRevision": [
+    {
+      "pointer": "/images/0/prompt",
+      "before": "어린 새 피코와 친구들이 일렬로 서서 날개를 펴고 길이를 재며 불안해하는 모습. 밝은 숲속 배경, 수채화 동화 스타일.",
+      "after": "A warm watercolor children's book illustration of a tiny, round baby bird named Piko, with pale blue-grey feathers, standing on a large tree branch in a sunlit green forest with three other tiny birds. They are lined up side-by-side, stretching their wings wide to measure them against one another. Piko looks anxious and tiny, glance-checking the larger wing of the bird next to him with wide, worried eyes. The scene is filled with soft natural sunlight filtering through leaves, natural textured drawing, 2D art --ar 4:3"
+    },
+    {
+      "pointer": "/images/1/alt",
+      "before": "노을 지는 숲에서 연습하는 피코",
+      "after": "노을 지는 숲에서 땀 흘리며 연습하는 피코"
+    },
+    {
+      "pointer": "/images/1/prompt",
+      "before": "노을 지는 숲에서 땀 흘리며 연습하는 피코",
+      "after": "A warm watercolor children's book illustration of a beautiful forest at sunset, bathed in rich orange and gold natural light. Other tiny birds are happily fluttering around flowers or resting, while in the foreground, the tiny blue-grey baby bird Piko is flapping his wings fiercely on a branch, looking stressed with sweat drops flying, straining with a tense, determined expression. He is staring down at the branch, ignoring the scenic glowing sunset and blossoms around him. Soft natural hand-painted texture, 2D art --ar 4:3"
+    },
+    {
+      "pointer": "/images/2/alt",
+      "before": "나무 밑동에서 웅크린 피코",
+      "after": "나무 밑동에서 우울하게 웅크린 피코"
+    },
+    {
+      "pointer": "/images/2/prompt",
+      "before": "나무 밑동에서 우울하게 웅크린 피코",
+      "after": "A melancholic, softly shadowed watercolor children's book illustration. The tiny blue-grey baby bird Piko is sitting alone, sadly huddled and crouched in a dark, hollow tree root at the bottom corner of a büyük forest. His tiny wings are slumped, and he looks deeply dejected, staring down with a sad, upset expression. Deep shadows surround him. In the distant, upper part of the image, the tiny, brightly lit silhouettes of other birds can be seen flying joyfully together in the sunset sky. 2D art, textured paper, emotional lighting --ar 4:3"
+    },
+    {
+      "pointer": "/images/3/alt",
+      "before": "폭풍 속의 피코",
+      "after": "먹구름과 바람 속에서 비행하는 피코"
+    },
+    {
+      "pointer": "/images/3/prompt",
+      "before": "먹구름과 바람 속에서 비행하는 피코",
+      "after": "A dramatic, stormy watercolor children's book illustration. A massive flight competition with many tiny birds flying in a dark, wind-blown sky. The tiny blue-grey baby bird Piko is in the center, flying desperately with his eyes tightly shut, straining forward against fierce, swirling wind and approaching dark, heavy storm clouds. Other birds are visible as small silhouettes scrambling in the chaotic sky. Dramatic movement, swirling clouds, textured natural 2D illustration --ar 4:3"
+    },
+    {
+      "pointer": "/images/4/alt",
+      "before": "골짜기에서 우는 피코",
+      "after": "폭풍우에 떨어져 울고 있는 피코"
+    },
+    {
+      "pointer": "/images/4/prompt",
+      "before": "폭풍우에 떨어져 울고 있는 피코",
+      "after": "A sorrowful, wet watercolor children's book illustration of a desolate, rocky canyon under rain. The tiny, wet blue-grey baby bird Piko is sitting on the muddy, rocky ground, looking bedraggled with wet, disheveled feathers. He is crying, with big tears falling, looking completely defeated and tiny amidst massive, rough gray rocks. The scene is drenched and dark, with rain falling. Natural paint texture, emotional 2D art --ar 4:3"
+    },
+    {
+      "pointer": "/images/5/alt",
+      "before": "늙은 매 할아버지와 피코",
+      "after": "거대한 늙은 매 할아버지와 피코"
+    },
+    {
+      "pointer": "/images/5/prompt",
+      "before": "거대한 늙은 매 할아버지와 피코",
+      "after": "A warm, gentle watercolor children's book illustration of a desolate rocky canyon. Sitting on a huge, flat rock is a very large, majestic elderly falcon (the grandfather) with rich, voluminous brown and beige weathered feathers and kind, gentle eyes. He is looking down affectionately at the tiny, wet blue-grey baby bird Piko who is sitting on the ground below, looking up with surprised, tearful eyes. A soft beam of warm sunlight is breaking through the distant clouds, illuminating the elderly falcon and part of the canyon. Cozy and empathetic atmosphere, textured paper, 2D --ar 4:3"
+    },
+    {
+      "pointer": "/images/6/alt",
+      "before": "바람을 느끼는 매 할아버지",
+      "after": "바람을 느끼는 늙은 매 할아버지"
+    },
+    {
+      "pointer": "/images/6/prompt",
+      "before": "바람을 느끼는 늙은 매 할아버지",
+      "after": "A heartwarming watercolor children's book illustration. Atop a massive rock, the large, wise elderly falcon with voluminous brown feathers is gently extending one large, soft wing, pointing outward to show how to feel the wind, looking serene with an open, inviting gesture. The tiny blue-grey baby bird Piko is sitting close on the rock, looking up at him with wide, curious, and fascinated eyes, no longer crying but deeply engaged. The wind rustles the trees and feathers in the vast canyon, with soft, natural natural light. 2D art, storytelling, textured brushwork --ar 4:3"
+    },
+    {
+      "pointer": "/images/7/alt",
+      "before": "비상하는 매 할아버지",
+      "after": "절벽 위로 부드럽게 날아오르는 매 할아버지"
+    },
+    {
+      "pointer": "/images/7/prompt",
+      "before": "절벽 위로 부드럽게 날아오르는 매 할아버지",
+      "after": "A spectacular watercolor children's book illustration. The huge, majestic elderly falcon is soaring gracefully and effortlessly up into the vast, open sky from the edge of a rocky cliff. His large, richly textured brown wings are wide open, riding the wind peacefully. The tiny, round blue-grey baby bird Piko is on the rock cliff below, staring up with awe, his eyes following the grandfather's peaceful flight. The dark storm clouds are breaking, revealing patches of soft blue sky. Expansive and liberating atmosphere, 2D --ar 4:3"
+    },
+    {
+      "pointer": "/images/8/alt",
+      "before": "구름 사이를 나는 아기 새 피코",
+      "after": "과거 회상: 구름을 즐기며 나는 아기 새 피코"
+    },
+    {
+      "pointer": "/images/8/prompt",
+      "before": "과거 회상: 구름을 즐기며 나는 아기 새 피코",
+      "after": "A dreamy, nostalgic watercolor and soft pastel children's book illustration with a warm, glowing fuzzy border. Inside the memory, a tiny, round baby bird version of Piko is happily floating and tumbling through soft, fluffy white and pastel clouds in a bright, sunny sky. He has his eyes closed in pure, joyful bliss, a tiny happy smile, and small wings open as if play-flying in the gentle breeze. Golden sunlight and soft breeze lines. Innocent, carefree, and warm 2D illustration --ar 4:3"
+    },
+    {
+      "pointer": "/images/9/alt",
+      "before": "알을 깨고 나온 피코",
+      "after": "투명한 알이 깨지며 절벽에서 날개를 편 피코"
+    },
+    {
+      "pointer": "/images/9/prompt",
+      "before": "투명한 알이 깨지며 절벽에서 날개를 편 피코",
+      "after": "An inspiring, magical watercolor children's book illustration. The tiny blue-grey baby bird Piko is standing on the edge of a high, rocky cliff, facing the vast sky. Out of nowhere, translucent, glowing, fragile shell fragments (like an egg of comparison) are dramatically cracking (\"쩌적!\") and shatter-bursting around him into glowing magical dust. Piko has an incredibly determined, confident, and peaceful expression, chest out, stretching his tiny wings wider and stronger than ever before. Vibrant, energetic natural lighting, textured 2D art --ar 4:3"
+    },
+    {
+      "pointer": "/images/10/alt",
+      "before": "자유롭게 하늘을 나는 피코",
+      "after": "은빛으로 빛나며 파란 하늘을 미소 지으며 나는 피코"
+    },
+    {
+      "pointer": "/images/10/prompt",
+      "before": "은빛으로 빛나며 파란 하늘을 미소 지으며 나는 피코",
+      "after": "A breathtaking, liberating watercolor children's book illustration of the tiny blue-grey baby bird Piko soaring high in a vast, sun-drenched sky. The sun is shining brightly, catching the tips of Piko's feathers which are glittering and shimmering with beautiful, natural silver light. Piko has his eyes peacefully closed, with a huge, serene, and blissful smile, gliding gracefully through soft, glowing clouds. He is totally alone in the majestic sky, perfectly free and natural. Glistening sunlight, textured 2D artistry --ar 4:3"
+    },
+    {
+      "pointer": "/images/11/alt",
+      "before": "숲에서 자유롭게 비행하는 새들",
+      "after": "숲으로 돌아와 다른 새들과 조화롭게 비행하는 피코"
+    },
+    {
+      "pointer": "/images/11/prompt",
+      "before": "숲으로 돌아와 다른 새들과 조화롭게 비행하는 피코",
+      "after": "A joyous, celebratory watercolor children's book illustration in a bustling, lush green forest. The tiny blue-grey baby bird Piko is in the foreground, playfully darting and swirling in natural swoops with a beaming, joyful smile. All around, other tiny birds of different shapes and colors are no longer lined up in a contest, but are flying, looping, and swooping in their own unique, happy ways, scattered through the sunny sky. A sense of playful harmony, community, and freedom. Sunbeams filter through the treetops, textured paper, vibrant and natural 2D illustration --ar 4:3"
+    },
+    {
+      "pointer": "/story/scenes/0/parentHint",
+      "before": null,
+      "after": "피코는 왜 친구들의 날개를 힐끗힐끗 쳐다보고 있을까?"
+    },
+    {
+      "pointer": "/story/scenes/1/parentHint",
+      "before": null,
+      "after": "예쁜 노을이 지는데 피코는 앞만 보고 있네. 왜 하늘을 보지 않을까?"
+    },
+    {
+      "pointer": "/story/scenes/2/parentHint",
+      "before": null,
+      "after": "시합에서 진 피코의 마음을 색깔로 칠한다면 무슨 색일까?"
+    },
+    {
+      "pointer": "/story/scenes/3/parentHint",
+      "before": null,
+      "after": "무서운 먹구름이 오는데도 피코는 왜 멈추지 않았을까?"
+    },
+    {
+      "pointer": "/story/scenes/4/parentHint",
+      "before": null,
+      "after": "비에 흠뻑 젖은 피코를 안아준다면 어떤 말을 해주고 싶어?"
+    },
+    {
+      "pointer": "/story/scenes/5/parentHint",
+      "before": null,
+      "after": "커다란 매 할아버지가 다가왔을 때 피코는 어떤 기분이었을까?"
+    },
+    {
+      "pointer": "/story/scenes/6/parentHint",
+      "before": null,
+      "after": "할아버지는 피코에게 어떤 비밀을 알려주려는 걸까?"
+    },
+    {
+      "pointer": "/story/scenes/7/parentHint",
+      "before": null,
+      "after": "매 할아버지처럼 편안하게 하늘을 날려면 어떻게 해야 할까?"
+    },
+    {
+      "pointer": "/story/scenes/8/parentHint",
+      "before": null,
+      "after": "피코가 처음 나는 걸 배웠을 때 표정은 지금과 어떻게 달라?"
+    },
+    {
+      "pointer": "/story/scenes/9/parentHint",
+      "before": null,
+      "after": "피코를 답답하게 가두고 있던 알 껍질은 무엇이었을까?"
+    },
+    {
+      "pointer": "/story/scenes/10/parentHint",
+      "before": null,
+      "after": "은빛 깃털로 빛나는 피코는 혼자 날면서 무슨 생각을 하고 있을까?"
+    },
+    {
+      "pointer": "/story/scenes/11/parentHint",
+      "before": null,
+      "after": "친구들은 왜 더 이상 피코와 경주를 하지 않게 되었을까?"
+    },
+    {
+      "pointer": "/thinking/activities/2/steps/1/explanation",
+      "before": "은빛 깃털을 몸에 붙이고, 눈을 감은 채 방 안을 천천히 부드럽게 날아다니는 놀이를 합니다.",
+      "after": "은빛 깃털을 몸에 붙이고, 눈을 뜨고 양팔을 벌린 채 좋아하는 음악에 맞춰 자유롭게 거실을 날아보거나, 제자리에 서서 눈을 감고 뺨에 닿는 바람을 상상해 봅니다."
+    }
+  ],
+  "codexManuscriptEdits": [],
+  "sourceHashes": {
+    "Master Draft.md": "b666aeccc59efb74459018e73246015e633dc68d021df7948e737a70f30ae55c",
+    "Image Manifest.md": "c9f3ffd8b42914123d451c09efd3262c0bdcdad64faf0246a7ca8b256a0b286c",
+    "Review Report.md": "782c8442e1a58fd9754784a555c913bda7d556f2d3cfc64fbd6a870a25e69f64"
+  }
+}

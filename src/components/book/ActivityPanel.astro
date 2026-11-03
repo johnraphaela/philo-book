@@ -3,8 +3,16 @@ import type { CollectionEntry } from 'astro:content';
 import { parseActivity, isReferenceActivity } from '../../lib/activities';
 import { renderActivityMarkdown } from '../../lib/activity-markdown';
 import '../../styles/reading.css';
-interface Props { activities: NonNullable<CollectionEntry<'books'>['data']['harvardPlay']> }
-const { activities } = Astro.props;
+interface Props {
+  activities: NonNullable<CollectionEntry<'books'>['data']['harvardPlay']>;
+  activityHeading?: string;
+  activityEyebrow?: string;
+}
+const {
+  activities,
+  activityHeading = '오늘 밤 전두엽을 깨우는 생각 놀이',
+  activityEyebrow = 'Harvard Center on the Developing Child 핵심 개념 적용',
+} = Astro.props;
 const rendered = await Promise.all(activities.map(async activity => {
   const parsed = parseActivity(activity.desc);
   return {
@@ -24,8 +32,8 @@ const rendered = await Promise.all(activities.map(async activity => {
 
 <article class="reading-paper activity-reading" aria-labelledby="activity-title">
   <header class="reading-heading">
-    <p class="reading-eyebrow">Harvard Center on the Developing Child 핵심 개념 적용</p>
-    <h1 id="activity-title">오늘 밤 전두엽을 깨우는 생각 놀이</h1>
+    <p class="reading-eyebrow">{activityEyebrow}</p>
+    <h1 id="activity-title">{activityHeading}</h1>
   </header>
   {rendered.filter(activity => !activity.reference).map(activity => (
     <section class="activity-guide">

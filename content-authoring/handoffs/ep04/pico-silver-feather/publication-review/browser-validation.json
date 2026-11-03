@@ -1,0 +1,260 @@
+[
+  {
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "prototypeOnly": true,
+    "sourceUIChanged": false,
+    "before": {
+      "width": 856,
+      "height": 482,
+      "naturalWidth": 1448,
+      "naturalHeight": 1086,
+      "fit": "cover"
+    },
+    "scenes": [
+      {
+        "src": "/images/pico-silver-feather/page1.png",
+        "width": 856,
+        "height": 642,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page2.png",
+        "width": 856,
+        "height": 642,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page3.png",
+        "width": 856,
+        "height": 642,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page4.png",
+        "width": 856,
+        "height": 642,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page5.png",
+        "width": 856,
+        "height": 642,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page6.png",
+        "width": 856,
+        "height": 642,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page7.png",
+        "width": 856,
+        "height": 642,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page8.png",
+        "width": 856,
+        "height": 642,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page9.png",
+        "width": 856,
+        "height": 642,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page10.png",
+        "width": 856,
+        "height": 642,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page11.png",
+        "width": 856,
+        "height": 642,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page12.png",
+        "width": 856,
+        "height": 642,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      }
+    ],
+    "hints": 12,
+    "essayReferences": 3,
+    "activityNumbering": [
+      "대화 1",
+      "대화 2",
+      "활동 1",
+      "활동 2"
+    ],
+    "neutralActivityHeading": true,
+    "cover": {
+      "width": 221,
+      "height": 166,
+      "fit": "contain"
+    },
+    "pageErrors": [],
+    "horizontalOverflow": false
+  },
+  {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "prototypeOnly": true,
+    "sourceUIChanged": false,
+    "before": {
+      "width": 326,
+      "height": 183,
+      "naturalWidth": 1448,
+      "naturalHeight": 1086,
+      "fit": "cover"
+    },
+    "scenes": [
+      {
+        "src": "/images/pico-silver-feather/page1.png",
+        "width": 326,
+        "height": 245,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page2.png",
+        "width": 326,
+        "height": 245,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page3.png",
+        "width": 326,
+        "height": 245,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page4.png",
+        "width": 326,
+        "height": 245,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page5.png",
+        "width": 326,
+        "height": 245,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page6.png",
+        "width": 326,
+        "height": 245,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page7.png",
+        "width": 326,
+        "height": 245,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page8.png",
+        "width": 326,
+        "height": 245,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page9.png",
+        "width": 326,
+        "height": 245,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page10.png",
+        "width": 326,
+        "height": 245,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page11.png",
+        "width": 326,
+        "height": 245,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      },
+      {
+        "src": "/images/pico-silver-feather/page12.png",
+        "width": 326,
+        "height": 245,
+        "naturalWidth": 1448,
+        "naturalHeight": 1086,
+        "fit": "contain"
+      }
+    ],
+    "hints": 12,
+    "essayReferences": 3,
+    "activityNumbering": [
+      "대화 1",
+      "대화 2",
+      "활동 1",
+      "활동 2"
+    ],
+    "neutralActivityHeading": true,
+    "cover": {
+      "width": 294,
+      "height": 221,
+      "fit": "contain"
+    },
+    "pageErrors": [],
+    "horizontalOverflow": false
+  }
+]
