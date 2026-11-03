@@ -1,9 +1,10 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import BookCard from './BookCard.astro';
-import { AGE_BANDS, TOPICS } from '../../lib/library';
+import { AGE_BANDS, categoryOptions } from '../../lib/library';
 interface Props { books: CollectionEntry<'books'>[] }
 const { books } = Astro.props;
+const categories = categoryOptions(books);
 ---
 
 <library-shelf>
@@ -22,7 +23,7 @@ const { books } = Astro.props;
       <label for="library-topic">주제</label>
       <select id="library-topic" name="topic">
         <option value="">모든 주제</option>
-        {TOPICS.map(topic => <option value={topic.id}>{topic.label}</option>)}
+        {categories.map(topic => <option value={topic.id}>{topic.label}</option>)}
       </select>
     </div>
     <button type="reset">초기화</button>
