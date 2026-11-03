@@ -89,7 +89,7 @@ export async function createSitePreview(rootPath: string, input: PlanInput[], ru
     await mkdir(path.join(stage, 'node_modules'));
     // Separate directory, package-level links: .astro/.vite caches remain inside the temporary site.
     for (const name of (await readdir(dependencies)).filter(n => !n.startsWith('.'))) {
-      await symlink(path.join(dependencies, name), path.join(stage, 'node_modules', name));
+      await symlink(path.join(dependencies, name), path.join(stage, 'node_modules', name), process.platform === 'win32' ? 'junction' : 'dir');
     }
     for (const file of copied.files) {
       const dest = path.join(stage, file.relativePath);

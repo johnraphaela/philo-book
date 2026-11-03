@@ -1,6 +1,7 @@
+import { directoryLink } from './helpers/links.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, readFile, writeFile, readdir, rm, symlink } from 'node:fs/promises';
+import { mkdtemp, mkdir, readFile, writeFile, readdir, rm } from 'node:fs/promises';
 import path from 'node:path';
 import os from 'node:os';
 import sharp from 'sharp';
@@ -80,7 +81,7 @@ test('source changes are detected even after a failed command', async t => {
 });
 test('rejects source symlinks before any build or temporary copy', async t => {
   const { root, source } = await fixture(t);
-  await symlink(path.join(root, '.env'), path.join(root, 'src/secret-link'));
+  directoryLink(path.join(root, 'content-authoring'), path.join(root, 'src/secret-link'));
   const result = await createSitePreview(root, [{ source }], async () => assert.fail('must not run'));
   assert.equal(result.ok, false); assert.equal(result.stageRoot, undefined);
   assert.ok(result.diagnostics.some(d => d.message.includes('symlink')));

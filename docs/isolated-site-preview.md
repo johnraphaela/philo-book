@@ -25,7 +25,7 @@ node --experimental-strip-types content-authoring/site-preview-cli.ts ready.json
 1. 입력 문자열과 옵션을 복제하고 사이트 원본 파일의 바이트를 읽는다. 복사 대상은 `src/`, `public/`, `content-authoring/`, `scripts/`, `astro.config.mjs`, `tsconfig.json`, `package.json`, `package-lock.json`이다. `.env*`, Git·기존 빌드·기존 캐시는 제외하며 복사할 소스의 symlink/특수 파일은 거부한다.
 2. 원본 사이트에서 현재 출판 계획을 검사한다. 준비 상태·실제 이미지·기존 책/에세이·출력 충돌 오류가 있으면 임시 사이트도 만들지 않는다.
 3. `philo-site-preview-*`라는 새 OS 임시 디렉터리에 복사한다. 복사본에서도 계획을 다시 계산하고 예상 파일이 처음과 일치하는지 확인한다.
-4. 설치된 의존성은 패키지별 링크로 재사용하되, 임시 사이트의 `node_modules` 자체는 별도 디렉터리다. 원본 `node_modules/.astro`/`.vite` 캐시를 링크하지 않는다. 복사본에만 새 파일을 exclusive create로 추가하고 noop 파일은 해시를 확인한다.
+4. 설치된 의존성은 패키지별 디렉터리 링크(Windows에서는 junction)로 재사용하되, 임시 사이트의 `node_modules` 자체는 별도 디렉터리다. 원본 `node_modules/.astro`/`.vite` 캐시를 링크하지 않는다. 복사본에만 새 파일을 exclusive create로 추가하고 noop 파일은 해시를 확인한다.
 5. 복사본의 콘텐츠 무결성을 검사한다. 원래 Astro 설정을 가져오는 임시 wrapper에서 root/src/public/outDir/cacheDir를 임시 디렉터리 아래로 고정한다. 실제 Astro CLI의 `check` 후 `build`를 실행하며 한 명령이 실패하면 다음 단계는 실행하지 않는다. 각 명령 제한 시간은 120초이고 로그는 최대 약 2MB를 보존한다.
 6. 후보 ID별 `dist/book/<id>/index.html`이 생성되고 비어 있지 않은지 확인한다. 마지막에는 성공/실패와 관계없이 원본 복사 대상의 바이트를 다시 비교한다. 동시 편집이 발견되면 결과를 실패로 표시한다. 변경한 파일을 되돌리거나 덮어쓰지 않는다.
 
@@ -65,3 +65,5 @@ Astro가 표시한 로컬 주소에서 서재와 결과의 routes를 연다. 서
 실제 출판 파일에 적용하는 트랜잭션 쓰기·예상 해시 기반 갱신, Handoff 통합, 구조화 활동의 승인된 매핑은 후속 단계다. 이 기능은 기존 학술 검토 항목이나 Vercel 빌드 횟수 제한을 해결하지 않는다.
 
 최종 검증: 전체 테스트 68개, 콘텐츠 검사, Astro 진단 0건, 기존 사이트 4 routes 빌드 통과. 별도 후보 사이트도 실제 check/build와 모바일·PC 브라우저 검수를 통과했다.
+
+Windows 호환성 보강: 의존성 링크와 경로 이탈 테스트에 junction을 사용해 파일 symlink 생성 권한을 요구하지 않는다. PR #21의 원본 줄바꿈/로컬 테스트 수정도 포함했다. 이 보강 후 전체 테스트는 71개다.
