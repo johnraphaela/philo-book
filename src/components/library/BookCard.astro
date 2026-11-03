@@ -1,14 +1,12 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getBookPresentation } from '../../lib/book-presentation';
 interface Props { book: CollectionEntry<'books'> }
 const { book } = Astro.props;
-const presentation = getBookPresentation(book.id);
 ---
 
 <a href={`/book/${book.id}`} class="book-card" data-book={JSON.stringify({ id: book.id, data: { title: book.data.title, theme: book.data.theme, summary: book.data.summary, categories: book.data.categories, recommendedAge: book.data.recommendedAge, topics: book.data.topics } })}>
-  <div class="cover" style={presentation.coverAspectRatio ? { aspectRatio: presentation.coverAspectRatio } : undefined}>
-    {book.data.cover ? <img src={book.data.cover} alt="" loading="lazy" width="640" height="360" style={presentation.illustrationFit ? { objectFit: presentation.illustrationFit } : undefined} /> : <span class="cover-placeholder" aria-hidden="true">📖</span>}
+  <div class="cover">
+    {book.data.cover ? <img src={book.data.cover} alt="" loading="lazy" width="640" height="360" /> : <span class="cover-placeholder" aria-hidden="true">📖</span>}
   </div>
   <h2>{book.data.title}</h2>
   <p class="theme">{book.data.theme}</p>
@@ -20,8 +18,8 @@ const presentation = getBookPresentation(book.id);
 </a>
 
 <style>
-  .cover { aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; background: #cfdef3; display: grid; place-items: center; }
-  .cover img { width: 100%; height: 100%; object-fit: cover; }
+  .cover { aspect-ratio: 4 / 3; border-radius: 8px; overflow: hidden; background: #cfdef3; display: grid; place-items: center; }
+  .cover img { width: 100%; height: 100%; object-fit: contain; display: block; }
   .cover-placeholder { font-size: 3rem; }
   .summary { line-height: 1.6; }
   .age { font-weight: 600; }
