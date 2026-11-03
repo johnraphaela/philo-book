@@ -1,0 +1,67 @@
+{
+  "bookId": "pico-silver-feather",
+  "scope": "ordinary library registration, no external deployment",
+  "tests": {
+    "passed": 81,
+    "failed": 0,
+    "skipped": 0
+  },
+  "contentCheck": true,
+  "astroCheck": {
+    "errors": 0,
+    "warnings": 0,
+    "hints": 0
+  },
+  "ordinaryBuildRoutes": 5,
+  "bookCount": 4,
+  "libraryOrder": [
+    "ep01-robot-mong",
+    "ep02-self-esteem",
+    "ep03-hope",
+    "pico-silver-feather"
+  ],
+  "images": {
+    "count": 12,
+    "format": "png",
+    "width": 1448,
+    "height": 1086,
+    "byteIdenticalToHandoff": true
+  },
+  "readOnlyReplay": {
+    "files": 2,
+    "actions": [
+      "noop",
+      "noop"
+    ]
+  },
+  "existingPreviewReuse": {
+    "ok": true,
+    "originalBytesUnchangedDuringPreview": true
+  },
+  "testSiteSmoke": true,
+  "browser": {
+    "ordinarySite": true,
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "scenesEach": 12,
+    "hintsEach": 12,
+    "hintToggle": true,
+    "essayLinks": 3,
+    "search": true,
+    "ageFilters": true,
+    "pageErrors": 0,
+    "horizontalOverflow": false
+  },
+  "existingBooksAndOriginalDraftUnchanged": true,
+  "vercelGitDeploymentEnabled": false,
+  "externalDeploymentCommandRun": false,
+  "physicalWindowsOrdinarySiteReview": "not run in this session; Windows CI checked separately"
+}

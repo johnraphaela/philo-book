@@ -105,8 +105,16 @@ export async function previewEP04({
       await fs.writeFile(dest, bytes, { flag: 'wx' });
     }
     const assets = path.join(workspace, 'public/images/pico-silver-feather');
-    await fs.mkdir(assets); // Collision is an error: never overwrite an existing publication asset.
-    for (const item of imageBytes) await fs.writeFile(path.join(assets, item.name), item.bytes, { flag: 'wx' });
+    await fs.mkdir(assets, { recursive: true });
+    for (const item of imageBytes) {
+      const dest = path.join(assets, item.name);
+      try { await fs.writeFile(dest, item.bytes, { flag: 'wx' }); }
+      catch (error) {
+        if (error.code !== 'EEXIST') throw error;
+        // Registered image copies may be reused only when their bytes are identical.
+        assert.ok((await fs.readFile(dest)).equals(item.bytes), `Image collision: ${item.name}`);
+      }
+    }
     const deps = await fs.realpath(path.join(root, 'node_modules'));
     await fs.symlink(deps, path.join(workspace, 'node_modules'), process.platform === 'win32' ? 'junction' : 'dir');
     const input = JSON.stringify(candidate, null, 2) + '\n';

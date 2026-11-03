@@ -1,6 +1,7 @@
 # Preserve the exact supplied draft and reference bytes on Windows checkouts.
 master-draft.json -text
 publication-candidate.json -text
+publication-source.json -text
 source/*.md -text
 *.mjs text eol=lf
 validation/*.json text eol=lf

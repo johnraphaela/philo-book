@@ -10,7 +10,14 @@ async function main() {
   const baseline = await fs.readFile(new URL('./master-draft.json', import.meta.url));
   assert.equal(createHash('sha256').update(baseline).digest('hex'), approval.baselineSHA256);
   assert.equal(approval.bookId, 'pico-silver-feather');
+  let publicationOptions = approval.publicationOptions;
+  try {
+    const registration = JSON.parse(await fs.readFile(new URL('./library-registration.json', import.meta.url), 'utf8'));
+    assert.equal(registration.approvedForLibraryRegistration, true);
+    assert.equal(registration.candidateSHA256, approval.candidateSHA256);
+    publicationOptions = registration.options;
+  } catch (error) { if (error.code !== 'ENOENT') throw error; }
   await previewEP04({ sourceFile: 'publication-candidate.json',
-    expectedSourceHash: approval.candidateSHA256, publicationOptions: approval.publicationOptions });
+    expectedSourceHash: approval.candidateSHA256, publicationOptions });
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });
