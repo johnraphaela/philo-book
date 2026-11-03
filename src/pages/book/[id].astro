@@ -6,6 +6,7 @@ import EssayPanel from '../../components/book/EssayPanel.astro';
 import ActivityPanel from '../../components/book/ActivityPanel.astro';
 import StoryViewer from '../../components/StoryViewer';
 import { getLibrary } from '../../lib/content';
+import { getBookPresentation } from '../../lib/book-presentation';
 import '../../styles/book.css';
 
 export const getStaticPaths = (async () => {
@@ -19,12 +20,13 @@ export const getStaticPaths = (async () => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { book, essay } = Astro.props;
 const activities = book.data.harvardPlay ?? [];
+const presentation = getBookPresentation(book.id);
 ---
 
 <BaseLayout title={`${book.data.title} | PHILO-PAIRING`} pageClass="book-page">
-  <BookTabs hasEssay={Boolean(essay)} hasActivities={activities.length > 0}>
-    <StoryViewer slot="story" client:load pages={book.data.pages} title={book.data.title} />
+  <BookTabs hasEssay={Boolean(essay)} hasActivities={activities.length > 0} activityTabLabel={presentation.activityTabLabel}>
+    <StoryViewer slot="story" client:load pages={book.data.pages} title={book.data.title} illustrationAspectRatio={presentation.illustrationAspectRatio} illustrationFit={presentation.illustrationFit} />
     {essay && <EssayPanel slot="essay" essay={essay} />}
-    {activities.length > 0 && <ActivityPanel slot="activities" activities={activities} />}
+    {activities.length > 0 && <ActivityPanel slot="activities" activities={activities} activityHeading={presentation.activityHeading} activityEyebrow={presentation.activityEyebrow} />}
   </BookTabs>
 </BaseLayout>

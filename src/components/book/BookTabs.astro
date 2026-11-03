@@ -1,10 +1,10 @@
 ---
-interface Props { hasEssay: boolean; hasActivities: boolean }
-const { hasEssay, hasActivities } = Astro.props;
+interface Props { hasEssay: boolean; hasActivities: boolean; activityTabLabel?: string }
+const { hasEssay, hasActivities, activityTabLabel = '🎲 하버드 뇌놀이' } = Astro.props;
 const tabs = [
   { id: 'story', label: '📖 동화책' },
   ...(hasEssay ? [{ id: 'essay', label: '☕ 부모용 에세이' }] : []),
-  ...(hasActivities ? [{ id: 'harvard', label: '🎲 하버드 뇌놀이' }] : []),
+  ...(hasActivities ? [{ id: 'harvard', label: activityTabLabel }] : []),
 ];
 ---
 

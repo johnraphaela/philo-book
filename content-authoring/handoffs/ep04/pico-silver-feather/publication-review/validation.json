@@ -1,0 +1,59 @@
+{
+  "approved": false,
+  "sourceStatus": "draft",
+  "sourceUnchanged": true,
+  "baselineSHA256": "b666aeccc59efb74459018e73246015e633dc68d021df7948e737a70f30ae55c",
+  "proposals": [
+    "E1",
+    "E2",
+    "E3",
+    "S1",
+    "S2",
+    "H1",
+    "E4"
+  ],
+  "modifiedPaths": [
+    "/essay/body",
+    "/thinking/activities/2/steps/1/explanation",
+    "/thinking/activities/2/steps/0/explanation",
+    "/thinking/activities/0/description"
+  ],
+  "storyScenesPreserved": 12,
+  "parentHintsPreserved": 12,
+  "imagePromptsPreserved": 12,
+  "schema": true,
+  "temporarySite": {
+    "ok": true,
+    "checks": [
+      {
+        "command": "check",
+        "exitCode": 0
+      },
+      {
+        "command": "build",
+        "exitCode": 0
+      }
+    ],
+    "routes": [
+      "/book/pico-silver-feather/"
+    ],
+    "checkErrors": 0,
+    "checkWarnings": 0,
+    "checkHints": 0,
+    "builtRouteCount": 5
+  },
+  "options": {
+    "cover": {
+      "mode": "scene",
+      "sceneId": "scene-01"
+    },
+    "order": 4,
+    "recommendedAge": {
+      "min": 5,
+      "max": 10
+    }
+  },
+  "displayPrototype": "Browser DOM only; no source UI changes",
+  "physicalWindowsRetest": false,
+  "uiPrototypePersisted": false
+}
