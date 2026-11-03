@@ -16,7 +16,7 @@ function Illustration({ page, title, number }: { page: StoryPage; title: string;
     return <div className="illustration-pending" role="status">그림을 준비하고 있어요.</div>;
   }
   return <img ref={image} src={page.image} alt={page.imageAlt ?? `${title} ${number}쪽 삽화`}
-    onError={() => setFailed(true)} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
+    onError={() => setFailed(true)} style={{ width: '100%', height: '100%', objectFit: page.teachingPoint ? 'contain' : 'cover' }} />;
 }
 
 export default function StoryViewer({ pages, title }: Props) {
@@ -50,6 +50,12 @@ export default function StoryViewer({ pages, title }: Props) {
           <p style={{ fontSize: '1.45rem', lineHeight: '1.65', fontWeight: '600', whiteSpace: 'pre-line', marginBottom: '18px' }}>
             {page.text}
           </p>
+          {showHint && (page.teachingPoint || page.interaction) && (
+            <div style={{ background: '#fffbeb', border: '1px solid #fde68a', color: '#92400e', padding: '12px 20px', borderRadius: '12px', textAlign: 'left', whiteSpace: 'pre-wrap' }}>
+              {page.teachingPoint && <section><strong>Parent Teaching Point</strong><p>{page.teachingPoint}</p></section>}
+              {page.interaction && <section><strong>Parent Interaction</strong><p>{page.interaction}</p></section>}
+            </div>
+          )}
           {showHint && page.hint && (
             <div style={{ background: '#fffbeb', border: '1px solid #fde68a', color: '#92400e', padding: '12px 20px', borderRadius: '12px', display: 'inline-block', maxWidth: '90%' }}>
               {page.hint}

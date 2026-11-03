@@ -45,6 +45,11 @@ export async function inspectPublishedContent(root: string): Promise<Diagnostic[
   const diagnostics: Diagnostic[] = [];
   const books = new Set<string>();
   const essays = new Set<string>();
+  const checkedImages = new Map<string, Diagnostic[]>();
+  const checkImage = async (asset: string, at: string) => {
+    if (!checkedImages.has(asset)) checkedImages.set(asset, await inspectImage(path.join(root, 'public'), asset));
+    return checkedImages.get(asset)!.map(d => ({ ...d, path: at }));
+  };
   for (const name of (await readdir(path.join(root, 'src/content/books'))).filter(n => n.endsWith('.json')).sort()) {
     const at = `src/content/books/${name}`;
     const id = name.slice(0, -5);
@@ -54,13 +59,13 @@ export async function inspectPublishedContent(root: string): Promise<Diagnostic[
       if (!Array.isArray(book.pages) || !book.pages.length) diagnostics.push(issue('empty-book', at, '장면이 없습니다.'));
       for (const [i, page] of (Array.isArray(book.pages) ? book.pages : []).entries()) {
         if (typeof page?.text !== 'string' || !page.text.trim()) diagnostics.push(issue('empty-page', `${at}.pages.${i}.text`, '장면 본문이 비어 있습니다.'));
-        diagnostics.push(...await inspectImage(path.join(root, 'public'), typeof page?.image === 'string' ? page.image : '', `${at}.pages.${i}.image`));
+        diagnostics.push(...await checkImage(typeof page?.image === 'string' ? page.image : '', `${at}.pages.${i}.image`));
       }
       // A missing optional cover retains today's icon fallback. Explicit covers must work.
-      if (book.cover !== undefined) diagnostics.push(...await inspectImage(path.join(root, 'public'), typeof book.cover === 'string' ? book.cover : '', `${at}.cover`));
+      if (book.cover !== undefined) diagnostics.push(...await checkImage(typeof book.cover === 'string' ? book.cover : '', `${at}.cover`));
     } catch (error) { diagnostics.push(issue('invalid-book', at, String(error))); }
   }
-  for (const name of (await readdir(path.join(root, 'src/content/essays'))).filter(n => n.endsWith('.mdx')).sort()) {
+  for (const name of (await readdir(path.join(root, 'src/content/essays'))).filter(n => /\.mdx?$/.test(n)).sort()) {
     const at = `src/content/essays/${name}`;
     try {
       const source = await readFile(path.join(root, at), 'utf8');
