@@ -1,0 +1,133 @@
+{
+  "ok": false,
+  "isolated": true,
+  "checks": [],
+  "diagnostics": [
+    {
+      "severity": "error",
+      "code": "not-ready",
+      "path": "status",
+      "message": "출판 검토 전 상태입니다. ready 여부를 사람이 결정해야 합니다."
+    },
+    {
+      "severity": "error",
+      "code": "missing-image",
+      "path": "story.scenes.0",
+      "message": "프롬프트는 이미지 파일 경로를 대신할 수 없습니다."
+    },
+    {
+      "severity": "error",
+      "code": "missing-image",
+      "path": "story.scenes.1",
+      "message": "프롬프트는 이미지 파일 경로를 대신할 수 없습니다."
+    },
+    {
+      "severity": "error",
+      "code": "missing-image",
+      "path": "story.scenes.2",
+      "message": "프롬프트는 이미지 파일 경로를 대신할 수 없습니다."
+    },
+    {
+      "severity": "error",
+      "code": "missing-image",
+      "path": "story.scenes.3",
+      "message": "프롬프트는 이미지 파일 경로를 대신할 수 없습니다."
+    },
+    {
+      "severity": "error",
+      "code": "missing-image",
+      "path": "story.scenes.4",
+      "message": "프롬프트는 이미지 파일 경로를 대신할 수 없습니다."
+    },
+    {
+      "severity": "error",
+      "code": "missing-image",
+      "path": "story.scenes.5",
+      "message": "프롬프트는 이미지 파일 경로를 대신할 수 없습니다."
+    },
+    {
+      "severity": "error",
+      "code": "missing-image",
+      "path": "story.scenes.6",
+      "message": "프롬프트는 이미지 파일 경로를 대신할 수 없습니다."
+    },
+    {
+      "severity": "error",
+      "code": "missing-image",
+      "path": "story.scenes.7",
+      "message": "프롬프트는 이미지 파일 경로를 대신할 수 없습니다."
+    },
+    {
+      "severity": "error",
+      "code": "missing-image",
+      "path": "story.scenes.8",
+      "message": "프롬프트는 이미지 파일 경로를 대신할 수 없습니다."
+    },
+    {
+      "severity": "error",
+      "code": "missing-image",
+      "path": "story.scenes.9",
+      "message": "프롬프트는 이미지 파일 경로를 대신할 수 없습니다."
+    },
+    {
+      "severity": "error",
+      "code": "missing-image",
+      "path": "story.scenes.10",
+      "message": "프롬프트는 이미지 파일 경로를 대신할 수 없습니다."
+    },
+    {
+      "severity": "error",
+      "code": "missing-image",
+      "path": "story.scenes.11",
+      "message": "프롬프트는 이미지 파일 경로를 대신할 수 없습니다."
+    },
+    {
+      "severity": "error",
+      "code": "mapping-required",
+      "path": "thinking.activities.1",
+      "message": "현재 harvardPlay에는 title·desc가 필요합니다. 구조화된 단계의 변환 규칙을 먼저 정해야 합니다."
+    },
+    {
+      "severity": "warning",
+      "code": "structured-content",
+      "path": "thinking.activities.1",
+      "message": "별도 단계·참고자료를 유실하지 않는 변환 정책이 필요합니다."
+    },
+    {
+      "severity": "error",
+      "code": "mapping-required",
+      "path": "thinking.activities.2",
+      "message": "현재 harvardPlay에는 title·desc가 필요합니다. 구조화된 단계의 변환 규칙을 먼저 정해야 합니다."
+    },
+    {
+      "severity": "warning",
+      "code": "structured-content",
+      "path": "thinking.activities.2",
+      "message": "별도 단계·참고자료를 유실하지 않는 변환 정책이 필요합니다."
+    },
+    {
+      "severity": "warning",
+      "code": "authoring-only",
+      "path": "images",
+      "message": "이미지 프롬프트는 제작용이며 현재 출판 스키마에는 포함되지 않습니다."
+    },
+    {
+      "severity": "warning",
+      "code": "extensions-unmapped",
+      "path": "extensions",
+      "message": "실험 필드의 출판 여부를 어댑터에서 명시적으로 결정해야 합니다."
+    },
+    {
+      "severity": "error",
+      "code": "mapping-required",
+      "path": "thinking.activities.1",
+      "message": "구조화된 단계·참고문헌의 직렬화 정책이 없어 변환을 중단합니다."
+    },
+    {
+      "severity": "error",
+      "code": "mapping-required",
+      "path": "thinking.activities.2",
+      "message": "구조화된 단계·참고문헌의 직렬화 정책이 없어 변환을 중단합니다."
+    }
+  ]
+}
