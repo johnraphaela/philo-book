@@ -35,9 +35,18 @@ const tabs = [
 
 <script>
   class BookTabs extends HTMLElement {
+    headerObserver?: ResizeObserver;
+    disconnectedCallback() { this.headerObserver?.disconnect(); }
     connectedCallback() {
       if (this.dataset.initialized) return;
       this.dataset.initialized = 'true';
+      const header = this.querySelector('header');
+      if (header) {
+        this.headerObserver = new ResizeObserver(() => {
+          this.style.setProperty('--book-header-height', `${header.getBoundingClientRect().height + 16}px`);
+        });
+        this.headerObserver.observe(header);
+      }
       const buttons = Array.from(this.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
       const panels = this.querySelectorAll<HTMLElement>('[role="tabpanel"]');
       const activate = (button: HTMLButtonElement) => {
@@ -71,7 +80,7 @@ const tabs = [
 
 <style>
   book-tabs { display: block; }
-  header { display: flex; flex-wrap: wrap; gap: 15px; padding: 14px 24px; background: #fff; border-bottom: 1px solid #e5e7eb; align-items: center; position: sticky; top: 0; z-index: 100; }
+  header { display: flex; flex-wrap: wrap; gap: 15px; padding: 14px 24px; background: #fff; border-bottom: 1px solid #e5e7eb; align-items: center; position: sticky; top: 0; z-index: 100; overflow-wrap: anywhere; }
   .back-btn { text-decoration: none; color: #4b5563; font-weight: bold; font-size: 1.1rem; margin-right: 20px; }
   .nav-btns { display: flex; gap: 8px; flex-wrap: wrap; }
   .nav-btns button { padding: 8px 16px; border-radius: 20px; border: 1px solid #d1d5db; background: #fff; cursor: pointer; font-weight: 600; transition: 0.2s; }

@@ -1,0 +1,18 @@
+{
+  "src/content/books/ep05.json": "a9319b5506547651bb32a4dc69ff2741dd53c0fbfb7488c8d147d4e94cc927df",
+  "src/content/essays/ep05.md": "9db9e5f36f153b1f35ca85f2f5b49d0bd82fde8d07ee67cfb31277c525a6e57f",
+  "content-authoring/imports/ep05/manuscript.md": "b3747905d321d78154b9cd6909df202aaecb4c06b36aded513010d87cc1ddb24",
+  "content-authoring/imports/ep05/parsed.json": "acec6e899c30b0a59475c22561a04dc09885939e2b2bba4363f3901e57ca5c8b",
+  "public/images/ep05/page1.png": "c5d6ea7caf0b0182af04b888dd722de7c8a3263bd0fa12bf23968a0f9b42688e",
+  "public/images/ep05/page10.png": "2f268f892d9cbc83ba7a42c0c025dc299ff7eeab62072fcf0d4500d4ea2ac84d",
+  "public/images/ep05/page11.png": "b14d68320049e162731fe4814b16327c662a1b93f29ffac2550f5b9854f38850",
+  "public/images/ep05/page12.png": "3d1fb8d56aa2c7e07a5641850cb84c71930e9d1c81d61ad92303c8dac63d14fc",
+  "public/images/ep05/page2.png": "d6228e5d982f0d03ecc005e90c0921b6afd93fa45085b26815940db26f67f524",
+  "public/images/ep05/page3.png": "c1f602d74caecf9b03ff83772617e829eb2672e816ba54bc6222c65b50e3cc8d",
+  "public/images/ep05/page4.png": "35863a8bbab7a95af1083325aaa20f601f83d0ccfe4e3bc52c9741578df0be1a",
+  "public/images/ep05/page5.png": "8fa10c123009222b1848162ec5f83fb90401b5ca69fcad45058802f80e83a4e6",
+  "public/images/ep05/page6.png": "e098effcd4f6507046c4277d7610d10a3876314bb3492a2872efabcff2668b46",
+  "public/images/ep05/page7.png": "b0f244212fd46f8bee618afaeac1028e184bf23b43d1ee335152e300679fc054",
+  "public/images/ep05/page8.png": "b39d47679c96dc1291920927a59c121a1ccca9e598f9813838011a007024e3db",
+  "public/images/ep05/page9.png": "90dffccd3ca095536dfb421bf365268d8de12cf98dea2bd47fdf8db9ee33874e"
+}
