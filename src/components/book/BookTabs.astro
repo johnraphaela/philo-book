@@ -56,6 +56,8 @@ const tabs = [
           item.tabIndex = selected ? 0 : -1;
         });
         panels.forEach((panel) => { panel.hidden = panel.id !== button.dataset.target; });
+        // Switching from a scrolled story/essay must reveal the new panel's start.
+        this.querySelector<HTMLElement>(`#${button.dataset.target}`)?.scrollIntoView({ block: 'start', behavior: 'instant' });
       };
       buttons.forEach((button, index) => {
         button.addEventListener('click', () => activate(button));
@@ -85,5 +87,5 @@ const tabs = [
   .nav-btns { display: flex; gap: 8px; flex-wrap: wrap; }
   .nav-btns button { padding: 8px 16px; border-radius: 20px; border: 1px solid #d1d5db; background: #fff; cursor: pointer; font-weight: 600; transition: 0.2s; }
   .nav-btns button[aria-selected='true'], .nav-btns button:hover { background: #22252a; color: #fff; border-color: #22252a; }
-  .tab-content { box-sizing: border-box; max-width: 920px; margin: 24px auto; padding: 0 16px; width: 100%; }
+  .tab-content { scroll-margin-top: var(--book-header-height, 10rem); box-sizing: border-box; max-width: 920px; margin: 24px auto; padding: 0 16px; width: 100%; }
 </style>

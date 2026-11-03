@@ -7,14 +7,18 @@ export function formatStoryDialogue(text: string): string {
   let nested = false;
   for (let i = 0; i < text.length; i++) {
     const char = text[i];
-    // An apostrophe within a word is not a quotation delimiter.
-    if (char === "'" && /[\p{L}\p{N}]/u.test(text[i - 1] ?? '') && /[\p{L}\p{N}]/u.test(text[i + 1] ?? '')) continue;
+    // Apostrophes inside Latin words are not delimiters. Korean quote + particle
+    // (e.g. '피코'가) must still close the quotation.
+    if (char === "'" && /[\p{Script=Latin}\p{N}]/u.test(text[i - 1] ?? '') && /[\p{Script=Latin}\p{N}]/u.test(text[i + 1] ?? '')) continue;
     if (stack.length && char === stack.at(-1)) {
       stack.pop();
       if (!stack.length) {
         const inner = text.slice(start + 1, i);
         const suffix = text.slice(i + 1);
-        if (!nested && /[.!?…。！？][\s]*$/u.test(inner) &&
+        // A short single-quoted exclamation may be a sound effect ('뚝!').
+        // Preserve ambiguous fragments inline instead of inventing speech.
+        const shortFragment = (text[start] === "'" || text[start] === '‘') && /^[가-힣]{1,3}[!！]$/u.test(inner);
+        if (!nested && !shortFragment && /[.!?…。！？][\s]*$/u.test(inner) &&
             !/^(?:라는|이라는|란|이란|라고|이라고|[의을를은는이가에로와과]|처럼|보다)/u.test(suffix)) {
           ranges.push({ start, end: i + 1 });
         }
