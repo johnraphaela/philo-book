@@ -1,0 +1,5 @@
+# EP03 archived source hashes and exact essay comparisons depend on original bytes.
+# Prevent Windows core.autocrlf from rewriting these originally LF files.
+/content-authoring/pilots/ep03-hope/source/ep03-hope.json -text
+/content-authoring/pilots/ep03-hope/source/ep03-hope.mdx.txt -text
+/src/content/essays/ep03-hope.mdx text eol=lf

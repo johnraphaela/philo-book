@@ -1,6 +1,7 @@
+import { directoryLink, fileLink } from './helpers/links.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, writeFile, readFile, readdir, rm, symlink } from 'node:fs/promises';
+import { mkdtemp, mkdir, writeFile, readFile, readdir, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import sharp from 'sharp';
@@ -117,7 +118,15 @@ test('blocks output symlinks, invalid source and empty batches, and CLI stays re
   assert.equal(status, 0); assert.equal(JSON.parse(output).dryRun, true);
   assert.equal(await previewCommand([], root, () => {}, () => {}), 1);
   assert.deepEqual(await readdir(root, { recursive: true }), before);
-  await symlink(file, path.join(root, 'src/content/books/new-book.json'));
+  await t.test('also rejects file symlinks when creation is permitted', async child => {
+    if (!fileLink(child, file, path.join(root, 'src/content/books/new-book.json'))) return;
+    assert.ok((await planPublication(root, [{ source }])).diagnostics.some(d => d.code === 'repository-unavailable'));
+    await rm(path.join(root, 'src/content/books/new-book.json'));
+  });
+  const otherBooks = path.join(root, 'other-books');
+  await mkdir(otherBooks);
+  await rm(path.join(root, 'src/content/books'), { recursive: true });
+  directoryLink(otherBooks, path.join(root, 'src/content/books'));
   assert.ok((await planPublication(root, [{ source }])).diagnostics.some(d => d.code === 'repository-unavailable'));
 });
 test('existing EP03 is protected even if a caller relabels its original draft ready', async () => {
