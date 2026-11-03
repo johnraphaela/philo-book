@@ -1,0 +1,153 @@
+{
+  "proposalVersion": 1,
+  "bookId": "pico-silver-feather",
+  "approved": false,
+  "baseline": {
+    "file": "../master-draft.json",
+    "sha256": "b666aeccc59efb74459018e73246015e633dc68d021df7948e737a70f30ae55c",
+    "status": "draft"
+  },
+  "sources": [
+    {
+      "id": "ethics-iii",
+      "verification": "verified",
+      "label": "스피노자 에티카 III 공개 영문 번역",
+      "url": "https://sacred-texts.com/book/the-ethics/part-iii-on-the-origin-and-nature-of-the-emotions",
+      "checkedFields": [
+        "정의2~3",
+        "정리6·7·9·58·59"
+      ],
+      "limitation": "원 라틴어·한국어 판본 대조 아님. EP04 교육적 응용의 효과를 검증한 자료가 아님."
+    },
+    {
+      "id": "demian-1923",
+      "verification": "partially_verified",
+      "label": "Hermann Hesse, Demian, Boni and Liveright (1923), 5장, 인쇄면115~116",
+      "url": "https://www.gutenberg.org/files/74222/74222-h/74222-h.htm",
+      "checkedFields": [
+        "영문판 표제·저자·출판사·연도",
+        "5장 도입부의 새/알/세계 비유와 쪽지 문맥"
+      ],
+      "limitation": "대응 영문 구절 확인. 제공된 한국어 번역문·번역자·판본·독일어 원문은 미확인."
+    },
+    {
+      "id": "harvard-serve-return",
+      "verification": "verified",
+      "label": "Center on the Developing Child at Harvard University: Serve and Return",
+      "url": "https://developingchild.harvard.edu/key-concept/serve-and-return/",
+      "checkedFields": [
+        "Key Takeaways",
+        "Fast Facts",
+        "반응적인 주고받기 설명"
+      ],
+      "limitation": "EP04 또는 이 놀이의 효과를 시험한 연구가 아님. 특정 전두엽 효과·5~10세 전체 효과를 인증하지 않음."
+    }
+  ],
+  "changes": [
+    {
+      "id": "E1",
+      "pointer": "/essay/body",
+      "kind": "replace-exact-text",
+      "before": "17세기 철학자 스피노자는 그의 저서 『에티카(Ethica)』에서 인간의 감정을 깊이 탐구했습니다. 스피노자에 따르면, 타인과의 비교에서 비롯되는 질투나 지나친 경쟁심은 '수동적 슬픔(정념)'입니다. 남을 이겨야만 기쁘고 지면 슬프다는 것은, 내 감정의 주인이 '나'가 아니라 '외부의 타인과 결과'에 있다는 뜻이기 때문입니다.",
+      "after": "17세기 철학자 스피노자는 그의 저서 『에티카(Ethica)』에서 인간의 감정을 깊이 탐구했습니다. 그는 우리가 감정의 충분한 원인이 되는 경우와 외부 원인에 영향을 받는 경우를 구분합니다. 이 관점에서, 승패와 타인의 평가에 마음이 흔들리는 피코의 경험을 돌아볼 수 있습니다. 이는 이야기 속 경험을 이해하기 위한 교육적 해석이며, 경쟁심이나 슬픔 자체를 나쁜 감정으로 단정하려는 뜻은 아닙니다.",
+      "reason": "경쟁심 전체를 수동적 슬픔으로 단정하는 일반화를 피하고 교육적 해석임을 명시.",
+      "sourceIds": [
+        "ethics-iii"
+      ],
+      "approved": false
+    },
+    {
+      "id": "E2",
+      "pointer": "/essay/body",
+      "kind": "replace-exact-text",
+      "before": "반면 스피노자는 모든 존재가 자기 자신을 보존하고 완성하려는 본질적인 힘, 즉 '코나투스(Conatus)'를 가지고 있다고 말합니다. 코나투스가 온전히 발휘될 때 우리는 외부의 시선에 흔들리지 않는 '능동적 기쁨'을 느낍니다. 피코가 하늘을 날며 바람을 느꼈던 그 순수한 기쁨이야말로 코나투스가 발현된 순간이었습니다.",
+      "after": "스피노자는 각 존재가 자신의 존재를 지속하려는 노력을 코나투스(Conatus)라고 설명합니다. 그는 적합한 인식과 관련된 능동적 기쁨도 논하지만, 코나투스 자체를 즐거움과 같은 뜻으로 보지는 않습니다. 이 그림책은 코나투스의 생각을 빌려, 피코가 남의 평가에만 매달리던 마음에서 벗어나 자신이 좋아하는 비행을 돌아보는 모습을 그렸습니다. 바람을 느끼는 기쁨은 이 이야기의 교육적 비유이며, 그것만으로 원전의 능동적 기쁨과 같다고 단정하지는 않습니다.",
+      "reason": "코나투스는 수동 상태에도 작용하며 순수한 내재적 즐거움과 동의어가 아님.",
+      "sourceIds": [
+        "ethics-iii"
+      ],
+      "approved": false
+    },
+    {
+      "id": "E3",
+      "pointer": "/essay/body",
+      "kind": "replace-exact-text",
+      "before": "> \"새는 알에서 빠져나오려고 투쟁한다. 알은 세계다. 태어나려는 자는 하나의 세계를 깨뜨려야 한다.\"",
+      "after": "『데미안』 5장의 새와 알의 비유를 빌리면, 새롭게 태어나려는 존재는 자신을 둘러싼 세계를 깨고 나오는 과정을 겪습니다. 여기서는 그 이미지를 아이가 경쟁과 서열의 기준을 돌아보는 비유로 읽습니다. 이는 특정 한국어 번역본의 직접 인용이 아니라, 확인한 영문판을 바탕으로 한 교육적 의역입니다.",
+      "reason": "한국어 번역본의 정확한 출처를 확인하지 못했으므로 직접 인용 형식 대신 의역과 해석의 범위를 명시.",
+      "sourceIds": [
+        "demian-1923"
+      ],
+      "approved": false
+    },
+    {
+      "id": "S1",
+      "pointer": "/thinking/activities/2/steps/1/explanation",
+      "kind": "replace-exact-text",
+      "before": "은빛 깃털을 몸에 붙이고, 눈을 뜨고 양팔을 벌린 채 좋아하는 음악에 맞춰 자유롭게 거실을 날아보거나, 제자리에 서서 눈을 감고 뺨에 닿는 바람을 상상해 봅니다.",
+      "after": "은빛 깃털을 옷에 붙이고, 눈을 뜬 채 양팔을 벌려 좋아하는 음악에 맞춰 제자리에서 천천히 날갯짓을 표현해 봅니다. 주변 가구와 물건을 치우고, 팔을 펼쳐도 부딪히지 않을 공간에서 보호자가 곁을 지켜봅니다. 눈을 감고 뺨에 닿는 바람을 상상하고 싶다면 바닥에 편안히 앉아 움직이지 않고 합니다. 높은 곳에서 뛰어내리거나 눈을 감고 이동하지 않습니다. 어지럽거나 불편하면 바로 멈춥니다.",
+      "reason": "실내 이동과 눈 감고 서 있기의 충돌·균형 상실 위험을 줄이는 보수적인 대안. 안전 인증이나 효과 검증을 주장하지 않음.",
+      "sourceIds": [],
+      "approved": false
+    },
+    {
+      "id": "S2",
+      "pointer": "/thinking/activities/2/steps/0/explanation",
+      "kind": "replace-exact-text",
+      "before": "도화지에 깃털을 그리고, 내가 좋아하고 즐거워하는 것들을 글이나 그림으로 채웁니다.",
+      "after": "도화지에 깃털을 그리고, 내가 좋아하고 즐거워하는 것들을 글이나 그림으로 채웁니다. 가위가 필요하면 보호자의 도움을 받아 끝이 둥근 가위를 사용합니다. 테이프는 피부나 얼굴·목이 아닌 옷에 붙이고, 작은 종이 조각과 테이프를 입에 넣지 않습니다.",
+      "reason": "가위·테이프 준비물의 사용 주의 보완. 준비물 목록과 활동 단계 ID는 유지.",
+      "sourceIds": [],
+      "approved": false
+    },
+    {
+      "id": "H1",
+      "pointer": "/thinking/activities/0/description",
+      "kind": "replace-exact-text",
+      "before": "관심 공유하기, 격려하고 이름 붙여주기, 순서 주고받기를 통해 아이의 감정에 반응합니다.",
+      "after": "관심 공유하기, 격려하고 이름 붙여주기, 순서 주고받기를 통해 아이의 감정에 반응합니다. 이 가이드는 하버드 아동발달센터가 설명하는 반응적인 주고받기 원리를 참고한 대화 예시입니다. 이 그림책이나 놀이가 특정 뇌 영역의 발달 또는 경쟁심 개선을 보장한다는 뜻은 아닙니다. 아이가 답하지 않거나 쉬고 싶어 하면 그 선택을 존중합니다.",
+      "reason": "일반적 반응적 상호작용과 특정 놀이의 실증 효과를 구분.",
+      "sourceIds": [
+        "harvard-serve-return"
+      ],
+      "approved": false
+    },
+    {
+      "id": "E4",
+      "pointer": "/essay/body",
+      "kind": "replace-exact-text",
+      "before": "가장 강력한 방패는 남을 모두 이기는 무적의 능력이 아니라, 남과 비교하지 않아도 온전히 빛나는 '자신의 고유함'을 사랑하는 힘입니다.",
+      "after": "가장 강력한 방패는 남을 모두 이기는 무적의 능력이 아니라, 남과 비교하지 않아도 온전히 빛나는 '자신의 고유함'을 사랑하는 힘입니다.\n\n### 참고한 자료와 해석의 범위\n\n- 스피노자, 『에티카』 III부 정의 2~3, 정리 6·7·9·58·59: [공개 영문 번역](https://sacred-texts.com/book/the-ethics/part-iii-on-the-origin-and-nature-of-the-emotions)을 참고했습니다. 이 글의 그림책 적용은 교육적 해석입니다.\n- 헤르만 헤세, 『데미안』: [1923년 Boni and Liveright 영문판](https://www.gutenberg.org/files/74222/74222-h/74222-h.htm)의 5장, 인쇄면 115~116을 참고했습니다. 위 새와 알의 설명은 한국어 번역본의 직접 인용이 아닙니다.\n- Harvard Center on the Developing Child, [Serve and Return](https://developingchild.harvard.edu/key-concept/serve-and-return/): 부모 대화 가이드의 반응적 상호작용 원리를 참고했습니다. EP04 놀이의 효과를 검증한 연구는 아닙니다.",
+      "reason": "실제로 확인한 참고 자료와 교육적 해석의 범위를 독자가 확인할 수 있게 추가. 기존 결론은 보존.",
+      "sourceIds": [
+        "ethics-iii",
+        "demian-1923",
+        "harvard-serve-return"
+      ],
+      "approved": false
+    }
+  ],
+  "displayProposal": {
+    "approved": false,
+    "scope": "EP04 only; preserve EP01–EP03",
+    "storyAspectRatio": "4 / 3",
+    "coverAspectRatio": "4 / 3",
+    "cropImages": false,
+    "playTab": "생각 놀이",
+    "playHeading": "함께 나누는 생각 놀이",
+    "playEyebrow": "반응적 상호작용을 참고한 부모·아이 놀이",
+    "note": "현재 UI에 적용하지 않은 검토안. 특정 뇌 영역 효과를 암시하는 기존 표현의 EP04용 대안."
+  },
+  "publicationOptions": {
+    "cover": {
+      "mode": "scene",
+      "sceneId": "scene-01"
+    },
+    "order": 4,
+    "recommendedAge": {
+      "min": 5,
+      "max": 10
+    }
+  },
+  "requiresSeparatePublicationApproval": true
+}
