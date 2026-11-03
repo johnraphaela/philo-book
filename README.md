@@ -119,3 +119,5 @@ ready 원본의 출판 후보는 `npm run draft:preview -- <원본.json>`으로 
 ## Windows 로컬 검토
 
 PowerShell에서는 `npm.cmd ci`, `npm.cmd test`, `npm.cmd run content:check`, `npm.cmd run check`, `npm.cmd run build`를 사용합니다. 실행 정책 변경이나 관리자 권한은 기본 요구 사항이 아닙니다. EP03 보관 원본의 줄바꿈과 링크 권한 관련 안내는 [Windows 검토 안내](docs/windows-local-review.md)를 참고하세요.
+
+기존 Windows 체크아웃에 EP03 줄바꿈 오류가 남으면 `npm.cmd run pilot:restore-checkout`으로 Git 원본 바이트를 복원합니다. 세 파일을 모두 검사하며 줄바꿈 외의 편집이 있으면 아무것도 변경하지 않고 중단합니다.

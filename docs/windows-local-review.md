@@ -16,14 +16,14 @@ npm.cmd run build
 
 보관 원본 두 파일은 sourceFiles의 SHA-256 및 Master Draft 문자열과 대조하므로 Git이 바이트를 변환하면 안 된다. `.gitattributes`는 두 원본을 `-text`로 지정해 checkout 시 변환하지 않고, 출판 에세이는 원래 LF를 유지하게 한다. 원고나 저장된 해시를 수정하거나, 검증 시 trim/CRLF 정규화하여 차이를 숨기지 않는다. 일반 새 원고의 CRLF 문자열 보존 규칙도 그대로 유지한다.
 
-이 규칙을 추가하기 전에 Windows에 내려받은 파일은 이미 CRLF로 변환됐을 수 있다. PR 변경을 받은 뒤 먼저 `git status --short`로 의도한 로컬 편집이 없는지 확인한다. 해당 세 파일을 직접 편집한 경우 먼저 별도 사본을 보관하고 차이를 검토해야 한다. 직접 편집하지 않았고 기존 `Expected explicit section 3 boundary`가 계속되면 아래 명령은 지정한 세 파일만 HEAD의 보관 바이트로 다시 체크아웃한다.
+이 규칙을 추가하기 전에 Windows에 내려받은 파일은 이미 CRLF로 변환됐을 수 있다. PR 변경을 받은 뒤 먼저 `git status --short`로 의도한 로컬 편집이 없는지 확인한다. 해당 세 파일을 직접 편집한 경우 먼저 별도 사본을 보관하고 차이를 검토해야 한다. 직접 편집하지 않았고 기존 `Expected explicit section 3 boundary`가 계속되면 아래 명령은 지정한 세 파일을 모두 검사한 뒤 HEAD 원본과 줄바꿈만 다른 파일의 바이트를 복원한다. 한 파일이라도 내용이 다르면 아무것도 쓰지 않고 중단한다.
 
 ```powershell
-git restore --source=HEAD --worktree -- content-authoring/pilots/ep03-hope/source/ep03-hope.json content-authoring/pilots/ep03-hope/source/ep03-hope.mdx.txt src/content/essays/ep03-hope.mdx
+npm.cmd run pilot:restore-checkout
 npm.cmd test
 ```
 
-이 명령은 세 파일의 미커밋 편집을 교체하므로 자신이 편집한 원고에 무조건 실행하지 않는다. 전체 저장소 reset/clean이나 보안 설정 변경은 필요 없다.
+이 명령은 checkout 필터를 거치지 않은 Git HEAD의 raw 바이트를 사용하고, 일반 파일/경로·내용·동시 변경을 검사한다. 줄바꿈 외의 미커밋 원고 편집은 덮어쓰지 않는다. 전체 저장소 reset/clean이나 보안 설정 변경은 필요 없다.
 
 ## 경로 이탈 검사와 Windows 권한
 
@@ -40,3 +40,5 @@ GitHub Actions의 Windows validation은 Node 24와 `core.autocrlf=true` 체크�
 제목 검색만 CRLF 허용으로 바꾸면 이어지는 Master Draft 본문 동등성·보관 원본 SHA-256 검사도 실패한다. JSON 문자열 내부의 `\n`은 checkout으로 바뀌지 않지만 원본 MDX 파일 자체의 개행은 바뀌기 때문이다. 따라서 원문을 고치거나 해시를 갱신하지 않고 보관 원본의 체크아웃 바이트를 보존한다. 일반 제작 원고와 변환기의 CRLF 보존 규칙은 변경하지 않았다.
 
 기존 main을 core.autocrlf=true로 체크아웃한 뒤 속성 수정 커밋으로 이동하는 재현에서도 파일 3개의 기존 CRLF가 자동으로 사라지지 않음을 확인했다. 그래서 기존 로컬 사본에는 위의 세 파일 재체크아웃이 필요할 수 있다. 새 clone/Windows CI에서는 속성 규칙이 처음부터 적용된다.
+
+일부 기존 작업 트리에서는 git restore 또는 checkout-index --force 후에도 변환된 바이트가 남는 현상이 재현됐다. 따라서 이 안내의 복원 명령은 Git raw 바이트를 읽어 내용 보존을 검사한 뒤 명시적으로 파일을 교체한다. 일반 npm test는 파일을 복원하거나 검증을 완화하지 않는다.
