@@ -1,0 +1,17 @@
+{
+  "errors": [],
+  "warnings": [],
+  "reviewRequired": [
+    {
+      "code": "semantic-review",
+      "path": "thinking",
+      "message": "유사 활동·발화자/설명·질문 분류·원문 누락·학술/연령/안전성은 사람 검토가 필요합니다."
+    },
+    {
+      "code": "approval-review",
+      "path": "review-report.md",
+      "message": "보고서의 승인 주장·문헌 검증·원문 대응은 실제 자료/사용자 지시와 대조해야 합니다. 자동 게시 불가."
+    }
+  ],
+  "publicationReady": false
+}

@@ -1,0 +1,70 @@
+{
+  "sourceMain": "30901b7514de6a5c13ab6c278a31d796eb036a24",
+  "draftStatus": "draft",
+  "readyOnlyInTemporaryTestCandidate": true,
+  "approvedForPublication": false,
+  "sourceBytePreservation": true,
+  "originalDraftSHA256": "b666aeccc59efb74459018e73246015e633dc68d021df7948e737a70f30ae55c",
+  "imageCount": 12,
+  "imageResolution": [
+    1448,
+    1086
+  ],
+  "distinctSHA256": 12,
+  "githubBlobSHAMatched": 12,
+  "handoff": {
+    "exitCode": 0,
+    "errors": 0,
+    "warnings": 0,
+    "reviewRequired": 2,
+    "publicationReady": false
+  },
+  "draftPreviewAndSite": {
+    "exitCode": 1,
+    "stageCreated": false
+  },
+  "temporaryCandidate": {
+    "checkExitCode": 0,
+    "checkErrors": 0,
+    "checkWarnings": 0,
+    "checkHints": 0,
+    "buildExitCode": 0,
+    "builtRoutes": 5,
+    "adapterWarnings": 4,
+    "plan": "/tmp/philo-ep04-input-pxuUkI/publication-plan.json",
+    "workspace": "/tmp/philo-ep04-input-pxuUkI",
+    "stageRoot": "/tmp/philo-site-preview-Qlqsga"
+  },
+  "browser": {
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "scenesEach": 12,
+    "hintToggle": true,
+    "essayTab": true,
+    "activitiesTab": true,
+    "activityLabels": [
+      "대화 1",
+      "대화 2",
+      "활동 1",
+      "활동 2"
+    ],
+    "pageErrors": 0,
+    "horizontalOverflow": false,
+    "imageClipping": "16:9 cover shows 75% of original 4:3 image height; crop confirmed; UI unchanged"
+  },
+  "notExecuted": [
+    "physical Windows execution of this new helper",
+    "physical smartphone review",
+    "academic/editorial approval",
+    "publication",
+    "remote push/deploy"
+  ]
+}
