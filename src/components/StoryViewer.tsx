@@ -46,7 +46,7 @@ export default function StoryViewer({ pages, title }: Props) {
         </div>
 
         {/* 텍스트 영역 */}
-        <div style={{ padding: '36px 28px', textAlign: 'center', minHeight: '190px' }}>
+        <div className="story-copy" style={{ padding: '36px 28px', textAlign: 'center', minHeight: '190px' }}>
           <p style={{ fontSize: '1.45rem', lineHeight: '1.65', fontWeight: '600', whiteSpace: 'pre-line', marginBottom: '18px' }}>
             {page.text}
           </p>
