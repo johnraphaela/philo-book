@@ -11,7 +11,7 @@ const { book } = Astro.props;
   <h2>{book.data.title}</h2>
   <p class="theme">{book.data.theme}</p>
   {book.data.summary && <p class="summary">{book.data.summary}</p>}
-  <p class="age">{book.data.recommendedAge ? `${book.data.recommendedAge.min}–${book.data.recommendedAge.max}세 추천` : book.data.ageGroups.join(" · ")}</p>
+  <p class="age">{book.data.recommendedAge ? `${book.data.recommendedAge.min}–${book.data.recommendedAge.max}세 추천` : book.data.ageGroups.map(age => age.replace(/\\~/g, "~")).join(" · ")}</p>
   <div>
     {book.data.categories.map((category) => <span class="tag">{category}</span>)}
   </div>
