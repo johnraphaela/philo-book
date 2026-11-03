@@ -119,7 +119,7 @@ export default { ...base, root: '.', srcDir: './src/',
       const file = path.join(stage, 'dist/book', source.id, 'index.html');
       if (!(await readFile(file, 'utf8')).trim()) throw new Error(`후보 페이지가 비어 있습니다: ${source.id}`);
     }
-    result.sourceHashes = Object.fromEntries([...initial].map(([name, bytes]) => [name, sha256(bytes)]));
+    result.sourceHashes = Object.fromEntries([...initial].map(([name, bytes]) => [name.split(path.sep).join('/'), sha256(bytes)]));
     result.dist = path.join(stage, 'dist');
     result.routes = copied.sources.map(source => `/book/${source.id}/`);
     result.preview = { cwd: stage, executable: process.execPath,
