@@ -18,7 +18,8 @@
     "draft:site": "node --experimental-strip-types content-authoring/site-preview-cli.ts",
     "test:site": "node --experimental-strip-types scripts/smoke-site-preview.ts",
     "content": "npm run content:check",
-    "pilot:restore-checkout": "node --experimental-strip-types content-authoring/pilots/ep03-hope/restore-checkout.ts"
+    "pilot:restore-checkout": "node --experimental-strip-types content-authoring/pilots/ep03-hope/restore-checkout.ts",
+    "book:import": "node --experimental-strip-types scripts/book-import.ts"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.5",

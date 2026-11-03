@@ -11,7 +11,7 @@ const booksCollection = defineCollection({
 
 const essaysCollection = defineCollection({
   // MDX 파일이 있는 폴더 경로와 패턴을 지정합니다.
-  loader: glob({ pattern: "*.mdx", base: "./src/content/essays" }),
+  loader: glob({ pattern: "*.{md,mdx}", base: "./src/content/essays" }),
   schema: essaySchema
 });
 

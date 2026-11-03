@@ -2,6 +2,7 @@ import { z } from 'astro/zod';
 import { TOPICS } from './library.ts';
 
 export const bookSchema = z.object({
+    sourceBookId: z.string().min(1).optional(),
     title: z.string().min(1),
     theme: z.string(),
     summary: z.string().min(1).optional(),
@@ -18,6 +19,9 @@ export const bookSchema = z.object({
       image: z.string(),
       text: z.string().min(1),
       hint: z.string().optional(),
+      teachingPoint: z.string().min(1).optional(),
+      interaction: z.string().min(1).optional(),
+      english: z.string().optional(),
       imageAlt: z.string().optional()
     })).min(1),
     harvardPlay: z.array(z.object({
