@@ -5,6 +5,8 @@ import { createHash } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 import sharp from 'sharp';
+import { getLibraryCopy } from '../src/lib/library-copy.ts';
+import { reviewCardMetadata } from './book-card-metadata.ts';
 
 const sections = ['Metadata', 'Story', 'Parent Essay', 'Harvard Play', 'Illustration Guide', 'References'];
 const fields: Record<string, string[]> = {
@@ -92,7 +94,7 @@ export async function importBook(options: { root: string; input: string; slug?: 
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new Error(`Book ID ${meta['Book ID']}: --slug 소문자-숫자-하이픈 옵션이 필요합니다. 원본 ID는 보존됩니다.`);
   if (options.update && options.update !== slug) throw new Error(`--update는 대상 책 ${slug}를 정확히 지정해야 합니다.`);
   const images = new Map<number, string>();
-  const warnings: string[] = [];
+  const warnings = reviewCardMetadata(getLibraryCopy(slug, { theme: meta.Theme, summary: meta.Summary }));
   const dimensions: string[] = [];
   for (const name of names.filter(n => n !== manuscripts[0])) {
     const match = /^page(\d+)\.(png|jpe?g|webp)$/i.exec(name);

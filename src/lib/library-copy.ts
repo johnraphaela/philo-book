@@ -23,5 +23,5 @@ const introductions: Record<string, { theme: string; summary: string }> = {
 };
 
 export function getLibraryCopy(id: string, original: { theme: string; summary?: string }) {
-  return introductions[id] ?? { theme: original.theme, summary: original.summary };
+  return Object.hasOwn(introductions, id) ? introductions[id] : { theme: original.theme, summary: original.summary };
 }

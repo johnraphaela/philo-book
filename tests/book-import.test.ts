@@ -160,3 +160,26 @@ test('end-to-end temporary project runs real content check, Astro check and buil
     assert.deepEqual(await readdir(path.join(root, 'public/images/test-book')), ['page1.png']);
   } finally { await rm(root, { recursive: true, force: true }); }
 });
+
+test('card-copy warnings do not block registration, rewrite metadata or change no-op imports', async () => {
+  const root = await fixture();
+  const theme = '가'.repeat(21);
+  const summary = '나'.repeat(105) + '요. 다요.';
+  const manuscript = source.replace('Theme: Theme', `Theme: ${theme}`).replace('Summary: Summary', `Summary: ${summary}`);
+  try {
+    await writeFile(path.join(root, 'input/manuscript.md'), manuscript);
+    const result = await importBook({ root, input: 'input', verify });
+    assert.deepEqual(result.warnings, ['Theme 21자: 20자 이내 확인', 'Summary 111자: 70~110자 확인']);
+    const bookPath = path.join(root, 'src/content/books/test-book.json');
+    const before = await readFile(bookPath);
+    const book = JSON.parse(before.toString());
+    assert.equal(book.theme, theme);
+    assert.equal(book.summary, summary);
+    assert.equal(await readFile(path.join(root, 'input/manuscript.md'), 'utf8'), manuscript);
+    assert.equal(await readFile(path.join(root, 'content-authoring/imports/test-book/manuscript.md'), 'utf8'), manuscript);
+    const again = await importBook({ root, input: 'input', verify });
+    assert.deepEqual(again.changed, []);
+    assert.deepEqual(again.warnings, result.warnings);
+    assert.deepEqual(await readFile(bookPath), before);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
