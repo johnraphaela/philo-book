@@ -67,3 +67,5 @@ Astro가 표시한 로컬 주소에서 서재와 결과의 routes를 연다. 서
 최종 검증: 전체 테스트 68개, 콘텐츠 검사, Astro 진단 0건, 기존 사이트 4 routes 빌드 통과. 별도 후보 사이트도 실제 check/build와 모바일·PC 브라우저 검수를 통과했다.
 
 Windows 호환성 보강: 의존성 링크와 경로 이탈 테스트에 junction을 사용해 파일 symlink 생성 권한을 요구하지 않는다. PR #21의 원본 줄바꿈/로컬 테스트 수정도 포함했다. 이 보강 후 전체 테스트는 71개다.
+
+전체 프로세스 통합 검증은 `npm run test:site`(PowerShell: `npm.cmd run test:site`)로 실행한다. 임시 합성 후보를 사용해 실제 Astro check/build와 동화·에세이 렌더 결과를 확인하고 임시 디렉터리를 정리한다. Windows CI에서도 이 명령으로 의존성 junction과 실제 빌드 경로를 검증한다.

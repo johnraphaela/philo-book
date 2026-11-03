@@ -15,7 +15,8 @@
     "draft:check": "node --experimental-strip-types content-authoring/check.ts",
     "content:check": "node --experimental-strip-types scripts/check-publication.ts",
     "draft:preview": "node --experimental-strip-types content-authoring/preview.ts",
-    "draft:site": "node --experimental-strip-types content-authoring/site-preview-cli.ts"
+    "draft:site": "node --experimental-strip-types content-authoring/site-preview-cli.ts",
+    "test:site": "node --experimental-strip-types scripts/smoke-site-preview.ts"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.3.5",

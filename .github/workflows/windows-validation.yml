@@ -27,3 +27,4 @@ jobs:
       - run: npm.cmd run content:check
       - run: npm.cmd run check
       - run: npm.cmd run build
+      - run: npm.cmd run test:site
