@@ -6,3 +6,8 @@
 # EP04 publication files are compared byte-for-byte with the approved conversion.
 /src/content/books/pico-silver-feather.json text eol=lf
 /src/content/essays/pico-silver-feather.mdx text eol=lf
+# EP05 import ownership hashes cover exact source/publication bytes.
+/book-imports/ep05/ep05.md -text
+/content-authoring/imports/ep05/** -text
+/src/content/books/ep05.json -text
+/src/content/essays/ep05.md -text

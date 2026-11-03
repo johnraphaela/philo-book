@@ -35,3 +35,23 @@ test('all registered story text keeps every original character in order', () => 
     }
   }
 });
+
+test('Korean named quotes close before particles, allowing later dialogue to break', () => {
+  for (const name of ["'피코'가", "'기리'는", "'두두'도", "'토토'를"]) {
+    const text = `${name} 말했어요. "난 하늘을 나는 게 좋아!" 친구가 웃었어요.`;
+    const result = format(text);
+    assert.equal(result, `${name} 말했어요. \n"난 하늘을 나는 게 좋아!"\n 친구가 웃었어요.`);
+    assert.equal(format(result), result);
+  }
+  const pico = JSON.parse(fs.readFileSync('src/content/books/pico-silver-feather.json', 'utf8'));
+  assert.match(format(pico.pages[0].text), /했어요\. \n"내가 제일 높이 날 거야!"\n/);
+  const ep05 = JSON.parse(fs.readFileSync('src/content/books/ep05.json', 'utf8'));
+  assert.match(format(ep05.pages[1].text), /말했어요\. \n"난 땅굴 미로가 좋아/);
+});
+test('short ambiguous sound-effect fragments and real terms stay inline', () => {
+  for (const fragment of ["'뚝!'", '‘쿵!’', "'이겨야만 해'라는", "'비밀의 망토'란다"]) {
+    const text = `앞 문장 ${fragment} 다음 문장.`;
+    assert.equal(format(text), text);
+  }
+  assert.equal(format("It's fine. '난 할 수 있어!' 친구가 웃었어요."), "It's fine. \n'난 할 수 있어!'\n 친구가 웃었어요.");
+});

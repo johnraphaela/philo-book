@@ -10,8 +10,8 @@ interface Props {
 }
 const {
   activities,
-  activityHeading = '오늘 밤 전두엽을 깨우는 생각 놀이',
-  activityEyebrow = 'Harvard Center on the Developing Child 핵심 개념 적용',
+  activityHeading = '함께 나누는 생각 놀이',
+  activityEyebrow = '반응적 상호작용을 참고한 부모·아이 놀이',
 } = Astro.props;
 const rendered = await Promise.all(activities.map(async activity => {
   const parsed = parseActivity(activity.desc);

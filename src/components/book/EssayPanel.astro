@@ -13,7 +13,7 @@ const { Content } = await render(essay);
     {essay.data.subtitle && <p class="reading-subtitle">{essay.data.subtitle}</p>}
     {essay.data.tags.length > 0 && (
       <ul class="reading-tags" aria-label="에세이 주제">
-        {essay.data.tags.map(tag => <li>{tag}</li>)}
+        {essay.data.tags.map(tag => <li>{tag.replace(/\\(?=#)/g, '')}</li>)}
       </ul>
     )}
   </header>
