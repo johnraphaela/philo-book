@@ -23,7 +23,7 @@ export type ConversionResult<T> =
   | { ok: true; artifacts: T; diagnostics: Diagnostic[] }
   | { ok: false; diagnostics: Diagnostic[]; artifacts?: never };
 
-/** Contract for a later converter. No file generator or converter is implemented here. */
+/** Adapter contract. See astro-adapter.ts for pure conversion; file writes stay separate. */
 export interface PublicationAdapter<T> {
   target: string;
   supportedSchemaVersion: 1;
