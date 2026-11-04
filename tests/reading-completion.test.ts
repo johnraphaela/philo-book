@@ -21,12 +21,17 @@ test('completion renders the original core question and only available follow-up
   for (const hasEssay of [false, true]) for (const hasActivities of [false, true]) {
     const html = render({ coreQuestion: '나의 가치는 그대로일까?', hasEssay, hasActivities });
     assert.match(html, /나의 가치는 그대로일까\?/);
-    assert.equal(html.includes('부모의 생각 읽기'), hasEssay);
-    assert.equal(html.includes('함께하는 생각놀이'), hasActivities);
-    assert.match(html, /아이와 이야기 나누기/);
+    assert.equal(html.includes('어른의 시선'), hasEssay);
+    assert.equal(html.includes('생각 펼치기'), hasActivities);
+    assert.match(html, /생각 나누기/);
     assert.match(html, /처음부터 다시 읽기/);
-    assert.match(html, /마지막 장면으로/);
-    assert.match(html, /href="\/"/);
+    assert.match(html, /마지막 장면 다시 보기/);
+    assert.match(html, /PHILO-PAIRING/);
+    assert.match(html, /option-dialogue/);
+    assert.match(html, /아이와 서로의 생각을 듣고 질문해요/);
+    assert.match(html, /aria-describedby="completion-title-dialogue-description"/);
+    assert.equal((html.match(/<svg/g) ?? []).length, 1 + Number(hasEssay) + Number(hasActivities));
+    assert.equal((html.match(/aria-hidden="true" focusable="false"/g) ?? []).length, 1 + Number(hasEssay) + Number(hasActivities));
     assert.match(html, /aria-labelledby="completion-title-question"/);
   }
 });
@@ -37,7 +42,8 @@ test('missing questions stay absent; dialogue uses one question and an optional 
   const html = render({ dialogue: true, coreQuestion: '다르게 생각해도 될까?' });
   assert.equal((html.match(/다르게 생각해도 될까\?/g) ?? []).length, 1);
   assert.match(html, /왜 그렇게 생각했는지 물어보세요/);
-  assert.match(html, /완독 화면으로 돌아가기/);
+  assert.match(html, /← 이야기 너머로/);
+  assert.equal((html.match(/← 이야기 너머로/g) ?? []).length, 1);
   assert(!html.includes('<input'));
   assert(!html.includes('<form'));
 });

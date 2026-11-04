@@ -77,9 +77,16 @@ export default function StoryViewer({ pages, title, imageSizes, coreQuestion, ha
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [currentPage, pages.length, movePage, view]);
 
+  useEffect(() => {
+    const article = viewer.current;
+    const openHub = () => { setShowHint(false); setView('complete'); };
+    article?.addEventListener('book-completion-request', openHub);
+    return () => article?.removeEventListener('book-completion-request', openHub);
+  }, []);
+
   function returnToStory(first: boolean) {
     setShowHint(false);
-    if (first) setCurrentPage(0);
+    setCurrentPage(first ? 0 : pages.length - 1);
     setView('story');
   }
 
@@ -91,7 +98,7 @@ export default function StoryViewer({ pages, title, imageSizes, coreQuestion, ha
 
   return (
     <article ref={viewer} className="story-viewer" aria-labelledby={titleId}>
-      {view !== 'story' ? <div ref={viewStart} tabIndex={-1} className="completion-start" aria-label={view === 'dialogue' ? '아이와 이야기 나누기' : '이야기를 다 읽었어요'}>
+      {view !== 'story' ? <div ref={viewStart} tabIndex={-1} className="completion-start" aria-label={view === 'dialogue' ? '생각 나누기' : '이야기 너머'}>
         <ReadingCompletion headingId={titleId} title={title} coreQuestion={coreQuestion} hasEssay={hasEssay} hasActivities={hasActivities}
           dialogue={view === 'dialogue'} onDialogue={() => setView('dialogue')} onComplete={() => setView('complete')}
           onReadAgain={() => returnToStory(true)} onLastPage={() => returnToStory(false)} onTab={requestTab} />
@@ -122,13 +129,12 @@ export default function StoryViewer({ pages, title, imageSizes, coreQuestion, ha
             </div>
           )}
         </div>
-        {currentPage === pages.length - 1 && <div className="story-finish">
-          <button type="button" onClick={() => { setShowHint(false); setView('complete'); }}>이야기를 마쳤어요 →</button>
-        </div>}
-        <nav className="story-pagination" aria-label="동화 페이지 이동">
+        <nav className="story-pagination" aria-label="이야기 페이지 이동">
           <button type="button" onClick={() => movePage(-1)} disabled={currentPage === 0} aria-label="이전 페이지">← 이전</button>
           <span aria-hidden="true">{currentPage + 1} / {pages.length}쪽</span>
-          <button type="button" onClick={() => movePage(1)} disabled={currentPage === pages.length - 1} aria-label="다음 페이지">다음 →</button>
+          {currentPage === pages.length - 1
+            ? <button type="button" onClick={() => { setShowHint(false); setView('complete'); }}>이야기 마치기 →</button>
+            : <button type="button" onClick={() => movePage(1)} aria-label="다음 페이지">다음 →</button>}
         </nav>
       </div>
       </>}
