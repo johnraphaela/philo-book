@@ -1,4 +1,6 @@
 ---
+import sharp from 'sharp';
+import path from 'node:path';
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BookTabs from '../../components/book/BookTabs.astro';
@@ -21,11 +23,22 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { book, essay } = Astro.props;
 const activities = book.data.harvardPlay ?? [];
 const presentation = getBookPresentation(book.id);
+// Read dimensions at build time to reserve the original image ratio before loading.
+// No image files are transformed and missing files retain the viewer fallback.
+const publicRoot = path.resolve('public');
+const imageSizes = await Promise.all(book.data.pages.map(async page => {
+  const file = path.resolve(publicRoot, `.${page.image}`);
+  if (!file.startsWith(`${publicRoot}${path.sep}`)) return undefined;
+  try {
+    const { width, height } = await sharp(file).metadata();
+    return width && height ? { width, height } : undefined;
+  } catch { return undefined; }
+}));
 ---
 
 <BaseLayout title={`${book.data.title} | PHILO-PAIRING`} pageClass="book-page">
-  <BookTabs hasEssay={Boolean(essay)} hasActivities={activities.length > 0} activityTabLabel={presentation.activityTabLabel}>
-    <StoryViewer slot="story" client:load pages={book.data.pages} title={book.data.title} illustrationAspectRatio={presentation.illustrationAspectRatio} illustrationFit={presentation.illustrationFit} />
+  <BookTabs hasEssay={Boolean(essay)} hasActivities={activities.length > 0}>
+    <StoryViewer slot="story" client:load pages={book.data.pages} title={book.data.title} imageSizes={imageSizes} illustrationAspectRatio={presentation.illustrationAspectRatio} illustrationFit={presentation.illustrationFit} />
     {essay && <EssayPanel slot="essay" essay={essay} />}
     {activities.length > 0 && <ActivityPanel slot="activities" activities={activities} activityHeading={presentation.activityHeading} activityEyebrow={presentation.activityEyebrow} />}
   </BookTabs>

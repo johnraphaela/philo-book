@@ -19,3 +19,28 @@
 .story-pagination button { min-width: 44px; min-height: 48px; padding: 0.75rem 1rem; border: none; border-radius: 8px; background: #2563eb; color: #fff; font: inherit; cursor: pointer; }
 .story-pagination button:disabled { background: #e2e8f0; color: #475569; cursor: not-allowed; }
 @media (min-width: 768px) { .story-text { font-size: 1.45rem; } }
+
+/* Keep progress quiet and separate from the illustration and story. */
+.story-heading { margin-bottom: 1rem; }
+.story-heading h1 { margin-bottom: .4rem; }
+.story-position { color: #685a4c; font-size: .9rem; margin: 0 0 .65rem; }
+.story-progress { height: 3px; background: #e8e0d5; border-radius: 3px; overflow: hidden; }
+.story-progress span { display: block; height: 100%; background: #8b715b; }
+.story-viewer { max-width: 840px; }
+.story-card { box-shadow: 0 4px 16px rgba(0,0,0,.04); }
+.story-illustration { background: #f0ece5; }
+.story-parent { background: #f8f5ef; border-color: #dfd3c3; color: #5d4935; }
+.story-parent-content section + section { padding-top: 1rem; border-top: 1px solid #dfd3c3; }
+.story-pagination { flex-wrap: nowrap; gap: .5rem; background: #faf8f4; }
+.story-pagination button { background: #624832; }
+@media (max-width: 767px) {
+  .story-viewer { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .story-copy { padding: 1.25rem; }
+  .story-text { font-size: 1.2rem; line-height: 1.9; }
+  .story-pagination { position: sticky; bottom: 0; z-index: 10; border-top: 1px solid #e4dcd1; padding: .65rem .75rem calc(.65rem + env(safe-area-inset-bottom, 0px)); }
+  /* The bar remains in normal flow; the last paragraph can scroll fully above it. */
+  .story-copy { padding-bottom: 2rem; }
+  .story-parent-content { scroll-margin-bottom: 6rem; }
+  .story-pagination button { padding: .7rem .85rem; }
+}
+@media (prefers-reduced-motion: reduce) { .story-viewer { scroll-behavior: auto; } }
