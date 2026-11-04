@@ -1,6 +1,9 @@
 {
   "sourceBookId": "PB-005",
   "title": "비밀의 망토와 숲속 놀이터",
+  "primaryCategory": "ethics",
+  "subtopics": ["fairness","rules"],
+  "coreQuestion": "모두에게 공정한 놀이터는 어떻게 만들 수 있을까?",
   "theme": "공정함, 배려, 롤스의 '무지의 베일'",
   "summary": "숲속 놀이터를 만들며 자신에게 유리한 놀이기구만 고집하던 동물 친구들이 숲의 요정이 준 '비밀의 망토(무지의 베일)'를 쓰고 서로의 취약한 입장을 배려하며 모두를 위한 공정한 규칙을 만들어가는 이야기.",
   "categories": [

@@ -82,7 +82,11 @@ export function verify() {
   assert.equal(draft.essay.body, body, 'Essay body including whitespace');
   assert.equal(draft.essay.extensions.sourceFrontmatter.bookId, draft.id);
   const root = path.resolve(directory, '../../..');
-  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(root, 'src/content/books/ep03-hope.json'), 'utf8')), previewBook, 'Published book must preserve source values and mapped image paths');
+  // The original publication preview predates the Phase 1 catalogue taxonomy.
+  // The three editorial fields are tested separately in tests/taxonomy.test.ts.
+  const publishedBook = JSON.parse(fs.readFileSync(path.join(root, 'src/content/books/ep03-hope.json'), 'utf8'));
+  const { primaryCategory: _category, subtopics: _subtopics, coreQuestion: _question, ...originalPublication } = publishedBook;
+  assert.deepEqual(originalPublication, previewBook, 'Published book must preserve source values and mapped image paths');
   assert.equal(fs.readFileSync(path.join(root, 'src/content/essays/ep03-hope.mdx'), 'utf8'), publishedMdx, 'Published essay must preserve original sections 1 and 2');
   const missingImages = draft.images.filter((image: any) => !fs.existsSync(path.join(root, 'public', image.assetPath.slice(1)))).map((image: any) => image.assetPath);
   return { mappedImagePaths: draft.images.map((image: any) => image.assetPath), schema: 'passed', uniqueIds: allIds.length, scenes: 12, activities: 2,

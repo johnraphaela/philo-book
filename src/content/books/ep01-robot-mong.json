@@ -1,5 +1,8 @@
 {
   "title": "로봇 몽의 가슴 부품",
+  "primaryCategory": "identity",
+  "subtopics": ["personal-change","self-continuity"],
+  "coreQuestion": "몸의 모든 부품이 바뀌어도 몽은 여전히 몽일까?",
   "summary": "몸의 부품이 달라져도 나는 여전히 나일까요? 로봇 몽과 함께 변화 속의 나를 생각해요.",
   "cover": "/images/ep01/page1.jpg",
   "order": 1,

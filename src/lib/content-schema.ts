@@ -1,11 +1,15 @@
 import { z } from 'astro/zod';
 import { TOPICS } from './library.ts';
+import { CONTENT_CATEGORIES, CONTENT_SUBTOPICS } from './taxonomy.ts';
 
 export const bookSchema = z.object({
     sourceBookId: z.string().min(1).optional(),
     title: z.string().min(1),
     theme: z.string(),
     summary: z.string().min(1).optional(),
+    primaryCategory: z.enum(CONTENT_CATEGORIES.map(category => category.id)).optional(),
+    subtopics: z.array(z.enum(CONTENT_SUBTOPICS.map(topic => topic.id))).optional(),
+    coreQuestion: z.string().trim().min(1).max(180).optional(),
     cover: z.string().startsWith('/images/').optional(),
     order: z.number().int().nonnegative().default(100),
     recommendedAge: z.object({
