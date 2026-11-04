@@ -13,6 +13,12 @@ const pkg = 'content-authoring/handoffs/ep04/pico-silver-feather';
 const read = (name: string) => fs.readFileSync(path.join(root, name));
 const json = (name: string) => JSON.parse(read(name).toString('utf8'));
 const hash = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex');
+/** Historical publication hashes exclude later editorial taxonomy metadata. */
+const originalPublicationBytes = (bytes: Buffer) => Buffer.from(bytes.toString('utf8').replace(
+  /^  "primaryCategory": "[^"\r\n]+",\r?\n  "subtopics": \[[^\r\n]*\],\r?\n  "coreQuestion": "[^"\r\n]+",\r?\n/m,
+  '',
+));
+
 
 test('registered EP04 is the exact approved conversion and can be replayed without writes', async () => {
   const registration = json(`${pkg}/library-registration.json`);
@@ -25,10 +31,18 @@ test('registered EP04 is the exact approved conversion and can be replayed witho
   assert.deepEqual(json(`${pkg}/publication-options.json`), registration.options);
   assert.ok(validateMasterDraft(JSON.parse(source.toString('utf8'))).success);
   const plan = await planPublication(root, [{ source: source.toString('utf8'), options: registration.options }]);
-  assert.ok(plan.ok);
-  assert.equal(plan.files.length, 2);
-  assert.ok(plan.files.every(file => file.action === 'noop'));
-  for (const file of registration.files) assert.equal(hash(read(file.relativePath)), file.sha256);
+  // The archived candidate is intentionally not a byte-identical no-op
+  // after Phase 1 editorial metadata was added. The read-only planner must
+  // reject overwriting the enriched publication, not rewrite the archive.
+  assert.equal(plan.ok, false);
+  assert(plan.diagnostics.some(d => d.code === 'existing-output'
+    && d.path === 'src/content/books/pico-silver-feather.json'));
+  for (const file of registration.files) {
+    const actual = read(file.relativePath);
+    const archived = file.relativePath.endsWith('/pico-silver-feather.json')
+      ? originalPublicationBytes(actual) : actual;
+    assert.equal(hash(archived), file.sha256, file.relativePath);
+  }
   const book = json('src/content/books/pico-silver-feather.json');
   assert.deepEqual(book.pages, candidate.story.scenes.map((scene: { text: string; parentHint: string }, i: number) => ({
     image: `/images/pico-silver-feather/page${i + 1}.png`, text: scene.text,
