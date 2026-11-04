@@ -1,32 +1,36 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import BookCard from './BookCard.astro';
-import { AGE_BANDS, categoryOptions } from '../../lib/library';
+import { AGE_BANDS, bookAgeBandIds, categoryOptions } from '../../lib/library';
 interface Props { books: CollectionEntry<'books'>[] }
 const { books } = Astro.props;
 const categories = categoryOptions(books);
+const ages = AGE_BANDS.filter(band => books.some(book => bookAgeBandIds(book).includes(band.id)));
 ---
 
 <library-shelf>
+  <section class="topic-section" hidden aria-labelledby="topic-heading">
+    <h2 id="topic-heading">오늘 아이와 어떤 이야기를 나누고 싶나요?</h2>
+    <div class="category-grid" role="group" aria-label="그림책 주제">
+      <button type="button" data-category="" aria-pressed="true">전체 책 보기</button>
+      {categories.map(category => <button type="button" data-category={category.id} aria-pressed="false"><span aria-hidden="true">✦</span> {category.label}</button>)}
+    </div>
+  </section>
+  <section id="library" aria-labelledby="library-heading">
+  <h2 id="library-heading">우리의 그림책 서가</h2>
+  <p class="shelf-description">그림책을 읽고 함께 질문을 나눠 보세요. 책에 따라 부모 에세이와 생각놀이도 만나볼 수 있습니다.</p>
   <form hidden role="search" aria-label="그림책 찾기">
     <label class="search">책 검색
-      <input type="search" name="query" placeholder="제목, 소개, 태그로 검색" autocomplete="off" />
+      <input type="search" name="query" placeholder="제목, 소개, 주제, 질문으로 검색" autocomplete="off" />
     </label>
     <div class="field">
       <label for="library-age">추천 연령</label>
       <select id="library-age" name="age">
         <option value="">모든 연령</option>
-        {AGE_BANDS.map(band => <option value={band.id}>{band.label}</option>)}
+        {ages.map(band => <option value={band.id}>{band.label}</option>)}
       </select>
     </div>
-    <div class="field">
-      <label for="library-topic">주제</label>
-      <select id="library-topic" name="topic">
-        <option value="">모든 주제</option>
-        {categories.map(topic => <option value={topic.id}>{topic.label}</option>)}
-      </select>
-    </div>
-    <button type="reset">초기화</button>
+    <button type="reset">전체 책 보기</button>
   </form>
   <p class="result-count" role="status" aria-live="polite" aria-atomic="true">전체 {books.length}권</p>
   <noscript><p>검색·필터는 JavaScript를 켜면 사용할 수 있어요. 아래에서 모든 책을 살펴보세요.</p></noscript>
@@ -34,9 +38,10 @@ const categories = categoryOptions(books);
     {books.map(book => <BookCard book={book} />)}
   </div>
   <div class="empty" hidden>
-    <p>찾는 책이 없어요. 검색어나 필터를 바꿔 보세요.</p>
+    <p>조건에 맞는 그림책이 없어요. 다른 주제나 연령을 선택해 보세요.</p>
     <button type="button" data-clear>전체 책 보기</button>
   </div>
+  </section>
 </library-shelf>
 
 <script>
@@ -48,30 +53,39 @@ const categories = categoryOptions(books);
       const form = this.querySelector<HTMLFormElement>('form')!;
       const query = form.querySelector<HTMLInputElement>('[name="query"]')!;
       const age = form.querySelector<HTMLSelectElement>('[name="age"]')!;
-      const topic = form.querySelector<HTMLSelectElement>('[name="topic"]')!;
+      let category = '';
+      const categoryButtons = Array.from(this.querySelectorAll<HTMLButtonElement>('[data-category]'));
       const cards = Array.from(this.querySelectorAll<HTMLAnchorElement>('[data-book]'))
         .map(element => ({ element, book: JSON.parse(element.dataset.book!) as LibraryItem }));
       const count = this.querySelector<HTMLElement>('.result-count')!;
       const empty = this.querySelector<HTMLElement>('.empty')!;
       const update = () => {
+        categoryButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === category)));
         let visible = 0;
         for (const { element, book } of cards) {
-          const match = matchesBook(book, query.value, age.value, topic.value);
+          const match = matchesBook(book, query.value, age.value, category);
           element.hidden = !match;
           if (match) visible++;
         }
         count.textContent = `전체 ${cards.length}권 중 ${visible}권`;
         empty.hidden = visible !== 0;
       };
+      categoryButtons.forEach(button => button.addEventListener('click', () => {
+        const selected = button.dataset.category!;
+        if (!selected) { form.reset(); return; }
+        category = category === selected ? '' : selected;
+        update();
+      }));
       form.addEventListener('submit', event => event.preventDefault());
       form.addEventListener('input', update);
       form.addEventListener('change', update);
       // Native form values reset after the reset event's default action.
-      form.addEventListener('reset', () => setTimeout(update, 0));
+      form.addEventListener('reset', () => { category = ''; setTimeout(update, 0); });
       this.querySelector('[data-clear]')!.addEventListener('click', () => {
         form.reset();
         query.focus();
       });
+      this.querySelector<HTMLElement>('.topic-section')!.hidden = false;
       form.hidden = false;
       update();
     }
@@ -81,8 +95,16 @@ const categories = categoryOptions(books);
 
 <style>
   library-shelf { display: block; }
+  section { scroll-margin-top: 20px; }
+  h2 { font-size: clamp(1.3rem, 3vw, 1.65rem); line-height: 1.5; word-break: keep-all; }
+  .topic-section { padding: 8px 0 32px; }
+  .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  .category-grid button { white-space: normal; line-height: 1.5; padding: 16px 12px; border-color: #c9bcab; }
+  .category-grid button[aria-pressed="true"] { background: #624832; color: #fff; border-color: #624832; box-shadow: inset 0 0 0 2px #fff; font-weight: 700; }
+  .shelf-description { color: #555047; line-height: 1.8; }
+  @media (max-width: 480px) { .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   form { display: flex; flex-wrap: wrap; gap: 16px; align-items: end; margin-top: 28px; padding: 20px; background: #fff; border-radius: 12px; }
-  .field { display: grid; gap: 8px; }
+  .field { min-width: 0; display: grid; gap: 8px; }
   label { display: grid; gap: 8px; font-weight: 600; font-size: .9rem; }
   .search { flex: 1 1 240px; }
   input, select, button { font: inherit; box-sizing: border-box; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; background: #fff; color: #22252a; min-height: 44px; }

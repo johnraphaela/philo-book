@@ -1,10 +1,12 @@
+import { CONTENT_CATEGORIES, CONTENT_SUBTOPICS, type ContentCategoryId, type ContentSubtopicId } from './taxonomy.ts';
+
 export const AGE_BANDS = [
   { id: '5-6', label: '5~6세', min: 5, max: 6 },
   { id: '7-8', label: '7~8세', min: 7, max: 8 },
   { id: '9-10', label: '9~10세', min: 9, max: 10 },
   { id: '11-12', label: '11~12세', min: 11, max: 12 },
 ] as const;
-// Legacy publication-schema values only; shelf filtering uses categories below.
+// Legacy publication-schema values remain supported for search.
 export const TOPICS = [
   { id: 'identity', label: '자아와 정체성' },
   { id: 'change', label: '변화와 성장' },
@@ -15,6 +17,7 @@ export type LibraryItem = {
   id: string;
   data: {
     title: string; theme: string; categories: string[]; summary?: string;
+    primaryCategory?: ContentCategoryId; subtopics?: ContentSubtopicId[]; coreQuestion?: string;
     order?: number; topics?: string[]; recommendedAge?: AgeRange; ageGroups?: string[];
   };
 };
@@ -28,8 +31,8 @@ export function normalizeCategory(category: string): string {
   return categoryAliases.get(label.replace(/\s+/g, '')) ?? label;
 }
 export function categoryOptions(books: readonly LibraryItem[]): { id: string; label: string }[] {
-  const labels = new Set(books.flatMap(book => book.data.categories.map(normalizeCategory)).filter(Boolean));
-  return [...labels].sort((a, b) => a.localeCompare(b, 'ko')).map(label => ({ id: label, label }));
+  const present = new Set(books.map(book => book.data.primaryCategory));
+  return CONTENT_CATEGORIES.filter(category => present.has(category.id));
 }
 export function ageBandIds(age?: AgeRange): string[] {
   return AGE_BANDS.filter(band => age && age.min <= band.max && age.max >= band.min).map(band => band.id);
@@ -56,8 +59,12 @@ export function sortBooks<T extends LibraryItem>(books: T[]): T[] {
 export function matchesBook(book: LibraryItem, query: string, age: string, topic: string): boolean {
   const categories = book.data.categories.map(normalizeCategory);
   const text = [book.data.title, book.data.theme, book.data.summary ?? '', ...book.data.categories,
-    ...categories].join(' ').normalize('NFKC').toLocaleLowerCase();
+    ...categories, ...(book.data.topics ?? []),
+    ...TOPICS.filter(topic => book.data.topics?.includes(topic.id)).map(topic => topic.label),
+    CONTENT_CATEGORIES.find(category => category.id === book.data.primaryCategory)?.label ?? '',
+    ...CONTENT_SUBTOPICS.filter(topic => book.data.subtopics?.includes(topic.id)).map(topic => topic.label),
+    book.data.coreQuestion ?? ''].join(' ').normalize('NFKC').toLocaleLowerCase();
   const words = query.normalize('NFKC').trim().toLocaleLowerCase().split(/\s+/).filter(Boolean).map(normalizeCategory);
   return words.every(word => text.includes(word)) && (!age || bookAgeBandIds(book).includes(age))
-    && (!topic || categories.includes(normalizeCategory(topic)));
+    && (!topic || book.data.primaryCategory === topic);
 }

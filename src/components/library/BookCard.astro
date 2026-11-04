@@ -9,7 +9,7 @@ const ageLabel = book.data.recommendedAge
   : book.data.ageGroups.map(age => age.replace(/\\~/g, '~').replace(/(\d)–(?=\d)|(\d)-(?=\d)/g, '$1$2~')).join(' · ');
 ---
 
-<a href={`/book/${book.id}`} class="book-card" data-book={JSON.stringify({ id: book.id, data: { title: book.data.title, theme: book.data.theme, summary: [copy.summary, book.data.summary, copy.theme].filter(Boolean).join(' '), categories: book.data.categories, recommendedAge: book.data.recommendedAge, ageGroups: book.data.ageGroups } })}>
+<a href={`/book/${book.id}`} class="book-card" data-book={JSON.stringify({ id: book.id, data: { title: book.data.title, theme: book.data.theme, summary: [copy.summary, book.data.summary, copy.theme].filter(Boolean).join(' '), categories: book.data.categories, topics: book.data.topics, primaryCategory: book.data.primaryCategory, subtopics: book.data.subtopics, coreQuestion: book.data.coreQuestion, recommendedAge: book.data.recommendedAge, ageGroups: book.data.ageGroups } })}>
   <div class="cover">
     {book.data.cover ? <img src={book.data.cover} alt="" loading="lazy" width="640" height="360" /> : <span class="cover-placeholder" aria-hidden="true">📖</span>}
   </div>
