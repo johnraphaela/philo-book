@@ -5,6 +5,9 @@ import os from 'node:os';
 import path from 'node:path';
 import sharp from 'sharp';
 import { importBook, parseManuscript } from '../scripts/book-import.ts';
+import { CONTENT_CATEGORIES } from '../src/lib/taxonomy.ts';
+import { categoryOptions, matchesBook } from '../src/lib/library.ts';
+import { getDialogueQuestions } from '../src/lib/dialogue-questions.ts';
 import { inspectPublishedContent } from '../scripts/publication-integrity.ts';
 
 // Synthetic parser fixture only; never published as a book.
@@ -48,6 +51,16 @@ Scene 01: prompt, **exact**.
 # References
 - Reference entry.
 `;
+const phase4Metadata = `Primary Category: identity
+Subtopics: self-worth, recognition
+Core Question:   나의 가치는 무엇일까?${'  '}
+Dialogue Questions:
+- 어떤 이유로 그렇게 생각했니?
+- 다른 생각도 가능할까?
+Parent Reflection Question:   나는 어떤 기준으로 판단할까?  `;
+const withMetadata = (extra: string) => source.replace('Summary: Summary', `Summary: Summary\n${extra}`);
+
+
 async function fixture() {
   const root = await mkdtemp(path.join(os.tmpdir(), 'book-import-test-'));
   for (const dir of ['src/content/books', 'src/content/essays', 'public/images', 'node_modules', 'input']) await mkdir(path.join(root, dir), { recursive: true });
@@ -153,7 +166,13 @@ test('end-to-end temporary project runs real content check, Astro check and buil
       await cp(path.join(process.cwd(), entry), path.join(root, entry), { recursive: true });
     await rm(path.join(root, 'node_modules'), { recursive: true });
     await symlink(path.join(process.cwd(), 'node_modules'), path.join(root, 'node_modules'), 'dir');
+    await writeFile(path.join(root, 'input/manuscript.md'), withMetadata(phase4Metadata));
     const result = await importBook({ root, input: 'input' });
+    const published = JSON.parse(await readFile(path.join(root, 'src/content/books/test-book.json'), 'utf8'));
+    assert.equal(published.coreQuestion, '나의 가치는 무엇일까?');
+    assert.equal(published.primaryCategory, 'identity');
+    assert.equal(published.dialogueQuestions.length, 2);
+    assert.equal(published.parentReflectionQuestion, '나는 어떤 기준으로 판단할까?');
     assert.equal(result.slug, 'test-book');
     const essay = await readFile(path.join(root, 'src/content/essays/test-book.md'), 'utf8');
     assert.ok(essay.includes(parseManuscript(source).sections['Parent Essay'].Body));
@@ -181,5 +200,85 @@ test('card-copy warnings do not block registration, rewrite metadata or change n
     assert.deepEqual(again.changed, []);
     assert.deepEqual(again.warnings, result.warnings);
     assert.deepEqual(await readFile(bookPath), before);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
+
+test('Phase 4 metadata is optional, recognizes exact labels, and preserves ordered question lists', () => {
+  assert.equal(parseManuscript(source).publicationMetadata, undefined);
+  const parsed = parseManuscript(withMetadata(phase4Metadata));
+  assert.equal(parsed.sections.Metadata.Summary, 'Summary');
+  assert.deepEqual(parseManuscript(source.replace('Summary: Summary', phase4Metadata + '\nSummary: Summary')).publicationMetadata, parsed.publicationMetadata);
+  assert.deepEqual(parseManuscript(withMetadata(phase4Metadata.replace('Primary Category:', '**Primary Category:**'))).publicationMetadata, parsed.publicationMetadata);
+  for (const { id } of CONTENT_CATEGORIES) assert.equal(parseManuscript(withMetadata(`Primary Category: ${id}`)).publicationMetadata?.primaryCategory, id);
+  assert.deepEqual(parsed.publicationMetadata, {
+    primaryCategory: 'identity', subtopics: ['self-worth', 'recognition'], coreQuestion: '나의 가치는 무엇일까?',
+    dialogueQuestions: ['어떤 이유로 그렇게 생각했니?', '다른 생각도 가능할까?'], parentReflectionQuestion: '나는 어떤 기준으로 판단할까?',
+  });
+  assert.deepEqual(parseManuscript(withMetadata('Dialogue Questions: ["질문 하나?", "질문 둘?"]')).publicationMetadata?.dialogueQuestions, ['질문 하나?', '질문 둘?']);
+  assert.deepEqual(parseManuscript(withMetadata('Dialogue Questions:\n1. 질문 하나?')).publicationMetadata?.dialogueQuestions, ['질문 하나?']);
+  assert.deepEqual(parseManuscript(withMetadata('Parent Reflection Question: 내 생각은?')).publicationMetadata, { parentReflectionQuestion: '내 생각은?' });
+  assert.deepEqual(parseManuscript(withMetadata('Core Question: 핵심?')).publicationMetadata, { coreQuestion: '핵심?' });
+  assert.deepEqual(parseManuscript(withMetadata('Recommended Age: 5-10')).publicationMetadata?.recommendedAge, { min: 5, max: 10 });
+  assert.deepEqual(parseManuscript(withMetadata('Dialogue Questions: 질문 하나? | 질문 둘?')).publicationMetadata?.dialogueQuestions, ['질문 하나?', '질문 둘?']);
+  assert.deepEqual(parseManuscript(withMetadata('Dialogue Questions: 쉼표, 포함한 질문?')).publicationMetadata?.dialogueQuestions, ['쉼표, 포함한 질문?']);
+  assert.deepEqual(parseManuscript(withMetadata('Subtopics: []\nDialogue Questions: []')).publicationMetadata, { subtopics: [], dialogueQuestions: [] });
+});
+
+test('invalid Phase 4 metadata fails clearly instead of leaking into Summary or dropping questions', () => {
+  const cases = [
+    ['Primary Category: 없는분류', /primaryCategory/],
+    ['Subtopics: missing-id', /subtopics/],
+    ['Primary Category: identity\nSubtopics: fairness', /그룹/],
+    ['Subtopics: self-worth, self-worth', /중복 ID/],
+    ['Core Question:   ', /Core Question.*빈 값/],
+    ['Core Question: ' + '가'.repeat(181), /180/],
+    ['Parent Reflection Question:   ', /Parent Reflection Question.*빈 값/],
+    ['Dialogue Questions:\n- ', /Dialogue Questions/],
+    ['Dialogue Questions: [" "]', /Dialogue Questions/],
+    ['Dialogue Questions: [broken', /JSON/],
+    ['Dialogue Questions: [1]', /문자열 배열/],
+    ['Dialogue Questions:\n질문 하나?\n질문 둘?', /Markdown 목록/],
+    ['Dialogue Questions: 질문 하나? | ', /문자열 배열/],
+    ['Recommended Age: 10-5', /recommendedAge/],
+    ['Recommended Age: 5-19', /recommendedAge/],
+    ['Recommended Age: 다섯 살', /Recommended Age/],
+    ['Dialogue Questions:\n- 같은 질문?\n- 같은  질문?', /중복 질문/],
+    ['Core Question: 같은 질문?\nDialogue Questions:\n- 같은 질문?', /중복 질문/],
+    ['Core Question: 같은 질문?\nParent Reflection Question: 같은 질문?', /중복 질문/],
+  ] as const;
+  for (const [extra, message] of cases) assert.throws(() => parseManuscript(withMetadata(extra)), message, extra);
+});
+
+test('Phase 4 import maps metadata without manuscript/image changes and preserves omitted metadata on update', async () => {
+  const root = await fixture();
+  try {
+    const manuscript = withMetadata(phase4Metadata + '\nRecommended Age: 5-10');
+    await writeFile(path.join(root, 'input/manuscript.md'), manuscript);
+    await importBook({ root, input: 'input', verify });
+    const output = path.join(root, 'src/content/books/test-book.json');
+    const original = JSON.parse(await readFile(output, 'utf8'));
+    assert.deepEqual(original.dialogueQuestions, ['어떤 이유로 그렇게 생각했니?', '다른 생각도 가능할까?']);
+    assert.equal(original.primaryCategory, 'identity');
+    const item = { id: 'test-book', data: original };
+    assert.deepEqual(categoryOptions([item]).map(category => category.id), ['identity']);
+    assert(matchesBook(item, '나의 가치는', '7-8', 'identity'));
+    assert.equal(getDialogueQuestions(original).length, 4);
+    assert.equal(original.summary, 'Summary');
+    assert.equal(original.pages[0].text, parseManuscript(source).scenes[0].fields.Text);
+    assert.equal(await readFile(path.join(root, 'content-authoring/imports/test-book/manuscript.md'), 'utf8'), manuscript);
+    assert.deepEqual(await readFile(path.join(root, 'public/images/test-book/page1.png')), await readFile(path.join(root, 'input/page1.png')));
+    assert.deepEqual((await importBook({ root, input: 'input', verify })).changed, []);
+    // A legacy-format update must not erase new fields stored by an earlier import.
+    await writeFile(path.join(root, 'input/manuscript.md'), source.replace('Test title', 'Updated title'));
+    await assert.rejects(importBook({ root, input: 'input', verify }), /--update test-book/);
+    await importBook({ root, input: 'input', update: 'test-book', verify });
+    const retained = JSON.parse(await readFile(output, 'utf8'));
+    for (const key of ['primaryCategory', 'subtopics', 'coreQuestion', 'dialogueQuestions', 'parentReflectionQuestion', 'recommendedAge']) assert.deepEqual(retained[key], original[key]);
+    const before = await readFile(output);
+    await writeFile(path.join(root, 'input/manuscript.md'), withMetadata(phase4Metadata.replace('나의 가치는 무엇일까?', '새로운 핵심 질문?')));
+    await assert.rejects(importBook({ root, input: 'input', update: 'test-book', verify: async () => { throw Error('forced verification failure'); } }), /forced verification failure/);
+    assert.deepEqual(await readFile(output), before);
+    await importBook({ root, input: 'input', update: 'test-book', verify });
+    assert.equal(JSON.parse(await readFile(output, 'utf8')).coreQuestion, '새로운 핵심 질문?');
   } finally { await rm(root, { recursive: true, force: true }); }
 });
