@@ -7,8 +7,9 @@ const { Content } = await render(essay);
 ---
 
 <article class="reading-paper essay-reading" aria-labelledby="essay-title">
+  <button type="button" class="hub-return" data-book-tab="story">← 이야기 너머로</button>
   <header class="reading-heading">
-    <p class="reading-eyebrow">부모용 에세이</p>
+    <p class="reading-eyebrow">어른의 시선</p>
     <h1 id="essay-title">{essay.data.title}</h1>
     {essay.data.subtitle && <p class="reading-subtitle">{essay.data.subtitle}</p>}
     {essay.data.tags.length > 0 && (
@@ -17,5 +18,8 @@ const { Content } = await render(essay);
       </ul>
     )}
   </header>
+  <aside class="family-reading-intro" aria-label="부모의 성찰 안내">
+    <p>아이의 생각을 들으며 떠오른 나의 생각도 돌아보세요. 에세이는 또 다른 관점을 만나는 출발점입니다.</p>
+  </aside>
   <div class="reading-prose"><Content /></div>
 </article>

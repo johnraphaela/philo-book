@@ -1,9 +1,9 @@
 ---
 interface Props { hasEssay: boolean; hasActivities: boolean; activityTabLabel?: string }
-const { hasEssay, hasActivities, activityTabLabel = '생각놀이' } = Astro.props;
+const { hasEssay, hasActivities, activityTabLabel = '생각 펼치기' } = Astro.props;
 const tabs = [
-  { id: 'story', label: '동화책' },
-  ...(hasEssay ? [{ id: 'essay', label: '부모 에세이' }] : []),
+  { id: 'story', label: '이야기 읽기' },
+  ...(hasEssay ? [{ id: 'essay', label: '어른의 시선' }] : []),
   ...(hasActivities ? [{ id: 'harvard', label: activityTabLabel }] : []),
 ];
 ---
@@ -11,7 +11,7 @@ const tabs = [
 <book-tabs>
   <header>
     <a href="/" class="back-btn">← 서재</a>
-    <div class="nav-btns" role="tablist" aria-label="책 읽기와 교육 자료">
+    <div class="nav-btns" role="tablist" aria-label="이야기와 생각 확장">
       {tabs.map((tab, index) => (
         <button id={`tab-${tab.id}`} role="tab" type="button"
           aria-controls={tab.id} aria-selected={index === 0 ? 'true' : 'false'}
@@ -59,6 +59,23 @@ const tabs = [
         // Switching from a scrolled story/essay must reveal the new panel's start.
         this.querySelector<HTMLElement>(`#${button.dataset.target}`)?.scrollIntoView({ block: 'start', behavior: 'instant' });
       };
+      // Both React completion actions and editorial return buttons reuse activate().
+      const navigate = (tab: string | undefined) => {
+        const button = buttons.find(button => button.dataset.target === tab);
+        if (!button) return;
+        activate(button);
+        this.querySelector<HTMLElement>(`#${button.dataset.target}`)?.focus({ preventScroll: true });
+      };
+      this.addEventListener('book-tab-request', event => {
+        navigate((event as CustomEvent<{ tab?: string }>).detail?.tab);
+      });
+      this.addEventListener('click', event => {
+        const button = event.target instanceof Element ? event.target.closest<HTMLButtonElement>('button[data-book-tab]') : null;
+        if (button) {
+          this.querySelector('.story-viewer')?.dispatchEvent(new Event('book-completion-request'));
+          navigate(button.dataset.bookTab);
+        }
+      });
       buttons.forEach((button, index) => {
         button.addEventListener('click', () => activate(button));
         button.addEventListener('keydown', (event) => {

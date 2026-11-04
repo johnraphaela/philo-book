@@ -60,3 +60,7 @@
 }
 
 .activity-outro { margin-top: 32px; padding-top: 24px; border-top: 1px solid #ece6db; }
+
+.family-reading-intro { background: #f8f5ef; padding: 16px 20px; border-left: 3px solid #b59a73; line-height: 1.9; margin-bottom: 20px; }
+.family-reading-intro p { margin: 0; }
+.hub-return { display: inline-flex; align-items: center; min-height: 44px; box-sizing: border-box; font: inherit; font-size: .9rem; padding: 8px 0; border: 0; background: transparent; color: #71604e; cursor: pointer; margin: 0 0 20px; text-decoration: underline; text-underline-offset: .25em; }

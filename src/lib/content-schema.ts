@@ -10,6 +10,8 @@ export const bookSchema = z.object({
     primaryCategory: z.enum(CONTENT_CATEGORIES.map(category => category.id)).optional(),
     subtopics: z.array(z.enum(CONTENT_SUBTOPICS.map(topic => topic.id))).optional(),
     coreQuestion: z.string().trim().min(1).max(180).optional(),
+    dialogueQuestions: z.array(z.string()).optional(),
+    parentReflectionQuestion: z.string().optional(),
     cover: z.string().startsWith('/images/').optional(),
     order: z.number().int().nonnegative().default(100),
     recommendedAge: z.object({
