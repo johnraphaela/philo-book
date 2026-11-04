@@ -11,6 +11,8 @@ interface Props {
   pages: StoryPage[];
   title: string;
   coreQuestion?: string;
+  dialogueQuestions?: string[];
+  parentReflectionQuestion?: string;
   hasEssay?: boolean;
   hasActivities?: boolean;
   imageSizes?: (ImageSize | undefined)[];
@@ -32,7 +34,7 @@ function Illustration({ page, title, number, size }: { page: StoryPage; title: s
     width={size?.width} height={size?.height} decoding="async" onError={() => setFailed(true)} />;
 }
 
-export default function StoryViewer({ pages, title, imageSizes, coreQuestion, hasEssay = false, hasActivities = false }: Props) {
+export default function StoryViewer({ pages, title, imageSizes, coreQuestion, dialogueQuestions, parentReflectionQuestion, hasEssay = false, hasActivities = false }: Props) {
   const [currentPage, setCurrentPage] = useState(0);
   const [view, setView] = useState<'story' | 'complete' | 'dialogue'>('story');
   const [showHint, setShowHint] = useState(false);
@@ -99,7 +101,7 @@ export default function StoryViewer({ pages, title, imageSizes, coreQuestion, ha
   return (
     <article ref={viewer} className="story-viewer" aria-labelledby={titleId}>
       {view !== 'story' ? <div ref={viewStart} tabIndex={-1} className="completion-start" aria-label={view === 'dialogue' ? '생각 나누기' : '이야기 너머'}>
-        <ReadingCompletion headingId={titleId} title={title} coreQuestion={coreQuestion} hasEssay={hasEssay} hasActivities={hasActivities}
+        <ReadingCompletion headingId={titleId} title={title} coreQuestion={coreQuestion} dialogueQuestions={dialogueQuestions} parentReflectionQuestion={parentReflectionQuestion} hasEssay={hasEssay} hasActivities={hasActivities}
           dialogue={view === 'dialogue'} onDialogue={() => setView('dialogue')} onComplete={() => setView('complete')}
           onReadAgain={() => returnToStory(true)} onLastPage={() => returnToStory(false)} onTab={requestTab} />
       </div> : <>

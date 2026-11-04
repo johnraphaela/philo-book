@@ -71,3 +71,11 @@
 @media (max-width: 480px) { .completion-option { padding: 16px 14px; gap: 10px; } .option-icon { width: 30px; height: 30px; } }
 
 .reading-completion .hub-return { display: inline-flex; align-items: center; min-height: 44px; font: inherit; font-size: .9rem; padding: 8px 0; border: 0; background: transparent; color: #71604e; cursor: pointer; margin: 0 0 20px; text-decoration: underline; text-underline-offset: .25em; }
+
+.inline-dialogue-guide { padding: 4px 20px 12px; border-left: 3px solid #c5d3bd; }
+.inline-dialogue-guide p { margin: 0; }
+.dialogue-pagination { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.dialogue-pagination button { min-height: 44px; padding: 10px 12px; border: 1px solid #cbbba7; border-radius: 8px; background: #fff; color: #624832; font: inherit; cursor: pointer; }
+.dialogue-pagination button:disabled { opacity: .5; cursor: default; }
+.completion-question h3 { scroll-margin-top: var(--book-header-height, 10rem); }
+.completion-question h3:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 4px; }

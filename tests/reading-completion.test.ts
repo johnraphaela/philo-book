@@ -10,7 +10,9 @@ import { renderToStaticMarkup } from 'react-dom/server';
 const source = fs.readFileSync(new URL('../src/components/book/ReadingCompletion.tsx', import.meta.url), 'utf8');
 const compiled = ts.transpileModule(source, { compilerOptions: {
   jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022,
-} }).outputText.replace('"react/jsx-runtime"', JSON.stringify(import.meta.resolve('react/jsx-runtime')));
+} }).outputText.replace('"react/jsx-runtime"', JSON.stringify(import.meta.resolve('react/jsx-runtime')))
+  .replace(/(['"])react\1/g, JSON.stringify(import.meta.resolve('react')))
+  .replace(/(['"])\.\.\/\.\.\/lib\/dialogue-questions\1/g, JSON.stringify(new URL('../src/lib/dialogue-questions.ts', import.meta.url).href));
 const { default: Completion } = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`);
 const render = (props: Record<string, unknown>) => renderToStaticMarkup(createElement(Completion, {
   title: '시험 책', headingId: 'completion-title', hasEssay: false, hasActivities: false, dialogue: false,
@@ -39,11 +41,22 @@ test('missing questions stay absent; dialogue uses one question and an optional 
   const absent = render({});
   assert(!absent.includes('오늘의 철학 질문'));
   assert(!absent.includes('completion-question'));
-  const html = render({ dialogue: true, coreQuestion: '다르게 생각해도 될까?' });
+  const html = render({ dialogue: true, coreQuestion: '다르게 생각해도 될까?', dialogueQuestions: ['왜 그렇게 생각할까?'] });
   assert.equal((html.match(/다르게 생각해도 될까\?/g) ?? []).length, 1);
   assert.match(html, /왜 그렇게 생각했는지 물어보세요/);
   assert.match(html, /← 이야기 너머로/);
   assert.equal((html.match(/← 이야기 너머로/g) ?? []).length, 1);
   assert(!html.includes('<input'));
   assert(!html.includes('<form'));
+});
+
+test('zero or one unique question renders an inline guide toggle without repeating the question', () => {
+  for (const props of [{}, { coreQuestion: '핵심 질문?', dialogueQuestions: [' ', '핵심 질문?'], parentReflectionQuestion: '핵심 질문?' }]) {
+    const html = render(props);
+    assert.match(html, /aria-expanded="false"/);
+    assert.match(html, /aria-controls="completion-title-guide"/);
+    assert.match(html, /id="completion-title-guide" hidden=""/);
+    assert.equal((html.match(/핵심 질문\?/g) ?? []).length, 'coreQuestion' in props ? 1 : 0);
+    assert(!html.includes('다음 질문'));
+  }
 });
