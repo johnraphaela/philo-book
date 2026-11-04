@@ -2,11 +2,11 @@ import { bookSchema } from '../src/lib/content-schema.ts';
 import { CONTENT_SUBTOPICS } from '../src/lib/taxonomy.ts';
 
 export const metadataFields = {
-  'Primary Category': 'primaryCategory', Subtopics: 'subtopics', 'Core Question': 'coreQuestion',
+  'Recommended Age': 'recommendedAge', 'Primary Category': 'primaryCategory', Subtopics: 'subtopics', 'Core Question': 'coreQuestion',
   'Dialogue Questions': 'dialogueQuestions', 'Parent Reflection Question': 'parentReflectionQuestion',
 } as const;
 export const metadataSchema = bookSchema.pick({ primaryCategory: true, subtopics: true, coreQuestion: true,
-  dialogueQuestions: true, parentReflectionQuestion: true });
+  dialogueQuestions: true, parentReflectionQuestion: true, recommendedAge: true });
 
 /** Check only supplied fields; never invent values or rewrite question wording. */
 export function validateImportMetadata(input: unknown) {
@@ -41,16 +41,23 @@ export function parseImportMetadata(meta: Record<string, string>, lines: Record<
     const value = meta[label].trim();
     const fail = (message: string): never => { throw new Error(`원고 ${lines[label]}행 / Metadata / ${label}: ${message}`); };
     if (!value) fail('빈 값');
-    if (field === 'subtopics' || field === 'dialogueQuestions') {
+    if (field === 'dialogueQuestions' && /^(?:[-*]|\d+[.)])$/.test(value)) fail('빈 질문 항목');
+    if (field === 'recommendedAge') {
+      const range = /^(\d{1,2})\s*-\s*(\d{1,2})$/.exec(value);
+      if (!range) fail('최소-최대 형식(예: 5-10)이 필요합니다.');
+      candidate[field] = { min: Number(range![1]), max: Number(range![2]) };
+    } else if (field === 'subtopics' || field === 'dialogueQuestions') {
       let items: unknown;
       if (value.startsWith('[')) {
         try { items = JSON.parse(value); } catch { fail('올바른 JSON 문자열 배열이 필요합니다.'); }
+      } else if (field === 'dialogueQuestions' && !value.includes('\n') && !/^\s*(?:[-*]|\d+[.)])\s/.test(value)) {
+        items = value.split('|').map(question => question.trim());
       } else if (field === 'subtopics') {
         items = value.split('\n').filter(line => line.trim()).flatMap(line => line.split(',')).map(line => line.replace(/^\s*[-*]\s+/, '').trim());
       } else {
         items = value.split('\n').filter(line => line.trim()).map(line => {
           const match = /^\s*(?:[-*]|\d+[.)])\s+(.+)$/.exec(line);
-          if (!match) fail('질문은 Markdown 목록(- 질문 또는 1. 질문)이나 JSON 문자열 배열로 작성하세요.');
+          if (!match) fail('질문은 한 줄 파이프 구분, Markdown 목록(- 질문 또는 1. 질문), JSON 문자열 배열로 작성하세요.');
           return match![1].trim();
         });
       }

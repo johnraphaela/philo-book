@@ -218,6 +218,9 @@ test('Phase 4 metadata is optional, recognizes exact labels, and preserves order
   assert.deepEqual(parseManuscript(withMetadata('Dialogue Questions:\n1. 질문 하나?')).publicationMetadata?.dialogueQuestions, ['질문 하나?']);
   assert.deepEqual(parseManuscript(withMetadata('Parent Reflection Question: 내 생각은?')).publicationMetadata, { parentReflectionQuestion: '내 생각은?' });
   assert.deepEqual(parseManuscript(withMetadata('Core Question: 핵심?')).publicationMetadata, { coreQuestion: '핵심?' });
+  assert.deepEqual(parseManuscript(withMetadata('Recommended Age: 5-10')).publicationMetadata?.recommendedAge, { min: 5, max: 10 });
+  assert.deepEqual(parseManuscript(withMetadata('Dialogue Questions: 질문 하나? | 질문 둘?')).publicationMetadata?.dialogueQuestions, ['질문 하나?', '질문 둘?']);
+  assert.deepEqual(parseManuscript(withMetadata('Dialogue Questions: 쉼표, 포함한 질문?')).publicationMetadata?.dialogueQuestions, ['쉼표, 포함한 질문?']);
   assert.deepEqual(parseManuscript(withMetadata('Subtopics: []\nDialogue Questions: []')).publicationMetadata, { subtopics: [], dialogueQuestions: [] });
 });
 
@@ -234,7 +237,11 @@ test('invalid Phase 4 metadata fails clearly instead of leaking into Summary or 
     ['Dialogue Questions: [" "]', /Dialogue Questions/],
     ['Dialogue Questions: [broken', /JSON/],
     ['Dialogue Questions: [1]', /문자열 배열/],
-    ['Dialogue Questions: 질문 하나?, 질문 둘?', /Markdown 목록/],
+    ['Dialogue Questions:\n질문 하나?\n질문 둘?', /Markdown 목록/],
+    ['Dialogue Questions: 질문 하나? | ', /문자열 배열/],
+    ['Recommended Age: 10-5', /recommendedAge/],
+    ['Recommended Age: 5-19', /recommendedAge/],
+    ['Recommended Age: 다섯 살', /Recommended Age/],
     ['Dialogue Questions:\n- 같은 질문?\n- 같은  질문?', /중복 질문/],
     ['Core Question: 같은 질문?\nDialogue Questions:\n- 같은 질문?', /중복 질문/],
     ['Core Question: 같은 질문?\nParent Reflection Question: 같은 질문?', /중복 질문/],
@@ -245,7 +252,7 @@ test('invalid Phase 4 metadata fails clearly instead of leaking into Summary or 
 test('Phase 4 import maps metadata without manuscript/image changes and preserves omitted metadata on update', async () => {
   const root = await fixture();
   try {
-    const manuscript = withMetadata(phase4Metadata);
+    const manuscript = withMetadata(phase4Metadata + '\nRecommended Age: 5-10');
     await writeFile(path.join(root, 'input/manuscript.md'), manuscript);
     await importBook({ root, input: 'input', verify });
     const output = path.join(root, 'src/content/books/test-book.json');
@@ -266,7 +273,7 @@ test('Phase 4 import maps metadata without manuscript/image changes and preserve
     await assert.rejects(importBook({ root, input: 'input', verify }), /--update test-book/);
     await importBook({ root, input: 'input', update: 'test-book', verify });
     const retained = JSON.parse(await readFile(output, 'utf8'));
-    for (const key of ['primaryCategory', 'subtopics', 'coreQuestion', 'dialogueQuestions', 'parentReflectionQuestion']) assert.deepEqual(retained[key], original[key]);
+    for (const key of ['primaryCategory', 'subtopics', 'coreQuestion', 'dialogueQuestions', 'parentReflectionQuestion', 'recommendedAge']) assert.deepEqual(retained[key], original[key]);
     const before = await readFile(output);
     await writeFile(path.join(root, 'input/manuscript.md'), withMetadata(phase4Metadata.replace('나의 가치는 무엇일까?', '새로운 핵심 질문?')));
     await assert.rejects(importBook({ root, input: 'input', update: 'test-book', verify: async () => { throw Error('forced verification failure'); } }), /forced verification failure/);
