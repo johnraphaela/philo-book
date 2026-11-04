@@ -6,6 +6,7 @@ import { spawn } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 import sharp from 'sharp';
 import { getLibraryCopy } from '../src/lib/library-copy.ts';
+import { metadataFields, metadataSchema, parseImportMetadata, validateImportMetadata } from './import-metadata.ts';
 import { reviewCardMetadata } from './book-card-metadata.ts';
 
 const sections = ['Metadata', 'Story', 'Parent Essay', 'Harvard Play', 'Illustration Guide', 'References'];
@@ -15,6 +16,7 @@ const fields: Record<string, string[]> = {
   'Harvard Play': ['Parent Guide', 'Conversation', 'Activities'],
   'Illustration Guide': ['Character Bible', 'Common Art Style', 'Image Prompts'],
 };
+const metadataLabels = [...fields.Metadata, ...Object.keys(metadataFields)];
 const sceneFields = ['Text', 'Parent Teaching Point', 'Parent Interaction', 'English'];
 function label(line: string) {
   return line.trim().replace(/^#{1,6}\s+/, '').replace(/^\d+[.)]\s+/, '').replace(/\*\*/g, '').trim();
@@ -30,6 +32,7 @@ function matchLabel(line: string, names: string[]) {
 export function parseManuscript(source: string) {
   const result: Record<string, Record<string, string>> = {};
   const scenes: { number: number; fields: Record<string, string> }[] = [];
+  const metadataLines: Record<string, number> = {};
   let section = '', target: Record<string, string> | undefined, key = '';
   const lines = source.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n').split('\n');
   const fail = (i: number, message: string): never => { throw new Error(`원고 ${i + 1}행: ${message}`); };
@@ -48,10 +51,11 @@ export function parseManuscript(source: string) {
       if (scenes.some(s => s.number === number)) fail(i, `Scene ${number} 중복`);
       target = {}; scenes.push({ number, fields: target }); key = ''; continue;
     }
-    const field = matchLabel(line, section === 'Story' ? sceneFields : (fields[section] ?? []));
+    const field = matchLabel(line, section === 'Story' ? sceneFields : (section === 'Metadata' ? metadataLabels : fields[section] ?? []));
     if (field && target) {
       if (section === 'Story' && !scenes.length) fail(i, 'Scene 번호가 먼저 필요합니다.');
       if (Object.hasOwn(target, field.name)) fail(i, `${field.name} 중복`);
+      if (section === 'Metadata') metadataLines[field.name] = i + 1;
       key = field.name; target[key] = field.value; continue;
     }
     if (target && key) target[key] += '\n' + line;
@@ -71,7 +75,8 @@ export function parseManuscript(source: string) {
     required(s.fields, sceneFields.slice(0, 3), `Scene ${s.number}`);
     if (s.fields.English !== undefined && !s.fields.English.trim()) throw new Error(`Scene ${s.number}: English 비어 있음`);
   });
-  return { sections: result, scenes };
+  const publicationMetadata = parseImportMetadata(result.Metadata, metadataLines);
+  return { sections: result, scenes, ...(Object.keys(publicationMetadata).length ? { publicationMetadata } : {}) };
 }
 function list(value: string, at: string): string[] {
   const values = value.startsWith('[') ? JSON.parse(value) : value.split(/\n|,/).map(s => s.replace(/^\s*[-*]\s+/, '').trim()).filter(Boolean);
@@ -110,8 +115,16 @@ export async function importBook(options: { root: string; input: string; slug?: 
   }
   for (const scene of parsed.scenes) if (!images.has(scene.number)) throw new Error(`Scene ${scene.number}: page${scene.number} 이미지 누락`);
   if (new Set(dimensions.map(d => d.split(': ')[1])).size > 1) warnings.push('이미지 해상도/비율 차이: ' + dimensions.join('; '));
+  // An omitted optional field in an update is not a request to erase it.
+  let publicationMetadata = parsed.publicationMetadata ?? {};
+  const previousBook = path.join(root, 'src/content/books', `${slug}.json`);
+  if (options.update === slug && await exists(previousBook)) {
+    const existing = JSON.parse(await readFile(previousBook, 'utf8'));
+    const retained = Object.fromEntries(Object.keys(metadataSchema.shape).filter(key => existing[key] !== undefined).map(key => [key, existing[key]]));
+    publicationMetadata = validateImportMetadata({ ...retained, ...publicationMetadata });
+  }
   const asset = (n: number) => `/images/${slug}/${images.get(n)}`;
-  const book = { sourceBookId: meta['Book ID'], title: meta.Title, theme: meta.Theme, summary: meta.Summary,
+  const book = { ...publicationMetadata, sourceBookId: meta['Book ID'], title: meta.Title, theme: meta.Theme, summary: meta.Summary,
     categories: list(meta.Categories, 'Categories'), ageGroups: list(meta['Age Groups'], 'Age Groups'), cover: asset(1),
     pages: parsed.scenes.map(s => ({ image: asset(s.number), text: s.fields.Text, teachingPoint: s.fields['Parent Teaching Point'], interaction: s.fields['Parent Interaction'], ...(s.fields.English ? { english: s.fields.English } : {}) })),
     harvardPlay: fields['Harvard Play'].map(title => ({ title, desc: parsed.sections['Harvard Play'][title] })) };
