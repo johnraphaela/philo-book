@@ -25,8 +25,14 @@ test('GitHub Gemini Skill has a visible version and taxonomy IDs matching the im
   }
 });
 test('standard EP04 reference parses all six metadata fields and has one prompt per scene', () => {
-  assert(example.startsWith('Metadata\n'));
+  assert.match(example, /^Metadata\r?\n/);
   const parsed = parseManuscript(example);
+  // Git may check Markdown out as CRLF on Windows; both must preserve the contract.
+  for (const eol of ['\n', '\r\n']) {
+    const checkout = example.replace(/\r?\n/g, eol);
+    assert.match(checkout, /^Metadata\r?\n/);
+    assert.deepEqual(parseManuscript(checkout), parsed);
+  }
   assert.equal(parsed.scenes.length, 12);
   assert.deepEqual(parsed.publicationMetadata, {
     primaryCategory: 'identity', subtopics: ['comparison', 'individuality'], recommendedAge: { min: 5, max: 10 },
