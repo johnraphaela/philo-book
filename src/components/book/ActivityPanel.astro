@@ -10,7 +10,7 @@ interface Props {
 }
 const {
   activities,
-  activityHeading = '함께 나누는 생각 놀이',
+  activityHeading = '함께하는 생각놀이',
   activityEyebrow = '반응적 상호작용을 참고한 부모·아이 놀이',
 } = Astro.props;
 const rendered = await Promise.all(activities.map(async activity => {
@@ -35,6 +35,8 @@ const rendered = await Promise.all(activities.map(async activity => {
     <p class="reading-eyebrow">{activityEyebrow}</p>
     <h1 id="activity-title">{activityHeading}</h1>
   </header>
+  <aside class="family-reading-intro"><p>오늘의 이야기를 우리 가족의 작은 놀이와 대화로 이어가 보세요. 원하는 활동만 골라도 좋아요.</p></aside>
+  <button type="button" class="return-to-story" data-book-tab="story">← 그림책으로 돌아가기</button>
   {rendered.filter(activity => !activity.reference).map(activity => (
     <section class="activity-guide">
       <h2>{activity.title}</h2>
@@ -69,4 +71,5 @@ const rendered = await Promise.all(activities.map(async activity => {
       </div>)}
     </section>
   ))}
+  <button type="button" class="return-to-story" data-book-tab="story">← 그림책으로 돌아가기</button>
 </article>

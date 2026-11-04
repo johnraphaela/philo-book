@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import ReadingCompletion from './book/ReadingCompletion';
 import type { CollectionEntry } from 'astro:content';
 import { getParentGuidance } from '../lib/story-guidance';
 import { formatStoryDialogue } from '../lib/story-display';
@@ -9,6 +10,9 @@ type StoryPage = CollectionEntry<'books'>['data']['pages'][number];
 interface Props {
   pages: StoryPage[];
   title: string;
+  coreQuestion?: string;
+  hasEssay?: boolean;
+  hasActivities?: boolean;
   imageSizes?: (ImageSize | undefined)[];
   // Retained for callers; actual images always use their intrinsic proportions.
   illustrationAspectRatio?: '16/9' | '4/3';
@@ -28,24 +32,26 @@ function Illustration({ page, title, number, size }: { page: StoryPage; title: s
     width={size?.width} height={size?.height} decoding="async" onError={() => setFailed(true)} />;
 }
 
-export default function StoryViewer({ pages, title, imageSizes }: Props) {
+export default function StoryViewer({ pages, title, imageSizes, coreQuestion, hasEssay = false, hasActivities = false }: Props) {
   const [currentPage, setCurrentPage] = useState(0);
+  const [view, setView] = useState<'story' | 'complete' | 'dialogue'>('story');
   const [showHint, setShowHint] = useState(false);
   const viewer = useRef<HTMLElement>(null);
   const sceneStart = useRef<HTMLDivElement>(null);
-  const previousPage = useRef(0);
+  const viewStart = useRef<HTMLDivElement>(null);
+  const previousPosition = useRef({ page: 0, view: 'story' });
   const hintId = useId();
   const titleId = useId();
   const page = pages[currentPage];
   const guidance = getParentGuidance(page ?? {});
 
   useEffect(() => {
-    if (previousPage.current === currentPage) return;
-    previousPage.current = currentPage;
-    // Focus the scene, so a disabled boundary button never strands keyboard users.
-    sceneStart.current?.focus({ preventScroll: true });
-    sceneStart.current?.scrollIntoView({ block: 'start', behavior: 'instant' });
-  }, [currentPage]);
+    if (previousPosition.current.page === currentPage && previousPosition.current.view === view) return;
+    previousPosition.current = { page: currentPage, view };
+    const start = view === 'story' ? sceneStart.current : viewStart.current;
+    start?.focus({ preventScroll: true });
+    start?.scrollIntoView({ block: 'start', behavior: 'instant' });
+  }, [currentPage, view]);
 
   const movePage = useCallback((delta: number) => {
     setShowHint(false);
@@ -56,7 +62,7 @@ export default function StoryViewer({ pages, title, imageSizes }: Props) {
     const onKeyDown = (event: KeyboardEvent) => {
       const article = viewer.current;
       // BookTabs already marks inactive panels hidden; use that existing state.
-      if (!article || article.closest('[hidden], [inert]')) return;
+      if (view !== 'story' || !article || article.closest('[hidden], [inert]')) return;
       if (event.defaultPrevented || event.isComposing || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
       const target = event.target;
       if (target instanceof HTMLElement && (target.isContentEditable || target.closest(
@@ -69,12 +75,27 @@ export default function StoryViewer({ pages, title, imageSizes }: Props) {
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [currentPage, pages.length, movePage]);
+  }, [currentPage, pages.length, movePage, view]);
+
+  function returnToStory(first: boolean) {
+    setShowHint(false);
+    if (first) setCurrentPage(0);
+    setView('story');
+  }
+
+  function requestTab(tab: 'essay' | 'harvard') {
+    viewer.current?.dispatchEvent(new CustomEvent('book-tab-request', { bubbles: true, detail: { tab } }));
+  }
 
   if (!page) return <p role="status">아직 등록된 페이지가 없어요.</p>;
 
   return (
     <article ref={viewer} className="story-viewer" aria-labelledby={titleId}>
+      {view !== 'story' ? <div ref={viewStart} tabIndex={-1} className="completion-start" aria-label={view === 'dialogue' ? '아이와 이야기 나누기' : '이야기를 다 읽었어요'}>
+        <ReadingCompletion headingId={titleId} title={title} coreQuestion={coreQuestion} hasEssay={hasEssay} hasActivities={hasActivities}
+          dialogue={view === 'dialogue'} onDialogue={() => setView('dialogue')} onComplete={() => setView('complete')}
+          onReadAgain={() => returnToStory(true)} onLastPage={() => returnToStory(false)} onTab={requestTab} />
+      </div> : <>
       <header className="story-heading">
         <h1 id={titleId}>{title}</h1>
         <p className="story-position" role="status" aria-live="polite" aria-atomic="true">{currentPage + 1} / {pages.length}쪽</p>
@@ -101,12 +122,16 @@ export default function StoryViewer({ pages, title, imageSizes }: Props) {
             </div>
           )}
         </div>
+        {currentPage === pages.length - 1 && <div className="story-finish">
+          <button type="button" onClick={() => { setShowHint(false); setView('complete'); }}>이야기를 마쳤어요 →</button>
+        </div>}
         <nav className="story-pagination" aria-label="동화 페이지 이동">
           <button type="button" onClick={() => movePage(-1)} disabled={currentPage === 0} aria-label="이전 페이지">← 이전</button>
           <span aria-hidden="true">{currentPage + 1} / {pages.length}쪽</span>
           <button type="button" onClick={() => movePage(1)} disabled={currentPage === pages.length - 1} aria-label="다음 페이지">다음 →</button>
         </nav>
       </div>
+      </>}
     </article>
   );
 }

@@ -38,8 +38,8 @@ const imageSizes = await Promise.all(book.data.pages.map(async page => {
 
 <BaseLayout title={`${book.data.title} | PHILO-PAIRING`} pageClass="book-page">
   <BookTabs hasEssay={Boolean(essay)} hasActivities={activities.length > 0}>
-    <StoryViewer slot="story" client:load pages={book.data.pages} title={book.data.title} imageSizes={imageSizes} illustrationAspectRatio={presentation.illustrationAspectRatio} illustrationFit={presentation.illustrationFit} />
+    <StoryViewer slot="story" client:load pages={book.data.pages} title={book.data.title} coreQuestion={book.data.coreQuestion} hasEssay={Boolean(essay)} hasActivities={activities.length > 0} imageSizes={imageSizes} illustrationAspectRatio={presentation.illustrationAspectRatio} illustrationFit={presentation.illustrationFit} />
     {essay && <EssayPanel slot="essay" essay={essay} />}
-    {activities.length > 0 && <ActivityPanel slot="activities" activities={activities} activityHeading={presentation.activityHeading} activityEyebrow={presentation.activityEyebrow} />}
+    {activities.length > 0 && <ActivityPanel slot="activities" activities={activities} activityEyebrow={presentation.activityEyebrow} />}
   </BookTabs>
 </BaseLayout>

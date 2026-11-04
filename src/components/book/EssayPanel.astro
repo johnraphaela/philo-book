@@ -17,5 +17,10 @@ const { Content } = await render(essay);
       </ul>
     )}
   </header>
+  <aside class="family-reading-intro" aria-label="부모의 성찰 안내">
+    <p>아이의 생각을 들으며 떠오른 나의 생각도 돌아보세요. 에세이는 또 다른 관점을 만나는 출발점입니다.</p>
+  </aside>
+  <button type="button" class="return-to-story" data-book-tab="story">← 그림책으로 돌아가기</button>
   <div class="reading-prose"><Content /></div>
+  <button type="button" class="return-to-story" data-book-tab="story">← 그림책으로 돌아가기</button>
 </article>

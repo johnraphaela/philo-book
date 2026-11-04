@@ -59,6 +59,20 @@ const tabs = [
         // Switching from a scrolled story/essay must reveal the new panel's start.
         this.querySelector<HTMLElement>(`#${button.dataset.target}`)?.scrollIntoView({ block: 'start', behavior: 'instant' });
       };
+      // Both React completion actions and editorial return buttons reuse activate().
+      const navigate = (tab: string | undefined) => {
+        const button = buttons.find(button => button.dataset.target === tab);
+        if (!button) return;
+        activate(button);
+        this.querySelector<HTMLElement>(`#${button.dataset.target}`)?.focus({ preventScroll: true });
+      };
+      this.addEventListener('book-tab-request', event => {
+        navigate((event as CustomEvent<{ tab?: string }>).detail?.tab);
+      });
+      this.addEventListener('click', event => {
+        const button = event.target instanceof Element ? event.target.closest<HTMLButtonElement>('button[data-book-tab]') : null;
+        if (button) navigate(button.dataset.bookTab);
+      });
       buttons.forEach((button, index) => {
         button.addEventListener('click', () => activate(button));
         button.addEventListener('keydown', (event) => {
