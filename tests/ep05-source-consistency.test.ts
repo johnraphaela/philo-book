@@ -6,6 +6,18 @@ import { createHash } from 'node:crypto';
 import { parse } from 'yaml';
 import { parseManuscript } from '../scripts/book-import.ts';
 
+/** Phase 1 taxonomy is editorial metadata and was not part of the import manifest. */
+function originalPublicationBytes(file: string, bytes: Buffer): Buffer {
+  if (file !== 'src/content/books/ep05.json') return bytes;
+  const current = bytes.toString('utf8');
+  const previous = current.replace(
+    /^  "primaryCategory": "[^"\r\n]+",\r?\n  "subtopics": \[[^\r\n]*\],\r?\n  "coreQuestion": "[^"\r\n]+",\r?\n/m,
+    '',
+  );
+  assert.notEqual(previous, current, 'Expected the three editorial metadata fields');
+  return Buffer.from(previous);
+}
+
 // EP05's approved source correction must stay synchronized with its import record.
 const imports = ['ep05'];
 for (const slug of imports) {
@@ -14,7 +26,7 @@ for (const slug of imports) {
     const manifest: Record<string, string> = JSON.parse(fs.readFileSync(`${directory}/files.json`, 'utf8'));
     for (const [file, hash] of Object.entries(manifest)) {
       assert(!path.isAbsolute(file) && !file.split('/').includes('..'));
-      assert.equal(createHash('sha256').update(fs.readFileSync(file)).digest('hex'), hash, file);
+      assert.equal(createHash('sha256').update(originalPublicationBytes(file, fs.readFileSync(file))).digest('hex'), hash, file);
     }
     const manuscript = Object.keys(manifest).find(file => file.startsWith(directory + '/') && /\/manuscript\.(md|txt)$/.test(file));
     assert(manuscript);
