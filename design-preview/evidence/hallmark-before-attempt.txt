@@ -1,0 +1,11 @@
+  FAIL 7a x5 src/components/library/BookCard.astro:35 pure #fff: background: #fff (.book-card); src/components/library/LibraryShelf.astro:103 pure #fff: color: #fff (.category-grid button[aria-pressed="tru… | fix: Tint the base toward the anchor hue
+  FAIL 48 x31 src/components/library/BookCard.astro:35 colour literal #fff outside tokens (background on .book-card); src/components/library/BookCard.astro:35 colour literal #e4dcd1 outside tokens (border on .book-card) | fix: Lift the value into the token block
+  FAIL 54 src/pages/index.astro:10 eyebrow "PHILO-PAIRING" before <h1> | fix: Cut it; the heading already says this (craft.md § 7 has twelve other openings)
+  REFLEX 24b x4 src/components/library/BookCard.astro:45 margin-bottom: 6px (off the 4px scale) on .question-label; src/components/library/BookCard.astro:49 gap: 6px (off the 4px scale) on .tags | fix: Use the 4px spacing scale
+  REFLEX 26b x2 src/components/library/BookCard.astro:1 no :disabled styling anywhere; src/pages/index.astro:1 no :active styling anywhere | fix: All eight states; guard: not a form control, no aria-disabled anywhere
+  WARN 3 src/components/library/BookCard.astro:44 side stripe border-left: 3px solid #c4aa88 on .question | fix: Hairline all round, none, or an accent square
+  WARN 28a src/components/library/BookCard.astro:13 lazy-loaded first image (likely LCP) | fix: fetchpriority=high on the LCP element
+  WARN F3 x2 src/components/library/BookCard.astro:43 no text-wrap: balance on any display head (1 head rule(s), e.g.…; src/pages/index.astro:25 no text-wrap: balance on any display head (1 head rule(s), e.g.… | fix: Add text-wrap: balance to h1/h2-level heads
+sloplint: 37 FAIL, 6 REFLEX, 4 WARN across 4 file(s) and 1 URL(s), grouped by gate; every line is in .hallmark/before.txt.
+render tier not run: no puppeteer-core found locally, globally or via HALLMARK_PUPPETEER
+before: recorded 2 links, 2 fields, 0 handlers, 0 test hooks, 0 script hooks in .hallmark/before.json; --kept checks a redesign against it

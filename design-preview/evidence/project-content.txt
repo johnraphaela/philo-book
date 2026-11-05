@@ -1,0 +1,5 @@
+
+> ver_0.1@0.0.1 content:check
+> node --experimental-strip-types scripts/check-publication.ts
+
+출판 파일·이미지·책/에세이 연결 검사 통과. 원고 사실 검증과 출판 승인은 별도입니다.

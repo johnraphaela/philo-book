@@ -1,0 +1,18 @@
+[
+  {
+    "variant": "a",
+    "hint": "true",
+    "next": "2 / 12쪽",
+    "previous": "1 / 12쪽",
+    "dialogue": true,
+    "keyboard": "true"
+  },
+  {
+    "variant": "b",
+    "hint": "false",
+    "next": "2 / 12쪽",
+    "previous": "1 / 12쪽",
+    "dialogue": true,
+    "keyboard": "true"
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "variant": "a",
+    "width": 360,
+    "overflow": false,
+    "count": 5,
+    "empty": true,
+    "reset": 5,
+    "selected": "true",
+    "filtered": 3,
+    "essayOverflow": false,
+    "activityOverflow": false
+  },
+  {
+    "variant": "a",
+    "width": 390,
+    "overflow": false,
+    "count": 5,
+    "empty": true,
+    "reset": 5,
+    "selected": "true",
+    "filtered": 3,
+    "essayOverflow": false,
+    "activityOverflow": false
+  },
+  {
+    "variant": "a",
+    "width": 768,
+    "overflow": false,
+    "count": 5,
+    "empty": true,
+    "reset": 5,
+    "selected": "true",
+    "filtered": 3,
+    "essayOverflow": false,
+    "activityOverflow": false
+  },
+  {
+    "variant": "a",
+    "width": 1440,
+    "overflow": false,
+    "count": 5,
+    "empty": true,
+    "reset": 5,
+    "selected": "true",
+    "filtered": 3,
+    "essayOverflow": false,
+    "activityOverflow": false
+  },
+  {
+    "variant": "b",
+    "width": 360,
+    "overflow": false,
+    "count": 5,
+    "empty": true,
+    "reset": 5,
+    "selected": "true",
+    "filtered": 3,
+    "essayOverflow": false,
+    "activityOverflow": false
+  },
+  {
+    "variant": "b",
+    "width": 390,
+    "overflow": false,
+    "count": 5,
+    "empty": true,
+    "reset": 5,
+    "selected": "true",
+    "filtered": 3,
+    "essayOverflow": false,
+    "activityOverflow": false
+  },
+  {
+    "variant": "b",
+    "width": 768,
+    "overflow": false,
+    "count": 5,
+    "empty": true,
+    "reset": 5,
+    "selected": "true",
+    "filtered": 3,
+    "essayOverflow": false,
+    "activityOverflow": false
+  },
+  {
+    "variant": "b",
+    "width": 1440,
+    "overflow": false,
+    "count": 5,
+    "empty": true,
+    "reset": 5,
+    "selected": "true",
+    "filtered": 3,
+    "essayOverflow": false,
+    "activityOverflow": false
+  }
+]

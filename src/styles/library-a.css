@@ -1,0 +1,65 @@
+/* Selected A design: presentation only; library and reading behavior stay in their components. */
+:root {
+  --library-paper: #faf7f0;
+  --library-ink: #292d29;
+  --library-accent: #375e50;
+  --library-control-border: #b5beb5;
+  --library-control-ink: #35463b;
+  --library-on-accent: white;
+  --library-divider: #d6d5c9;
+  --library-cover-paper: #eeeadd;
+  --library-metadata-ink: #53604f;
+  --library-question-border: #899d86;
+  --library-question-label: #596652;
+  --library-question-ink: #303e32;
+  --library-summary-ink: #5d6158;
+  --color-background: var(--library-paper);
+  --color-text: var(--library-ink);
+  --color-primary: var(--library-accent);
+  --font-body: 'Pretendard', 'Noto Sans CJK KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+}
+body { font-family: var(--font-body); }
+:root body.library-page { --color-background:var(--library-paper); --color-text:var(--library-ink); --color-primary:var(--library-accent); font-family:var(--font-body); }
+:root body.library-page * { box-sizing:border-box; }
+:root body.library-page .hero { padding:32px 0 24px; }
+:root body.library-page .brand { color:var(--library-accent); letter-spacing:.16em; }
+:root body.library-page h1,:root body.library-page h2 { word-break:keep-all; overflow-wrap:anywhere; }
+:root body.library-page .hero h1 { font-weight:600; letter-spacing:-.045em; }
+:root body.library-page .hero .intro { max-width:40em; }
+:root body.library-page .hero .invitation { margin-bottom:0; }
+:root body.library-page .hero a { color:var(--library-accent); }
+:root body.library-page .topic-section { padding:4px 0 20px; }
+:root body.library-page .category-grid { display:flex; flex-wrap:wrap; gap:8px; }
+:root body.library-page .category-grid button { padding:10px 16px; border-radius:4px; border-color:var(--library-control-border); background:transparent; color:var(--library-control-ink); }
+:root body.library-page .category-grid button span { display:none; }
+:root body.library-page .category-grid button[aria-pressed=true] { background:var(--library-accent); color:var(--library-on-accent); border-color:var(--library-accent); box-shadow:none; }
+:root body.library-page #library-heading { margin-bottom:8px; }
+:root body.library-page .shelf-description { margin-top:0; max-width:46em; }
+:root body.library-page form { background:transparent; border-top:1px solid var(--library-divider); border-bottom:1px solid var(--library-divider); border-radius:0; padding:20px 0; margin-top:20px; }
+:root body.library-page input,:root body.library-page select,:root body.library-page button { border-radius:4px; min-height:44px; }
+:root body.library-page .book-grid { gap:28px; }
+:root body.library-page .book-card { padding:0 0 20px; border:0; border-radius:0; background:transparent; border-bottom:1px solid var(--library-divider); }
+:root body.library-page .cover { border-radius:3px; background:var(--library-cover-paper); }
+:root body.library-page .cover img { object-fit:contain; }
+:root body.library-page .metadata { font-size:14px; color:var(--library-metadata-ink); }
+:root body.library-page .book-card h2 { margin:8px 0 14px; font-size:22px; font-weight:600; }
+:root body.library-page .question { border-left:2px solid var(--library-question-border); padding-left:14px; }
+:root body.library-page .question-label { color:var(--library-question-label); }
+:root body.library-page .core-question { color:var(--library-question-ink); font-weight:500; line-height:1.8; }
+:root body.library-page .summary { display:block; overflow:visible; color:var(--library-summary-ink); }
+:root body.library-page .tags li { background:transparent; border:1px solid var(--library-divider); color:var(--library-metadata-ink); }
+:root body.library-page .read-link { color:var(--library-accent); border-color:var(--library-divider); }
+:root body.library-page .empty { border:1px solid var(--library-divider); background:transparent; }
+:root body.book-page .reading-paper { max-width:760px; margin-inline:auto; box-shadow:none; border-radius:3px; }
+:root body.book-page .reading-paper p { line-height:1.95; }
+:root body.book-page .content-container { box-shadow:none; border-radius:3px; }
+:root body.library-page .book-card[data-book-id="ep01-robot-mong"] .cover img { object-fit:cover; object-position:center; }
+:root body.library-page h1, :root body.library-page h2 { min-width:0; overflow-wrap:break-word; }
+:root body.library-page input:focus-visible, :root body.library-page select:focus-visible { outline:3px solid var(--color-primary); outline-offset:3px; }
+@media (min-width:1100px) { :root body.library-page .book-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media (max-width:600px) {
+  :root body.library-page .hero { padding:20px 0; }
+  :root body.library-page .hero h1 { font-size:30px; }
+  :root body.library-page .book-grid { gap:24px; }
+  :root body.library-page .category-grid button { flex:1 1 42%; }
+}

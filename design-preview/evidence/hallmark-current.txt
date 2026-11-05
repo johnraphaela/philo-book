@@ -1,0 +1,20 @@
+render tier: 5 screenshots in /workspace/philo-book/.hallmark/before (1280x800, 1440x900, 1920x1080 folds; 1440 and 375 full pages)
+  FAIL 7a x5 src/components/library/BookCard.astro:35 pure #fff: background: #fff (.book-card); src/components/library/LibraryShelf.astro:103 pure #fff: color: #fff (.category-grid button[aria-pressed="tru… | fix: Tint the base toward the anchor hue
+  FAIL 40 http://127.0.0.1:4322/:1 [1440px] a field's edge is under 3:1 against what surrounds it:… | fix: Draw the field in --color-muted, or fill it a step off the surface it sits on
+  FAIL 48 x31 src/components/library/BookCard.astro:35 colour literal #fff outside tokens (background on .book-card); src/components/library/BookCard.astro:35 colour literal #e4dcd1 outside tokens (border on .book-card) | fix: Lift the value into the token block
+  FAIL 54 src/pages/index.astro:10 eyebrow "PHILO-PAIRING" before <h1> | fix: Cut it; the heading already says this (craft.md § 7 has twelve other openings)
+  FAIL 58 http://127.0.0.1:4322/:1 [1440px] hero carries 4 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+  REFLEX 24b x4 src/components/library/BookCard.astro:45 margin-bottom: 6px (off the 4px scale) on .question-label; src/components/library/BookCard.astro:49 gap: 6px (off the 4px scale) on .tags | fix: Use the 4px spacing scale
+  REFLEX 26b x2 src/components/library/BookCard.astro:1 no :disabled styling anywhere; src/pages/index.astro:1 no :active styling anywhere | fix: All eight states; guard: not a form control, no aria-disabled anywhere
+  REFLEX 39b http://127.0.0.1:4322/:1 [1440px] control height outside 44 to 52px: button 58px, button… | fix: Marketing controls stand 44 to 52px; app UI 32 to 40px with a 44px hit target
+  REFLEX 44c http://127.0.0.1:4322/:1 [1440px] hero ends at 363px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+  REFLEX 59 http://127.0.0.1:4322/:1 [1440px] smallest gap between sections is 54px (gaps: 54) | fix: 120px or more between sections, by the --section-gap steps
+  REFLEX 78 http://127.0.0.1:4322/:1 [1440px] section heads render at 20px under a 45px hero head | fix: h2 at --text-section (about 52px at 1440), item titles at --text-title (layout.md § 2)
+  WARN 3 src/components/library/BookCard.astro:44 side stripe border-left: 3px solid #c4aa88 on .question | fix: Hairline all round, none, or an accent square
+  WARN 28a src/components/library/BookCard.astro:13 lazy-loaded first image (likely LCP) | fix: fetchpriority=high on the LCP element
+  WARN 77 http://127.0.0.1:4322/:1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+  WARN F3 x2 src/components/library/BookCard.astro:43 no text-wrap: balance on any display head (1 head rule(s), e.g.…; src/pages/index.astro:25 no text-wrap: balance on any display head (1 head rule(s), e.g.… | fix: Add text-wrap: balance to h1/h2-level heads
+  WARN F20 http://127.0.0.1:4322/:1 [1440px] div.book-grid leaves one item alone on its last row (4… | fix: Change the count or the columns so the last row is not an orphan
+  WARN F26 x2 http://127.0.0.1:4322/:1 [375px] h2 "오늘 아이와 어떤 이야기를 나누고 싶나요?" ends on a stub; http://127.0.0.1:4322/:1 [1280px] h2 "꼬마 등대 루미의 반짝이는 불빛" ends on a stub; h2 "유리병 속 무지개와 … | fix: text-wrap: balance on heads and pretty on body copy, or rewrite the line; a <br> goes only between phrases and is checked at 375
+sloplint: 39 FAIL, 10 REFLEX, 8 WARN across 4 file(s) and 1 URL(s), grouped by gate; every line is in .hallmark/before.txt.
+before: recorded 7 links, 2 fields, 0 handlers, 0 test hooks, 0 script hooks and 1 rendered page(s) in .hallmark/before.json; --kept checks a redesign against it

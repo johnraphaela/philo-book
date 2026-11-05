@@ -1,0 +1,127 @@
+render tier: 10 screenshots in /workspace/philo-book/.hallmark/shots (1280x800, 1440x900, 1920x1080 folds; 1440 and 375 full pages)
+design-preview/src/components/BookCard.astro
+  FAIL 7a :35 pure #fff: background: #fff (.book-card) | fix: Tint the base toward the anchor hue
+  FAIL 48 :35 colour literal #fff outside tokens (background on .book-card) | fix: Lift the value into the token block
+  FAIL 48 :35 colour literal #e4dcd1 outside tokens (border on .book-card)
+  FAIL 48 :36 colour literal #8b715b outside tokens (border-color on .book-card:hover)
+  FAIL 48 :38 colour literal #f0ece5 outside tokens (background on .cover)
+  FAIL 48 :40 colour literal #6b6257 outside tokens (color on .cover-placeholder)
+  FAIL 48 :42 colour literal #685a4c outside tokens (color on .metadata)
+  FAIL 48 :44 colour literal #c4aa88 outside tokens (border-left on .question)
+  FAIL 48 :45 colour literal #71604e outside tokens (color on .question-label)
+  FAIL 48 :46 colour literal #493d30 outside tokens (color on .core-question)
+  FAIL 48 :47 colour literal #615d56 outside tokens (color on .summary)
+  FAIL 48 :50 colour literal #f3eee7 outside tokens (background on .tags li)
+  FAIL 48 :50 colour literal #68533d outside tokens (color on .tags li)
+  FAIL 48 :51 colour literal #ede6dd outside tokens (border-top on .read-link)
+  FAIL 48 :51 colour literal #624832 outside tokens (color on .read-link)
+  REFLEX 24b :45 margin-bottom: 6px (off the 4px scale) on .question-label | fix: Use the 4px spacing scale
+  REFLEX 24b :49 gap: 6px (off the 4px scale) on .tags
+  REFLEX 24b :51 padding-top: 14px (off the 4px scale) on .read-link
+  REFLEX 26b :1 no :active styling anywhere | fix: All eight states; guard: not a form control, no aria-disabled anywhere
+  REFLEX 26b :1 no :disabled styling anywhere
+  WARN 3 :44 side stripe border-left: 3px solid #c4aa88 on .question | fix: Hairline all round, none, or an accent square
+  WARN 28a :13 lazy-loaded first image (likely LCP) | fix: fetchpriority=high on the LCP element
+  WARN F3 :43 no text-wrap: balance on any display head (1 head rule(s), e.g. h2) | fix: Add text-wrap: balance to h1/h2-level heads
+design-preview/src/components/BookTabs.astro
+  FAIL 7a :103 pure #fff: background: #fff (header)
+  FAIL 7a :106 pure #fff: background: #fff (.nav-btns button)
+  FAIL 7a :107 pure #fff: color: #fff (.nav-btns button[aria-selected='true'], .nav-btns button:hover)
+  FAIL 48 :103 colour literal #fff outside tokens (background on header)
+  FAIL 48 :103 colour literal #e5e7eb outside tokens (border-bottom on header)
+  FAIL 48 :104 colour literal #4b5563 outside tokens (color on .back-btn)
+  FAIL 48 :106 colour literal #d1d5db outside tokens (border on .nav-btns button)
+  FAIL 48 :106 colour literal #fff outside tokens (background on .nav-btns button)
+  FAIL 48 :107 colour literal #22252a outside tokens (background on .nav-btns button[aria-selecte…)
+  FAIL 48 :107 colour literal #fff outside tokens (color on .nav-btns button[aria-selecte…)
+  FAIL 48 :107 colour literal #22252a outside tokens (border-color on .nav-btns button[aria-selecte…)
+  REFLEX 24b :103 padding: 10px 16px (off the 4px scale) on header
+  REFLEX 24b :105 gap: 6px (off the 4px scale) on .nav-btns
+  REFLEX 24b :109 gap: 6px (off the 4px scale) on header
+  REFLEX 24b :109 padding: 6px 8px (off the 4px scale) on header
+design-preview/src/components/LibraryShelf.astro
+  FAIL 7a :103 pure #fff: color: #fff (.category-grid button[aria-pressed="true"])
+  FAIL 7a :106 pure #fff: background: #fff (form)
+  FAIL 7a :110 pure #fff: background: #fff (input, select, button)
+  FAIL 7a :116 pure #fff: background: #fff (.empty)
+  FAIL 48 :102 colour literal #c9bcab outside tokens (border-color on .category-grid button)
+  FAIL 48 :103 colour literal #624832 outside tokens (background on .category-grid button[aria-pr…)
+  FAIL 48 :103 colour literal #fff outside tokens (color on .category-grid button[aria-pr…)
+  FAIL 48 :103 colour literal #624832 outside tokens (border-color on .category-grid button[aria-pr…)
+  FAIL 48 :103 colour literal #fff outside tokens (box-shadow on .category-grid button[aria-pr…)
+  FAIL 48 :104 colour literal #555047 outside tokens (color on .shelf-description)
+  FAIL 48 :106 colour literal #fff outside tokens (background on form)
+  FAIL 48 :110 colour literal #d1d5db outside tokens (border on input, select, button)
+  FAIL 48 :110 colour literal #fff outside tokens (background on input, select, button)
+  FAIL 48 :110 colour literal #22252a outside tokens (color on input, select, button)
+  FAIL 48 :112 colour literal #2563eb outside tokens (outline on input:focus-visible, select:f…)
+  FAIL 48 :114 colour literal #4b5563 outside tokens (color on .result-count)
+  FAIL 48 :116 colour literal #fff outside tokens (background on .empty)
+  REFLEX 24b :110 padding: 10px 12px (off the 4px scale) on input, select, button
+design-preview/src/styles/preview.css
+  FAIL 7a :18 pure #fff: color: white (body.preview.preview .category-grid button[aria-pressed=true])
+  FAIL 20 :1 no Hallmark stamp on the first non-empty line of any CSS | fix: The stamp comment is line 1 of the CSS; only @charset may precede it
+  FAIL 48 :2 colour literal #faf7f0 outside tokens (--color-background on body.preview.preview)
+  FAIL 48 :2 colour literal #292d29 outside tokens (--color-text on body.preview.preview)
+  FAIL 48 :2 colour literal #375e50 outside tokens (--color-primary on body.preview.preview)
+  FAIL 48 :2 font-family literal "'Pretendard','Noto Sans CJK KR','Ap…" on body.preview.preview
+  FAIL 48 :4 colour literal #d6d5c9 outside tokens (border-bottom on .preview.preview .preview-bar)
+  FAIL 48 :4 colour literal #4b594e outside tokens (color on .preview.preview .preview-bar)
+  FAIL 48 :5 colour literal #315345 outside tokens (color on .preview .preview-bar a)
+  FAIL 48 :8 colour literal #375e50 outside tokens (color on body.preview.preview .brand)
+  FAIL 48 :13 colour literal #375e50 outside tokens (color on body.preview.preview .hero a)
+  FAIL 48 :16 colour literal #b5beb5 outside tokens (border-color on body.preview.preview .categor…)
+  FAIL 48 :16 colour literal #35463b outside tokens (color on body.preview.preview .categor…)
+  FAIL 48 :18 colour literal #375e50 outside tokens (background on body.preview.preview .categor…)
+  FAIL 48 :18 colour literal #375e50 outside tokens (border-color on body.preview.preview .categor…)
+  FAIL 48 :21 colour literal #d6d5c9 outside tokens (border-top on body.preview.preview form)
+  FAIL 48 :21 colour literal #d6d5c9 outside tokens (border-bottom on body.preview.preview form)
+  FAIL 48 :24 colour literal #d6d5c9 outside tokens (border-bottom on body.preview.preview .book-ca…)
+  FAIL 48 :25 colour literal #eeeadd outside tokens (background on body.preview.preview .cover)
+  FAIL 48 :27 colour literal #53604f outside tokens (color on body.preview.preview .metadata)
+  FAIL 48 :29 colour literal #899d86 outside tokens (border-left on body.preview.preview .question)
+  FAIL 48 :30 colour literal #596652 outside tokens (color on body.preview.preview .questio…)
+  FAIL 48 :31 colour literal #303e32 outside tokens (color on body.preview.preview .core-qu…)
+  FAIL 48 :32 colour literal #5d6158 outside tokens (color on body.preview.preview .summary)
+  FAIL 48 :33 colour literal #d6d5c9 outside tokens (border on body.preview.preview .tags li)
+  FAIL 48 :33 colour literal #53604f outside tokens (color on body.preview.preview .tags li)
+  FAIL 48 :34 colour literal #375e50 outside tokens (color on body.preview.preview .read-li…)
+  FAIL 48 :34 colour literal #d6d5c9 outside tokens (border-color on body.preview.preview .read-li…)
+  FAIL 48 :35 colour literal #d6d5c9 outside tokens (border on body.preview.preview .empty)
+  FAIL 48 :40 colour literal #f6f4eb outside tokens (--color-background on body.preview.previewbody.prev…)
+  FAIL 48 :40 colour literal #385348 outside tokens (--color-primary on body.preview.previewbody.prev…)
+  FAIL 48 :41 colour literal #bcc5b8 outside tokens (border-bottom on body.preview.variant-b .hero)
+  FAIL 48 :43 font-family literal "'Noto Serif CJK KR',serif" on body.preview.variant-b .hero h1
+  FAIL 48 :53 font-family literal "'Noto Serif CJK KR',serif" on body.preview.variant-b .book-card h2
+  REFLEX 24b :5 padding: 10px 2px (off the 4px scale) on .preview .preview-bar a
+  REFLEX 24b :16 padding: 10px 16px (off the 4px scale) on body.preview.preview .category-grid button
+  REFLEX 24b :28 margin: 8px 0 14px (off the 4px scale) on body.preview.preview .book-card h2
+  REFLEX 24b :29 padding-left: 14px (off the 4px scale) on body.preview.preview .question
+  REFLEX 24b :57 margin-bottom: 10px (off the 4px scale) on body.preview.variant-b .tags
+  WARN F3 :9 no text-wrap: balance on any display head (9 head rule(s), e.g. body.preview.preview h1,body.pr…)
+http://127.0.0.1:4321/a/
+  FAIL 40 :1 [1440px] a field's edge is under 3:1 against what surrounds it: input 1.38:1, select 1.38:1 | fix: Draw the field in --color-muted, or fill it a step off the surface it sits on
+  FAIL 58 :1 [1440px] hero carries 4 text blocks before its actions | fix: Headline, one sentence, actions; delete the rest
+  REFLEX 44c :1 [1440px] hero ends at 405px of a 900px screen | fix: Fill the first screen with the visual or the headline, not with copy
+  REFLEX 59 :1 [1440px] smallest gap between sections is 42px (gaps: 42) | fix: 120px or more between sections, by the --section-gap steps
+  REFLEX 77 :1 [1440px] 1 thin section: "오늘 아이와 어떤 이야기를 나누고 싶나요?" (40% wide, no mass) | fix: Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)
+  REFLEX 78 :1 [1440px] section heads render at 22px under a 45px hero head | fix: h2 at --text-section (about 52px at 1440), item titles at --text-title (layout.md § 2)
+  WARN 77 :1 [1440px] 2 sections, hero and footer included | fix: A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)
+  WARN F19 :1 [1440px] 4 font weights in running use (400, 500, 600, 700) | fix: Three weights at most, display and body together, picked as extremes
+  WARN F26 :1 [375px] h2 "오늘 아이와 어떤 이야기를 나누고 싶나요?" ends on a stub | fix: text-wrap: balance on heads and pretty on body copy, or rewrite the line; a <br> goes only between phrases and is checked at 375
+http://127.0.0.1:4321/b/
+  FAIL 40 :1 [1440px] a field's edge is under 3:1 against what surrounds it: input 1.38:1, select 1.38:1
+  FAIL 58 :1 [1440px] hero carries 4 text blocks before its actions
+  REFLEX 44c :1 [1440px] hero ends at 320px of a 900px screen
+  REFLEX 59 :1 [1440px] smallest gap between sections is 42px (gaps: 42)
+  REFLEX 77 :1 [1440px] 1 thin section: "오늘 아이와 어떤 이야기를 나누고 싶나요?" (40% wide, no mass)
+  REFLEX 78 :1 [1440px] section heads render at 28px under a 46px hero head
+  WARN 77 :1 [1440px] 2 sections, hero and footer included
+  WARN F19 :1 [1440px] 4 font weights in running use (400, 500, 600, 700)
+design-preview/src/pages/[variant]/index.astro
+  FAIL 48 :28 colour literal #715441 outside tokens (color on .brand)
+  FAIL 48 :30 colour literal #555047 outside tokens (color on .intro, .invitation)
+  FAIL 48 :32 colour literal #624832 outside tokens (color on .hero a)
+  FAIL 54 :14 eyebrow "PHILO-PAIRING" before <h1> | fix: Cut it; the heading already says this (craft.md § 7 has twelve other openings)
+  WARN F3 :29 no text-wrap: balance on any display head (1 head rule(s), e.g. h1)
+sloplint: 85 FAIL, 23 REFLEX, 10 WARN across 6 file(s) and 2 URL(s).
