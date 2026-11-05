@@ -15,8 +15,8 @@ const compiled = ts.transpileModule(source, { compilerOptions: {
   .replace(/(['"])\.\.\/\.\.\/lib\/dialogue-questions\1/g, JSON.stringify(new URL('../src/lib/dialogue-questions.ts', import.meta.url).href));
 const { default: Completion } = await import(`data:text/javascript;base64,${Buffer.from(compiled).toString('base64')}`);
 const render = (props: Record<string, unknown>) => renderToStaticMarkup(createElement(Completion, {
-  title: '시험 책', headingId: 'completion-title', hasEssay: false, hasActivities: false, dialogue: false,
-  onDialogue() {}, onComplete() {}, onReadAgain() {}, onLastPage() {}, onTab() {}, ...props,
+  title: '시험 책', headingId: 'completion-title', hasEssay: false, hasActivities: false,
+  onReadAgain() {}, onLastPage() {}, onTab() {}, ...props,
 }));
 
 test('completion renders the original core question and only available follow-up content', () => {
@@ -37,15 +37,17 @@ test('completion renders the original core question and only available follow-up
     assert.match(html, /aria-labelledby="completion-title-question"/);
   }
 });
-test('missing questions stay absent; dialogue uses one question and an optional common guide', () => {
+test('additional questions stay inside the collapsed hub panel', () => {
   const absent = render({});
   assert(!absent.includes('오늘의 철학 질문'));
   assert(!absent.includes('completion-question'));
-  const html = render({ dialogue: true, coreQuestion: '다르게 생각해도 될까?', dialogueQuestions: ['왜 그렇게 생각할까?'] });
+  const html = render({ coreQuestion: '다르게 생각해도 될까?', dialogueQuestions: ['왜 그렇게 생각할까?'] });
   assert.equal((html.match(/다르게 생각해도 될까\?/g) ?? []).length, 1);
   assert.match(html, /왜 그렇게 생각했는지 물어보세요/);
-  assert.match(html, /← 이야기 너머로/);
-  assert.equal((html.match(/← 이야기 너머로/g) ?? []).length, 1);
+  assert(!html.includes('← 이야기 너머로'));
+  assert.match(html, /id="completion-title-guide" hidden=""/);
+  assert.match(html, /aria-expanded="false"/);
+  assert(!html.includes('다음 질문'));
   assert(!html.includes('<input'));
   assert(!html.includes('<form'));
 });
@@ -59,4 +61,17 @@ test('zero or one unique question renders an inline guide toggle without repeati
     assert.equal((html.match(/핵심 질문\?/g) ?? []).length, 'coreQuestion' in props ? 1 : 0);
     assert(!html.includes('다음 질문'));
   }
+});
+
+test('EP06 keeps its core question on the hub and all follow-ups in the inline panel', () => {
+  const book = { coreQuestion: '핵심 질문?', dialogueQuestions: ['첫 번째 추가 질문?', '두 번째 추가 질문?'], parentReflectionQuestion: '부모 성찰 질문?' };
+  const html = render(book);
+  const panelStart = html.indexOf('id="completion-title-guide"');
+  assert(panelStart > 0);
+  assert(html.indexOf(book.coreQuestion) < panelStart);
+  for (const question of [...book.dialogueQuestions, book.parentReflectionQuestion]) {
+    assert(html.indexOf(question) > panelStart);
+    assert.equal(html.split(question).length - 1, 1);
+  }
+  assert(!html.includes('다음 질문'));
 });
