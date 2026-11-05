@@ -36,7 +36,7 @@ function Illustration({ page, title, number, size }: { page: StoryPage; title: s
 
 export default function StoryViewer({ pages, title, imageSizes, coreQuestion, dialogueQuestions, parentReflectionQuestion, hasEssay = false, hasActivities = false }: Props) {
   const [currentPage, setCurrentPage] = useState(0);
-  const [view, setView] = useState<'story' | 'complete' | 'dialogue'>('story');
+  const [view, setView] = useState<'story' | 'complete'>('story');
   const [showHint, setShowHint] = useState(false);
   const viewer = useRef<HTMLElement>(null);
   const sceneStart = useRef<HTMLDivElement>(null);
@@ -100,9 +100,8 @@ export default function StoryViewer({ pages, title, imageSizes, coreQuestion, di
 
   return (
     <article ref={viewer} className="story-viewer" aria-labelledby={titleId}>
-      {view !== 'story' ? <div ref={viewStart} tabIndex={-1} className="completion-start" aria-label={view === 'dialogue' ? '생각 나누기' : '이야기 너머'}>
+      {view !== 'story' ? <div ref={viewStart} tabIndex={-1} className="completion-start" aria-label="이야기 너머">
         <ReadingCompletion headingId={titleId} title={title} coreQuestion={coreQuestion} dialogueQuestions={dialogueQuestions} parentReflectionQuestion={parentReflectionQuestion} hasEssay={hasEssay} hasActivities={hasActivities}
-          dialogue={view === 'dialogue'} onDialogue={() => setView('dialogue')} onComplete={() => setView('complete')}
           onReadAgain={() => returnToStory(true)} onLastPage={() => returnToStory(false)} onTab={requestTab} />
       </div> : <>
       <header className="story-heading">

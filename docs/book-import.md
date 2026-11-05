@@ -63,7 +63,7 @@ Metadata 안의 새 필드는 Summary 앞뒤 어느 위치에도 쓸 수 있습�
 
 `--update`에서 새 필드를 명시하면 교체하고, 생략하면 해당 책에 이미 저장된 값을 보존합니다. 병합한 결과도 동일하게 검증하므로 대표 분류만 바꿔 기존 세부 주제와 충돌하면 오류가 납니다. 빈 문자열은 삭제 요청이 아닙니다. Subtopics/Dialogue Questions는 명시적 `[]`로 비울 수 있습니다. 원고·이미지 및 기존 승인 기록을 수정해서 검증을 우회하지 않습니다.
 
-화면은 유효한 질문 0~1개일 때 이야기 너머의 대화 안내를 인라인으로 펼치며, 서로 다른 질문 2개 이상일 때 단계별 생각 나누기로 연결합니다. 이번 변경은 Markdown 등록 경로에 한정하며 Master Draft JSON 변환 경로는 변경하지 않습니다. Gemini Skill의 GitHub 기준은 [SKILL.md](gemini-skill/SKILL.md)이며 [표준 EP04 샘플](gemini-skill/references/ep04-example.md), [변경 이력](gemini-skill/CHANGELOG.md)과 함께 관리합니다. main에 병합된 두 문서를 사용자가 Gemini Skill에 수동 반영하며 자동 동기화하지 않습니다. 제공된 Phase4A Gemini Skill 개정 지침·EP04 샘플의 실제 Metadata(Recommended Age와 파이프 구분 질문 포함) 및 기존 섹션 구조를 검증했습니다. 샘플은 승인된 출판 원고로 간주하지 않으며 기존 피코 도서에 덮어쓰지 않습니다.
+이야기 너머 화면에는 핵심 질문을 표시하며, 생각 나누기를 누르면 추가 대화 질문·부모 성찰 질문·대화 안내를 같은 화면 안에서 펼칩니다. 다시 누르면 접히며 별도 질문 화면으로 이동하지 않습니다. 이번 변경은 Markdown 등록 경로에 한정하며 Master Draft JSON 변환 경로는 변경하지 않습니다. Gemini Skill의 GitHub 기준은 [SKILL.md](gemini-skill/SKILL.md)이며 [표준 EP04 샘플](gemini-skill/references/ep04-example.md), [변경 이력](gemini-skill/CHANGELOG.md)과 함께 관리합니다. main에 병합된 두 문서를 사용자가 Gemini Skill에 수동 반영하며 자동 동기화하지 않습니다. 제공된 Phase4A Gemini Skill 개정 지침·EP04 샘플의 실제 Metadata(Recommended Age와 파이프 구분 질문 포함) 및 기존 섹션 구조를 검증했습니다. 샘플은 승인된 출판 원고로 간주하지 않으며 기존 피코 도서에 덮어쓰지 않습니다.
 
 ## 서재 카드 문구 권장 기준
 
