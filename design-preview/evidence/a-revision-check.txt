@@ -1,0 +1,2 @@
+Full log: a-revision-check.txt.gz
+Result: 0 errors, 0 warnings, 35 hints.

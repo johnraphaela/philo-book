@@ -1,0 +1,13 @@
+const {chromium}=require('/opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright-core');
+(async()=>{const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']}); const page=await browser.newPage(); const results=[];
+for(const variant of ['a','b']) for(const width of [360,390,768,1440]) {
+ await page.setViewportSize({width,height:1000}); await page.goto(`http://127.0.0.1:4321/${variant}/`); await page.locator('form:not([hidden])').waitFor(); await page.evaluate(async()=>{document.querySelectorAll('img').forEach(i=>i.loading='eager');await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));}); await page.screenshot({path:`/workspace/philo-book/design-preview/evidence/${variant}-${width}.png`,fullPage:true});
+ const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth);const count=await page.locator('[data-book]:visible').count();
+ await page.locator('input[type=search]').fill('존재하지않는검색결과');await page.waitForTimeout(80);const empty=await page.locator('.empty').isVisible(); await page.locator('[data-clear]').click(); await page.waitForTimeout(80);const reset=await page.locator('[data-book]:visible').count();
+ await page.locator('[data-category]').nth(1).click();const selected=await page.locator('[data-category]').nth(1).getAttribute('aria-pressed'); await page.locator('select[name=age]').selectOption({index:1});
+ results.push({variant,width,overflow,count,empty,reset,selected,filtered:await page.locator('[data-book]:visible').count()});
+ await page.goto(`http://127.0.0.1:4321/${variant}/book/ep01-robot-mong`);await page.locator('.story-viewer').waitFor(); await page.evaluate(async()=>{document.querySelectorAll('img').forEach(i=>i.loading='eager');await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));}); await page.screenshot({path:`/workspace/philo-book/design-preview/evidence/${variant}-reader-${width}.png`,fullPage:true});
+ await page.getByRole('tab',{name:'어른의 시선'}).click(); await page.evaluate(async()=>{document.querySelectorAll('img').forEach(i=>i.loading='eager');await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));}); await page.screenshot({path:`/workspace/philo-book/design-preview/evidence/${variant}-essay-${width}.png`,fullPage:true});results.at(-1).essayOverflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth);
+ await page.getByRole('tab',{name:'생각 펼치기'}).click();results.at(-1).activityOverflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth);
+}
+require('fs').writeFileSync('/workspace/philo-book/design-preview/evidence/browser-results.json',JSON.stringify(results,null,2));await browser.close();})();

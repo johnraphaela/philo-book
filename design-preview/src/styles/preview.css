@@ -1,0 +1,81 @@
+/* Only imported by the isolated design-preview config. */
+body.preview.preview { --color-background:#faf7f0; --color-text:#292d29; --color-primary:#375e50; font-family:'Pretendard','Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif; }
+body.preview.preview * { box-sizing:border-box; }
+.preview.preview .preview-bar { display:flex; flex-wrap:wrap; align-items:center; gap:12px 24px; padding:16px 0; border-bottom:1px solid #d6d5c9; font-size:13px; color:#4b594e; }
+.preview .preview-bar a { color:#315345; padding:10px 2px; min-height:44px; }
+.preview .preview-bar strong { margin-right:auto; }
+body.preview.preview .hero { padding:32px 0 24px; }
+body.preview.preview .brand { color:#375e50; letter-spacing:.16em; }
+body.preview.preview h1,body.preview.preview h2 { word-break:keep-all; overflow-wrap:anywhere; }
+body.preview.preview .hero h1 { font-weight:600; letter-spacing:-.045em; }
+body.preview.preview .hero .intro { max-width:40em; }
+body.preview.preview .hero .invitation { margin-bottom:0; }
+body.preview.preview .hero a { color:#375e50; }
+body.preview.preview .topic-section { padding:4px 0 20px; }
+body.preview.preview .category-grid { display:flex; flex-wrap:wrap; gap:8px; }
+body.preview.preview .category-grid button { padding:10px 16px; border-radius:4px; border-color:#b5beb5; background:transparent; color:#35463b; }
+body.preview.preview .category-grid button span { display:none; }
+body.preview.preview .category-grid button[aria-pressed=true] { background:#375e50; color:white; border-color:#375e50; box-shadow:none; }
+body.preview.preview #library-heading { margin-bottom:8px; }
+body.preview.preview .shelf-description { margin-top:0; max-width:46em; }
+body.preview.preview form { background:transparent; border-top:1px solid #d6d5c9; border-bottom:1px solid #d6d5c9; border-radius:0; padding:20px 0; margin-top:20px; }
+body.preview.preview input,body.preview.preview select,body.preview.preview button { border-radius:4px; min-height:44px; }
+body.preview.preview .book-grid { gap:28px; }
+body.preview.preview .book-card { padding:0 0 20px; border:0; border-radius:0; background:transparent; border-bottom:1px solid #d6d5c9; }
+body.preview.preview .cover { border-radius:3px; background:#eeeadd; }
+body.preview.preview .cover img { object-fit:contain; }
+body.preview.preview .metadata { font-size:14px; color:#53604f; }
+body.preview.preview .book-card h2 { margin:8px 0 14px; font-size:22px; font-weight:600; }
+body.preview.preview .question { border-left:2px solid #899d86; padding-left:14px; }
+body.preview.preview .question-label { color:#596652; }
+body.preview.preview .core-question { color:#303e32; font-weight:500; line-height:1.8; }
+body.preview.preview .summary { display:block; overflow:visible; color:#5d6158; }
+body.preview.preview .tags li { background:transparent; border:1px solid #d6d5c9; color:#53604f; }
+body.preview.preview .read-link { color:#375e50; border-color:#d6d5c9; }
+body.preview.preview .empty { border:1px solid #d6d5c9; background:transparent; }
+body.preview.preview .reading-paper { max-width:760px; margin-inline:auto; box-shadow:none; border-radius:3px; }
+body.preview.preview .reading-paper p { line-height:1.95; }
+body.preview.preview .content-container { box-shadow:none; border-radius:3px; }
+body.preview.preview.book-page > .preview-bar { max-width:1100px; margin:auto; padding-inline:20px; }
+body.preview.variant-b { --color-background:#f6f4eb; --color-primary:#385348; }
+body.preview.variant-b .hero { display:grid; grid-template-columns:1fr 1fr; gap:0 64px; max-width:none; padding:36px 0 28px; border-bottom:1px solid #bcc5b8; }
+body.preview.variant-b .hero .brand { grid-column:1/-1; }
+body.preview.variant-b .hero h1 { grid-row:2/5; font-family:'Noto Serif CJK KR',serif; font-size:clamp(28px,3.5vw,46px); margin:8px 0; }
+body.preview.variant-b .hero .intro { margin:8px 0; }
+body.preview.variant-b .hero .invitation { margin:4px 0; }
+body.preview.variant-b .hero a { align-self:start; }
+body.preview.variant-b .topic-section { padding-top:16px; }
+body.preview.variant-b .book-grid { grid-template-columns:1fr; gap:0; }
+body.preview.variant-b .book-card { display:grid; grid-template-columns:minmax(220px,40%) 1fr; column-gap:40px; padding:28px 0; align-items:start; }
+body.preview.variant-b .book-card .cover { grid-column:1; grid-row:1/7; width:100%; }
+body.preview.variant-b .book-card > :not(.cover) { grid-column:2; }
+body.preview.variant-b .book-card .metadata { margin-top:0; }
+body.preview.variant-b .book-card h2 { font-family:'Noto Serif CJK KR',serif; font-size:28px; }
+body.preview.variant-b .book-card .question { border:0; padding:0; margin-bottom:12px; }
+body.preview.variant-b .core-question { font-size:20px; }
+body.preview.variant-b .book-card .summary { margin-bottom:12px; }
+body.preview.variant-b .tags { margin-bottom:10px; }
+@media(min-width:1100px) { body.preview.variant-a .book-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media(max-width:600px) {
+ body.preview.preview .hero { padding:20px 0; }
+ body.preview.preview .hero h1 { font-size:30px; }
+ body.preview.preview .book-grid { gap:24px; }
+ body.preview.preview .category-grid button { flex:1 1 42%; }
+ body.preview.variant-b .hero { display:block; }
+ body.preview.variant-b .hero h1 { margin:12px 0; }
+ body.preview.variant-b .hero .invitation { display:block; }
+ body.preview.variant-b .book-card { display:flex; gap:0; padding:0 0 24px; }
+ body.preview.variant-b .book-card .metadata { margin-top:16px; }
+ body.preview.variant-b .book-card h2 { font-size:24px; }
+ body.preview.variant-b .core-question { font-size:18px; }
+}
+
+body.preview.preview astro-dev-toolbar { display:none; }
+body.preview.variant-b .topic-section h2 { font-size:18px; margin:12px 0; }
+body.preview.variant-b .hero { padding:20px 0; }
+body.preview.variant-b .hero h1 { grid-row:2/5; }
+body.preview.preview h1,body.preview.preview h2 { min-width:0; overflow-wrap:break-word; }
+body.preview.preview input:focus-visible,body.preview.preview select:focus-visible { outline:3px solid var(--color-primary); outline-offset:3px; }
+
+/* EP01: fill the A shelf cover frame without distorting the original image. */
+body.preview.variant-a .book-card[data-book-id="ep01-robot-mong"] .cover img { object-fit:cover; object-position:50% 50%; }

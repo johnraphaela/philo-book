@@ -1,0 +1,53 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCardMetadata } from '../../../src/lib/book-card';
+import { getLibraryCopy } from '../../../src/lib/library-copy';
+interface Props { book: CollectionEntry<'books'>; variant: string }
+const { book, variant } = Astro.props;
+const copy = getLibraryCopy(book.id, book.data);
+const { category, tags, age } = getCardMetadata(book.data);
+---
+
+<a href={`/${variant}/book/${book.id}`} class="book-card" data-book-id={book.id} data-book={JSON.stringify({ id: book.id, data: { title: book.data.title, theme: book.data.theme, summary: [copy.summary, book.data.summary, copy.theme].filter(Boolean).join(' '), categories: book.data.categories, topics: book.data.topics, primaryCategory: book.data.primaryCategory, subtopics: book.data.subtopics, coreQuestion: book.data.coreQuestion, recommendedAge: book.data.recommendedAge, ageGroups: book.data.ageGroups } })}>
+  <div class="cover">
+    {book.data.cover ? <img src={book.data.cover} alt="" loading="lazy" width="640" height="360" /> : <span class="cover-placeholder">표지 준비 중</span>}
+  </div>
+  {(category || age) && <p class="metadata">
+    {category && <span>{category}</span>}
+    {category && age && <span aria-hidden="true"> · </span>}
+    {age && <span>{age} 추천</span>}
+  </p>}
+  <h2>{book.data.title}</h2>
+  {book.data.coreQuestion && <div class="question">
+    <p class="question-label">함께 나눌 질문</p>
+    <p class="core-question">{book.data.coreQuestion}</p>
+  </div>}
+  {copy.summary && <p class="summary">{copy.summary}</p>}
+  <div class="card-footer">
+    {tags.length > 0 && <ul class="tags" aria-label="세부 주제">
+      {tags.map(tag => <li>{tag}</li>)}
+    </ul>}
+    <span class="read-link">그림책 읽기 <span aria-hidden="true">→</span></span>
+  </div>
+</a>
+
+<style>
+  .book-card { display: flex; flex-direction: column; min-width: 0; overflow-wrap: anywhere; background: #fff; padding: 20px; border: 1px solid #e4dcd1; border-radius: 12px; text-decoration: none; color: inherit; transition: border-color .15s ease; }
+  .book-card:hover { border-color: #8b715b; }
+  .book-card:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 4px; }
+  .cover { aspect-ratio: 4 / 3; border-radius: 8px; overflow: hidden; background: #f0ece5; display: grid; place-items: center; }
+  .cover img { width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; }
+  .cover-placeholder { color: #6b6257; font-size: .9rem; }
+  p { margin: 0; }
+  .metadata { margin-top: 16px; color: #685a4c; font-size: .82rem; line-height: 1.7; }
+  h2 { font-size: 1.25rem; line-height: 1.5; margin: 8px 0 16px; letter-spacing: -.02em; }
+  .question { border-left: 3px solid #c4aa88; padding-left: 12px; margin-bottom: 16px; }
+  .question-label { font-size: .75rem; color: #71604e; margin-bottom: 6px; }
+  .core-question { font-size: 1rem; font-weight: 600; line-height: 1.7; color: #493d30; }
+  .summary { color: #615d56; font-size: .9rem; line-height: 1.7; margin-bottom: 20px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+  .card-footer { margin-top: auto; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 0 0 16px; }
+  .tags li { background: #f3eee7; color: #68533d; padding: 4px 8px; border-radius: 4px; font-size: .78rem; line-height: 1.5; }
+  .read-link { display: block; border-top: 1px solid #ede6dd; padding-top: 14px; color: #624832; font-weight: 600; font-size: .9rem; }
+  @media (prefers-reduced-motion: reduce) { .book-card { transition: none; } }
+</style>

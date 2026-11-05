@@ -1,0 +1,74 @@
+[
+  {
+    "viewport": 360,
+    "fit": "cover",
+    "position": "50% 50%",
+    "frame": [
+      328,
+      246
+    ],
+    "image": [
+      328,
+      246
+    ],
+    "natural": [
+      1024,
+      572
+    ],
+    "overflow": false
+  },
+  {
+    "viewport": 390,
+    "fit": "cover",
+    "position": "50% 50%",
+    "frame": [
+      358,
+      268.5
+    ],
+    "image": [
+      358,
+      268.5
+    ],
+    "natural": [
+      1024,
+      572
+    ],
+    "overflow": false
+  },
+  {
+    "viewport": 768,
+    "fit": "cover",
+    "position": "50% 50%",
+    "frame": [
+      346,
+      259.5
+    ],
+    "image": [
+      346,
+      259.5
+    ],
+    "natural": [
+      1024,
+      572
+    ],
+    "overflow": false
+  },
+  {
+    "viewport": 1440,
+    "fit": "cover",
+    "position": "50% 50%",
+    "frame": [
+      381.328125,
+      285.984375
+    ],
+    "image": [
+      381.328125,
+      285.984375
+    ],
+    "natural": [
+      1024,
+      572
+    ],
+    "overflow": false
+  }
+]

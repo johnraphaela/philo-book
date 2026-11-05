@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../../../src/layouts/BaseLayout.astro';
+import LibraryShelf from '../../components/LibraryShelf.astro';
+import { getLibrary } from '../../../../src/lib/content';
+import '../../styles/preview.css';
+export function getStaticPaths() { return ['a','b'].map(variant => ({params:{variant}})); }
+const {variant} = Astro.params;
+const library = await getLibrary();
+---
+
+<BaseLayout title="PHILO-PAIRING | 우리의 그림책 서가" pageClass={`library-page preview variant-${variant}`}>
+  <nav class="preview-bar" aria-label="시안 비교"><strong>디자인 검토 · {variant?.toUpperCase()}안</strong><a href="/a/">A · 정돈</a><a href="/b/">B · 편집형</a></nav>
+  <header class="hero">
+    <p class="brand">PHILO-PAIRING</p>
+    <h1>하나의 이야기,<br class="mobile-break" /> 우리의 성장</h1>
+    <p class="intro">아이와 어른이 함께 읽고 질문하며 생각의 깊이를 키우는 철학 그림책 서재</p>
+    <p class="invitation">그림책을 읽고, 질문을 나누고, 서로의 생각을 발견해 보세요.</p>
+    <a href="#library">그림책 서가 둘러보기 <span aria-hidden="true">↓</span></a>
+  </header>
+  <main>
+    <LibraryShelf variant={variant!} books={library.map(({ book }) => book)} />
+  </main>
+</BaseLayout>
+
+<style>
+  :global(body.library-page) { margin: 0 auto; padding: 24px; max-width: 1200px; }
+  .hero { padding: 40px 0 36px; max-width: 760px; }
+  .brand { font-size: .9rem; font-weight: 700; letter-spacing: .12em; color: #715441; }
+  h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.35; margin: 16px 0; letter-spacing: -.04em; }
+  .intro, .invitation { line-height: 1.8; color: #555047; word-break: keep-all; overflow-wrap: anywhere; }
+  .invitation { font-size: .95rem; }
+  .hero a { display: inline-block; padding: 12px 0; color: #624832; font-weight: 600; }
+  .mobile-break { display: none; }
+  @media (max-width: 480px) {
+    :global(body.library-page) { padding: 16px; }
+    .hero { padding: 12px 0 24px; }
+    .mobile-break { display: initial; }
+  }
+</style>

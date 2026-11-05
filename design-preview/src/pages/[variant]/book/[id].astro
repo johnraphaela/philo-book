@@ -1,0 +1,48 @@
+---
+import sharp from 'sharp';
+import path from 'node:path';
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import BaseLayout from '../../../../../src/layouts/BaseLayout.astro';
+import BookTabs from '../../../components/BookTabs.astro';
+import EssayPanel from '../../../../../src/components/book/EssayPanel.astro';
+import ActivityPanel from '../../../../../src/components/book/ActivityPanel.astro';
+import StoryViewer from '../../../../../src/components/StoryViewer';
+import { getLibrary } from '../../../../../src/lib/content';
+import { getBookPresentation } from '../../../../../src/lib/book-presentation';
+import '../../../../../src/styles/book.css';
+import '../../../styles/preview.css';
+
+export const getStaticPaths = (async () => {
+  const library = await getLibrary();
+  return ['a','b'].flatMap(variant => library.map(({ book, essay }) => ({
+    params: { id: book.id, variant },
+    props: { book, essay, variant },
+  })));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { book, essay, variant } = Astro.props;
+const activities = book.data.harvardPlay ?? [];
+const presentation = getBookPresentation(book.id);
+// Read dimensions at build time to reserve the original image ratio before loading.
+// No image files are transformed and missing files retain the viewer fallback.
+const publicRoot = path.resolve('public');
+const imageSizes = await Promise.all(book.data.pages.map(async page => {
+  const file = path.resolve(publicRoot, `.${page.image}`);
+  if (!file.startsWith(`${publicRoot}${path.sep}`)) return undefined;
+  try {
+    const { width, height } = await sharp(file).metadata();
+    return width && height ? { width, height } : undefined;
+  } catch { return undefined; }
+}));
+---
+
+<BaseLayout title={`${book.data.title} | PHILO-PAIRING`} pageClass={`book-page preview variant-${variant}`}>
+  <nav class="preview-bar"><a href={`/${variant}/`}>← {variant.toUpperCase()}안 서재</a><span>디자인 검토 · 대표 읽기 화면</span></nav>
+  <BookTabs homeHref={`/${variant}/`} hasEssay={Boolean(essay)} hasActivities={activities.length > 0}>
+    <StoryViewer slot="story" client:load pages={book.data.pages} title={book.data.title} coreQuestion={book.data.coreQuestion} dialogueQuestions={book.data.dialogueQuestions} parentReflectionQuestion={book.data.parentReflectionQuestion} hasEssay={Boolean(essay)} hasActivities={activities.length > 0} imageSizes={imageSizes} illustrationAspectRatio={presentation.illustrationAspectRatio} illustrationFit={presentation.illustrationFit} />
+    {essay && <EssayPanel slot="essay" essay={essay} />}
+    {activities.length > 0 && <ActivityPanel slot="activities" activities={activities} activityEyebrow={presentation.activityEyebrow} />}
+  </BookTabs>
+
+</BaseLayout>

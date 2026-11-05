@@ -1,0 +1,35 @@
+
+> ver_0.1@0.0.1 build
+> astro build --config design-preview/astro.config.mjs
+
+05:14:50 [content] Syncing content
+05:14:50 [content] Synced content
+05:14:50 [types] Generated 720ms
+05:14:50 [build] output: "static"
+05:14:50 [build] mode: "static"
+05:14:50 [build] directory: /workspace/philo-book/design-preview/dist/
+05:14:50 [build] Collecting build info...
+05:14:50 [build] ✓ Completed in 779ms.
+05:14:50 [build] Building static entrypoints...
+05:14:50 [vite] ✓ built in 463ms
+05:14:52 [vite] ✓ built in 1.07s
+05:14:52 [build] Rearranging server assets...
+
+ generating static routes
+05:14:52   ├─ /a/book/ep01-robot-mong/index.html (+47ms)
+05:14:52   ├─ /a/book/ep02-self-esteem/index.html (+16ms)
+05:14:52   ├─ /a/book/ep03-hope/index.html (+17ms)
+05:14:52   ├─ /a/book/ep05/index.html (+17ms)
+05:14:52   ├─ /a/book/pico-silver-feather/index.html (+22ms)
+05:14:52   ├─ /b/book/ep01-robot-mong/index.html (+80ms)
+05:14:52   ├─ /b/book/ep02-self-esteem/index.html (+17ms)
+05:14:52   ├─ /b/book/ep03-hope/index.html (+41ms)
+05:14:52   ├─ /b/book/ep05/index.html (+26ms)
+05:14:52   ├─ /b/book/pico-silver-feather/index.html (+10ms)
+05:14:52   ├─ /a/index.html (+6ms)
+05:14:52   ├─ /b/index.html (+3ms)
+05:14:52 ✓ Completed in 364ms.
+
+05:14:52 [build] ✓ Completed in 1.96s.
+05:14:52 [build] 12 page(s) built in 2.76s
+05:14:52 [build] Complete!

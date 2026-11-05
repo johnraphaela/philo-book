@@ -1,0 +1,542 @@
+[
+  {
+    "book": "ep01-robot-mong.json",
+    "image": "/images/ep01/page1.jpg",
+    "bytes": 174909,
+    "width": 1024,
+    "height": 572,
+    "format": "jpeg",
+    "cover": true
+  },
+  {
+    "book": "ep01-robot-mong.json",
+    "image": "/images/ep01/page2.jpg",
+    "bytes": 169088,
+    "width": 1024,
+    "height": 572,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep01-robot-mong.json",
+    "image": "/images/ep01/page3.jpg",
+    "bytes": 184951,
+    "width": 1024,
+    "height": 572,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep01-robot-mong.json",
+    "image": "/images/ep01/page4.jpg",
+    "bytes": 180727,
+    "width": 1024,
+    "height": 572,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep01-robot-mong.json",
+    "image": "/images/ep01/page5.jpg",
+    "bytes": 180936,
+    "width": 1024,
+    "height": 572,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep01-robot-mong.json",
+    "image": "/images/ep01/page6.jpg",
+    "bytes": 176713,
+    "width": 1024,
+    "height": 572,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep01-robot-mong.json",
+    "image": "/images/ep01/page7.jpg",
+    "bytes": 179104,
+    "width": 1024,
+    "height": 572,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep01-robot-mong.json",
+    "image": "/images/ep01/page8.jpg",
+    "bytes": 166975,
+    "width": 1024,
+    "height": 572,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep01-robot-mong.json",
+    "image": "/images/ep01/page9.jpg",
+    "bytes": 165521,
+    "width": 1024,
+    "height": 572,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep01-robot-mong.json",
+    "image": "/images/ep01/page10.jpg",
+    "bytes": 182134,
+    "width": 1024,
+    "height": 572,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep01-robot-mong.json",
+    "image": "/images/ep01/page11.jpg",
+    "bytes": 181742,
+    "width": 1024,
+    "height": 572,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep01-robot-mong.json",
+    "image": "/images/ep01/page12.jpg",
+    "bytes": 179126,
+    "width": 1024,
+    "height": 572,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep02-self-esteem.json",
+    "image": "/images/ep02/page1.png",
+    "bytes": 3068637,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "cover": true
+  },
+  {
+    "book": "ep02-self-esteem.json",
+    "image": "/images/ep02/page2.png",
+    "bytes": 3274688,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep02-self-esteem.json",
+    "image": "/images/ep02/page3.png",
+    "bytes": 3090400,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep02-self-esteem.json",
+    "image": "/images/ep02/page4.png",
+    "bytes": 3185988,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep02-self-esteem.json",
+    "image": "/images/ep02/page5.png",
+    "bytes": 2983738,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep02-self-esteem.json",
+    "image": "/images/ep02/page6.png",
+    "bytes": 2778261,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep02-self-esteem.json",
+    "image": "/images/ep02/page7.png",
+    "bytes": 2947994,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep02-self-esteem.json",
+    "image": "/images/ep02/page8.png",
+    "bytes": 2872807,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep02-self-esteem.json",
+    "image": "/images/ep02/page9.png",
+    "bytes": 3182643,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep02-self-esteem.json",
+    "image": "/images/ep02/page10.png",
+    "bytes": 2927457,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep02-self-esteem.json",
+    "image": "/images/ep02/page11.png",
+    "bytes": 2983434,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep02-self-esteem.json",
+    "image": "/images/ep02/page12.png",
+    "bytes": 2792824,
+    "width": 1254,
+    "height": 1254,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep03-hope.json",
+    "image": "/images/ep03/page1.jpg",
+    "bytes": 174186,
+    "width": 1024,
+    "height": 765,
+    "format": "jpeg",
+    "cover": true
+  },
+  {
+    "book": "ep03-hope.json",
+    "image": "/images/ep03/page2.jpg",
+    "bytes": 176063,
+    "width": 1024,
+    "height": 765,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep03-hope.json",
+    "image": "/images/ep03/page3.jpg",
+    "bytes": 182612,
+    "width": 1024,
+    "height": 765,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep03-hope.json",
+    "image": "/images/ep03/page4.jpg",
+    "bytes": 186843,
+    "width": 1024,
+    "height": 765,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep03-hope.json",
+    "image": "/images/ep03/page5.jpg",
+    "bytes": 168608,
+    "width": 1024,
+    "height": 765,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep03-hope.json",
+    "image": "/images/ep03/page6.jpg",
+    "bytes": 172200,
+    "width": 1024,
+    "height": 765,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep03-hope.json",
+    "image": "/images/ep03/page7.jpg",
+    "bytes": 174652,
+    "width": 1024,
+    "height": 765,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep03-hope.json",
+    "image": "/images/ep03/page8.jpg",
+    "bytes": 173551,
+    "width": 1024,
+    "height": 765,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep03-hope.json",
+    "image": "/images/ep03/page9.jpg",
+    "bytes": 180116,
+    "width": 1024,
+    "height": 765,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep03-hope.json",
+    "image": "/images/ep03/page10.jpg",
+    "bytes": 165847,
+    "width": 1024,
+    "height": 765,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep03-hope.json",
+    "image": "/images/ep03/page11.jpg",
+    "bytes": 174334,
+    "width": 1024,
+    "height": 765,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep03-hope.json",
+    "image": "/images/ep03/page12.jpg",
+    "bytes": 166343,
+    "width": 1024,
+    "height": 765,
+    "format": "jpeg",
+    "cover": false
+  },
+  {
+    "book": "ep05.json",
+    "image": "/images/ep05/page1.png",
+    "bytes": 8726743,
+    "width": 2400,
+    "height": 1792,
+    "format": "png",
+    "cover": true
+  },
+  {
+    "book": "ep05.json",
+    "image": "/images/ep05/page2.png",
+    "bytes": 8856254,
+    "width": 2400,
+    "height": 1792,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep05.json",
+    "image": "/images/ep05/page3.png",
+    "bytes": 8802515,
+    "width": 2400,
+    "height": 1792,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep05.json",
+    "image": "/images/ep05/page4.png",
+    "bytes": 8750307,
+    "width": 2400,
+    "height": 1792,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep05.json",
+    "image": "/images/ep05/page5.png",
+    "bytes": 8981445,
+    "width": 2400,
+    "height": 1792,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep05.json",
+    "image": "/images/ep05/page6.png",
+    "bytes": 8285698,
+    "width": 2400,
+    "height": 1792,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep05.json",
+    "image": "/images/ep05/page7.png",
+    "bytes": 8439758,
+    "width": 2400,
+    "height": 1792,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep05.json",
+    "image": "/images/ep05/page8.png",
+    "bytes": 8923002,
+    "width": 2400,
+    "height": 1792,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep05.json",
+    "image": "/images/ep05/page9.png",
+    "bytes": 9120496,
+    "width": 2400,
+    "height": 1792,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep05.json",
+    "image": "/images/ep05/page10.png",
+    "bytes": 9054989,
+    "width": 2400,
+    "height": 1792,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep05.json",
+    "image": "/images/ep05/page11.png",
+    "bytes": 9010693,
+    "width": 2400,
+    "height": 1792,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "ep05.json",
+    "image": "/images/ep05/page12.png",
+    "bytes": 9177089,
+    "width": 2400,
+    "height": 1792,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "pico-silver-feather.json",
+    "image": "/images/pico-silver-feather/page1.png",
+    "bytes": 3353194,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "cover": true
+  },
+  {
+    "book": "pico-silver-feather.json",
+    "image": "/images/pico-silver-feather/page2.png",
+    "bytes": 3231082,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "pico-silver-feather.json",
+    "image": "/images/pico-silver-feather/page3.png",
+    "bytes": 3193970,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "pico-silver-feather.json",
+    "image": "/images/pico-silver-feather/page4.png",
+    "bytes": 3448489,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "pico-silver-feather.json",
+    "image": "/images/pico-silver-feather/page5.png",
+    "bytes": 3589446,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "pico-silver-feather.json",
+    "image": "/images/pico-silver-feather/page6.png",
+    "bytes": 3366473,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "pico-silver-feather.json",
+    "image": "/images/pico-silver-feather/page7.png",
+    "bytes": 3539070,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "pico-silver-feather.json",
+    "image": "/images/pico-silver-feather/page8.png",
+    "bytes": 3146357,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "pico-silver-feather.json",
+    "image": "/images/pico-silver-feather/page9.png",
+    "bytes": 2576355,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "pico-silver-feather.json",
+    "image": "/images/pico-silver-feather/page10.png",
+    "bytes": 3121625,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "pico-silver-feather.json",
+    "image": "/images/pico-silver-feather/page11.png",
+    "bytes": 2637412,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "cover": false
+  },
+  {
+    "book": "pico-silver-feather.json",
+    "image": "/images/pico-silver-feather/page12.png",
+    "bytes": 3487142,
+    "width": 1448,
+    "height": 1086,
+    "format": "png",
+    "cover": false
+  }
+]

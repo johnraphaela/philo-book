@@ -1,0 +1,9 @@
+Command: ASTRO_TELEMETRY_DISABLED=1 npm run check
+Exit: 0
+Result (84 files):
+- 0 errors
+- 0 warnings
+- 35 hints
+
+
+Full log: project-check.txt.gz
