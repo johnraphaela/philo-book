@@ -1,0 +1,18 @@
+{
+  "src/content/books/fox-chinchilla-love-01.json": "aa9d51c2a2ca2e6419bbf1c511a2e3b2c14964354b9006e45454cdd76b94290d",
+  "src/content/essays/fox-chinchilla-love-01.md": "b8b59884b2d0b0c81412ceb61df18d273a438ce93d30c231e9af45216a15ce7a",
+  "content-authoring/imports/fox-chinchilla-love-01/manuscript.md": "334957ef3e350e36d92594a8d9a36a8e34cc30129c7aa43fc7a3f5fa60d05ead",
+  "content-authoring/imports/fox-chinchilla-love-01/parsed.json": "0926a1efe626206de534ac55be087381cdbca91900a350a7df949e225d0e827c",
+  "public/images/fox-chinchilla-love-01/page1.jpg": "58900c931d95c4c1aff493847abe336a507e17c60063403df40f3b82f4b6c0b3",
+  "public/images/fox-chinchilla-love-01/page10.jpg": "0f9d161c5c52cc6b7bb9a52161ae5ecdb4df816f4e57486a74cc6f8d39c39a1b",
+  "public/images/fox-chinchilla-love-01/page11.jpg": "58cd8be0952d5f2df4ef808604c5c535ea7c2dc5e29c8086b849ff6ddd50a44e",
+  "public/images/fox-chinchilla-love-01/page12.jpg": "426ef504c5042e1d03f32cacd6b775f57e7a9833374af7044910ef33c95e2f81",
+  "public/images/fox-chinchilla-love-01/page2.jpg": "a300f297256827689f7b19f5626fd1999563306a2ee9b250fffe07a667acf1fe",
+  "public/images/fox-chinchilla-love-01/page3.jpg": "a11045c60de8191f2d86f2237996976faabb4cdf0d7a753405b787537ca679b7",
+  "public/images/fox-chinchilla-love-01/page4.jpg": "0e722cbc29fa3e6c12f8f9f9c6f0cff35745c06e934e0548bd346b0714d78c5a",
+  "public/images/fox-chinchilla-love-01/page5.jpg": "17862ce1f4f54c6a8cf8ccbee16c1b479b511d44f1f9c2b422081c10b9f2b4fc",
+  "public/images/fox-chinchilla-love-01/page6.jpg": "f1c2b15ff2bcd0496a0232135d464e8d4c8e24273af18062ae7e880f25330a3a",
+  "public/images/fox-chinchilla-love-01/page7.jpg": "3998808f35fba33fe5c7a69aecd45dfa7b73ab786c6ac751b7f2f0c1021f2046",
+  "public/images/fox-chinchilla-love-01/page8.jpg": "ade62393b054e1e4fd9f38bb8762ba3efc5f47fe50cfa3f636133a7fddb9891a",
+  "public/images/fox-chinchilla-love-01/page9.jpg": "27c00fa2195e5b1a3455fede21415dc99da34d308ae437b5cf3d4099058d35a8"
+}
