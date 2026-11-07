@@ -1,0 +1,176 @@
+Metadata
+Book ID: dino-space-fear
+Title: 코코와 반짝이 별의 그림자
+Theme: 미지의 두려움을 이겨내는 용기와 이해
+Age Groups: 5-7
+Categories: emotions
+Primary Category: emotions
+Subtopics: fear, emotional-expression
+Recommended Age: 5-7
+Core Question: "우리가 잘 모르는 낯선 것을 처음 만났을 때, 무서운 마음이 들면 어떻게 하는 게 좋을까?"
+Summary: 낯선 별에 도착한 꼬마 공룡들이 정체불명의 그림자를 만나 두려움에 빠져 다투지만, 용기를 내어 진실을 마주하고 갈등을 해결하는 이야기입니다.
+Dialogue Questions:
+- "동굴 속에 숨어있을 때 코코와 친구들의 마음은 어땠을까?"
+- "내가 렉스였다면 괴물 그림자를 보고 어떻게 했을까?"
+Parent Reflection Question: 아이가 미지의 대상을 두려워할 때, 나는 그 감정을 덮어두려 했는가, 아니면 함께 확인하려 했는가?
+
+Story
+
+Scene 01
+Text: 꼬마 티라노사우루스 '렉스'와 트리케라톱스 '코코', 그리고 친구들은 우주선을 타고 낯선 '반짝이 별'에 도착했어요. "와, 처음 보는 별이야!" 렉스가 신이 나서 외쳤어요.
+Parent Teaching Point: 새로운 환경에 대한 아이들의 호기심과 기대감을 보여주는 첫 장면입니다.
+Parent Interaction: "렉스와 코코가 우주선을 타고 어디로 갔을까? 낯선 곳에 가면 어떤 기분이 들까?"
+
+Scene 02
+Text: 공룡 친구들은 공중에 둥둥 떠다니는 신기한 은빛 나뭇잎들을 만지며 꺄르르 웃었어요. 모든 것이 새롭고 아주 재미있었죠.
+Parent Teaching Point: 긍정적인 탐색 과정을 통해 아이가 낯선 환경에 자연스럽게 적응하고 즐거워하는 모습을 보여줍니다.
+Parent Interaction: "우주에는 어떤 신기한 장난감들이 있을까?"
+
+Scene 03
+Text: 그런데 해가 지고 주변이 어두워지자, 보라색 숲 저편에서 커다랗고 뾰족뾰족한 검은 그림자가 어른거렸어요. "으악! 저게 뭐야? 뿔 달린 괴물인가 봐!" 코코가 소리쳤어요.
+Parent Teaching Point: 미지의 존재를 마주했을 때 느끼는 원초적인 '두려움'과 스피노자가 말한 '겁(실체를 모른 채 동요함)'이 시작되는 지점입니다.
+Parent Interaction: "그림자를 보고 코코는 왜 깜짝 놀랐을까?"
+
+Scene 04
+Text: 두려움에 사로잡힌 코코는 뾰족한 돌멩이를 집어 들며 말했어요. "우리가 먼저 혼내주거나, 아주 깊은 동굴로 도망쳐 숨어야 해!" 다른 공룡들도 코코의 말에 우왕좌왕했어요.
+Parent Teaching Point: ⟪파리대왕⟫에서 나타나는, 두려움이 낳은 방어적 공격성과 집단적인 패닉을 5~7세 수준으로 보여줍니다.
+Parent Interaction: "너무 무서우면 우리는 어떻게 하고 싶어질까?"
+
+Scene 05
+Text: 하지만 렉스는 쿵쾅거리는 가슴을 진정시키며 생각했어요. "숨기만 하면 계속 무서울 거야. 저 그림자가 진짜 괴물인지 먼저 확인해 보자."
+Parent Teaching Point: 두려움(정념)에 휩쓸리지 않고 이성적으로 원인을 파악하려는 스피노자적 태도를 아이 눈높이에 맞춰 그려냅니다.
+Parent Interaction: "렉스는 왜 도망치지 않고 먼저 확인해 보자고 했을까?"
+
+Scene 06
+Text: 코코와 몇몇 친구들은 렉스의 말을 듣지 않았어요. "싫어! 넌 너무 겁이 없어!" 코코와 친구들은 어둡고 좁은 동굴 속으로 쏙 들어가 돌로 입구를 막아버렸어요.
+Parent Teaching Point: 공포심으로 인해 친구들 사이에 갈등과 분열이 생기는 과정을 보여줍니다.
+Parent Interaction: "친구들이 동굴로 쏙 들어가 버렸네. 혼자 남은 렉스는 어떤 마음일까?"
+
+Scene 07
+Text: 캄캄한 동굴 속에 갇힌 코코와 친구들은 밖에서 바스락거리는 소리만 나도 깜짝 놀랐어요. 계속 무서워하다 보니 서로에게 짜증을 내고 다투기 시작했죠.
+Parent Teaching Point: 실체가 없는 두려움에 갇혀 있을 때, 갈등이 심해지고 스스로를 더 괴롭히게 되는 결과를 보여줍니다.
+Parent Interaction: "동굴 속에 숨어있는데 왜 친구들끼리 자꾸 다투게 될까?"
+
+Scene 08
+Text: 한편, 렉스는 침을 꿀꺽 삼키고 그림자가 있던 곳으로 조심조심 다가갔어요. '무섭지만, 진짜 뭔지 똑똑히 알아볼 거야.'
+Parent Teaching Point: 두려움을 느끼면서도 진실을 알기 위해 주체적으로 용기를 내어 선택하는 과정입니다.
+Parent Interaction: "무서워도 꾹 참고 다가가는 렉스에게 뭐라고 응원해 주고 싶어?"
+
+Scene 09
+Text: 렉스가 다가가 보니, 커다란 그림자의 정체는 뾰족한 바위 위에 옹기종기 모여 잠을 자는 아주 작은 '야광 별빛 벌레'들이었어요!
+Parent Teaching Point: 미지의 것에 대한 '앎'을 통해 두려움이 사라지고 기쁨으로 바뀌는(스피노자의 능동적 기쁨) 순간입니다.
+Parent Interaction: "괴물인 줄 알았던 그림자가 사실은 뭐였지?"
+
+Scene 10
+Text: 렉스는 얼른 동굴로 달려가 친구들에게 말했어요. "얘들아, 괴물이 아니야! 그냥 작은 벌레들이 바위에서 자고 있었어."
+Parent Teaching Point: 자신이 알게 된 진실을 친구들과 나누며 집단의 두려움과 분열을 해소해주려는 노력입니다.
+Parent Interaction: "렉스의 말을 듣고 코코는 이제 동굴 밖으로 나올 수 있을까?"
+
+Scene 11
+Text: 코코는 여전히 덜덜 떨었지만, 렉스가 손을 꼭 잡아주자 조심스레 밖으로 나왔어요. 그리고 반짝이는 벌레들을 보고 그제야 빙그레 웃었죠.
+Parent Teaching Point: 친구의 연대와 도움으로 마침내 두려움을 직면하고 이겨내는 긍정적인 결과를 보여줍니다.
+Parent Interaction: "벌레를 직접 본 코코의 표정이 어떻게 바뀌었어?"
+
+Scene 12
+Text: 실체 없는 두려움을 훌훌 털어낸 꼬마 공룡들은 다시 하나가 되어, 반짝이는 별빛 벌레들 주위에서 밤새도록 신나게 우주 춤을 추었답니다.
+Parent Teaching Point: 알 수 없는 두려움을 앎과 용기로 극복하고 다시 회복한 공동체의 화합을 상징합니다.
+Parent Interaction: "렉스와 코코처럼 무서운 걸 용기 내어 이겨내 본 적이 있어?"
+
+Parent Essay
+Title: 두려움이라는 그림자, 어떻게 마주하게 할까?
+Tags: #스피노자 #파리대왕 #겁 #감정코칭 #용기
+Body:
+아이가 어두운 방을 무서워하거나 처음 보는 장소에서 잔뜩 움츠러든 모습을 본 적이 있으신가요? 어른의 눈에는 아무것도 아닌 일이지만, 아이들에게 미지의 대상은 종종 거대한 괴물로 다가옵니다. 철학자 바루흐 스피노자는 ⟪에티카⟫에서 어떤 대상을 정확히 알지 못한 채 느끼는 두려움과 마음의 동요를 '겁'이라고 표현했습니다. 앎이 부족할 때 우리는 상상 속에서 공포를 키우게 되며, 이는 수동적인 감정에 휩쓸리게 만듭니다.
+
+윌리엄 골딩의 ⟪파리대왕⟫은 이러한 실체 없는 두려움이 집단 내에서 어떻게 폭력과 분열을 낳는지 잘 보여주는 작품입니다. 낯선 섬에 고립된 소년들은 '짐승'이라는 미지의 존재를 상상하며 극심한 공포에 빠졌고, 이 두려움을 통제하지 못해 서로를 공격하고 배척하기 시작했습니다. 그림책 속 코코와 공룡 친구들이 알 수 없는 그림자를 피해 좁은 동굴에 숨고 서로 짜증을 내는 모습 역시 두려움이 낳은 갈등의 축소판입니다.
+
+하지만 주인공 렉스는 달랐습니다. 가슴이 쿵쾅거리는 두려움을 부정하지 않으면서도, 용기를 내어 그림자의 진짜 모습을 확인하기로 선택합니다. 스피노자는 두려움(정념)을 이성으로 명확하게 이해하고 파악할 때, 그것이 더 이상 우리를 괴롭히는 감정이 아니라 능동적인 앎의 기쁨으로 바뀐다고 보았습니다. 렉스가 발견한 진실, 즉 거대한 뿔 달린 괴물이 사실은 잠을 자는 '야광 별빛 벌레'였다는 사실은 아이들에게 두려움을 극복하는 가장 좋은 무기는 '회피'가 아니라 '확인하는 용기'임을 알려줍니다.
+
+아이가 무언가를 두려워할 때 "뭐가 무섭다고 그래!"라고 감정을 덮어버리기보다는, 아이의 두려움을 인정해 주세요. 그리고 렉스가 코코의 손을 잡아주었듯, 부모가 든든한 동반자가 되어 아이 스스로 진실을 확인하도록 이끌어주세요. 그림자의 정체를 확인하고 환하게 웃는 아이의 얼굴에서, 우리는 두려움이 앎으로 바뀌는 멋진 성장의 순간을 발견하게 될 것입니다.
+
+Harvard Play
+Parent Guide: 
+아이가 두려움을 느낄 때 그 감정을 부정하거나 회피하도록 돕기보다, 아이가 안심하고 탐색할 수 있는 '안전 기지'가 되어주세요. 부모가 옆에서 지지해 주면 아이는 조금씩 용기를 내어 낯선 환경에 다가갈 수 있습니다.
+Conversation:
+- 아이가 낯선 소리나 어둠을 무서워할 때: "저 그림자가 진짜 괴물처럼 보였구나. 많이 놀랐지? 엄마(아빠)랑 손 꼭 잡고 저게 정말 괴물인지 같이 확인해 보러 갈까?"
+- 두려움을 극복하고 확인했을 때: "와! 괴물이 아니라 의자에 걸린 옷이었네! 용기 내서 확인해 보니까 어때? 마음이 조금 편안해졌지?"
+Activities:
+Title: 손전등 그림자 탐험대
+Goal: 어둠과 미지의 것에 대한 두려움을 호기심과 '앎의 기쁨'으로 바꾸기
+준비물: 손전등(또는 스마트폰 라이트), 아이가 좋아하는 장난감들, 얇은 담요나 종이
+방법:
+1. 방의 불을 끄고 벽 쪽에 담요를 친 뒤, 뒤쪽에서 장난감으로 기괴하거나 낯선 그림자를 만들어 아이에게 보여줍니다.
+2. 아이에게 "어떤 괴물이 숨어있을까?"라고 상상하게 한 뒤, '그림자 탐험대'가 되어 손전등을 들고 조심조심 다가가 봅니다.
+3. 담요 뒤에 숨겨진 진짜 장난감을 발견하고 안도감과 웃음을 나눕니다.
+4. 후속 질문: "괴물인 줄 알았는데 토끼 인형이었네! 처음 그림자만 봤을 때랑, 직접 확인했을 때랑 기분이 어떻게 달라졌어?"
+안전 주의사항: 방을 너무 어둡게 하면 아이가 걸려 넘어질 수 있으니 바닥의 물건들을 미리 치우고, 아이가 너무 무서워하면 즉시 불을 켜 안심시켜 주세요.
+
+Illustration Guide
+
+Character Bible
+- 렉스 (Rex): 5세 꼬마 티라노사우루스. 옅은 올리브 그린색 피부에 작고 귀여운 주황색 줄무늬가 등에 있습니다. 호기심 많고 용감한 표정이며, 주황색 우주 헬멧이나 작은 스카프를 매고 다닙니다. 무섭지만 눈을 동그랗게 뜨고 진실을 보려는 적극적인 성격입니다.
+- 코코 (Coco): 5세 꼬마 트리케라톱스. 부드러운 하늘색 피부에 머리에는 아기자기한 세 개의 둥근 뿔이 있고, 연한 노란색 프릴(머리 뒤판)을 가지고 있습니다. 겁이 많고 신중한 성격으로, 주로 렉스 뒤에 숨거나 눈을 가리는 행동을 합니다. 귀여운 노란색 배낭을 메고 있습니다.
+- 우주선: 알록달록한 동글동글 장난감 같은 외형에 아기 공룡들이 타기 알맞은 소형 크기.
+- 반짝이 별: 보라색, 감청색, 옅은 마젠타색의 빛나는 식물과 신비로운 은빛 나뭇잎들이 가득한 판타지풍 행성.
+- 야광 별빛 벌레: 뾰족한 바위에 뭉쳐 있는, 스스로 은은한 노란빛과 형광빛을 내는 작고 동글동글한 요정 같은 곤충들.
+
+Common Art Style
+- 화풍: 따뜻하고 아기자기한 3D 클레이 애니메이션(Clay animation) 또는 스톱모션(Stop-motion) 스타일. 인형 같은 질감과 손으로 빚은 듯한 부드러운 질감이 강조됩니다.
+- 질감: 부드러운 펠트와 점토의 매트한 느낌, 자연스러운 수공예 분위기.
+- 조명: 밤이 되며 생기는 어두운 푸른색·보라색 그늘과 대비되는, 빛나는 식물·벌레들의 따스한 발광 효과(Luminescent Glow).
+- 구도: 모험의 생동감과 공룡들의 작고 사랑스러운 느낌을 강조하는 가로형(4:3 비율) 화면.
+- 분위기: 신비롭고 몽환적이며, 후반부로 갈수록 따뜻하고 안도감이 넘치는 색조의 변화.
+
+Image Prompts
+
+Page 1
+page1.jpg
+A 3D claymation capture of a round, cute toy-like spaceship landing on the colorful, luminescent surface of an alien planet under a twilight sky. A tiny, 5-year-old baby T-Rex Rex (light olive-green with small orange stripes, wearing his orange space helmet) cheerfully waving his arms, and a small baby Triceratops Coco (soft sky-blue with three blunt horns, a pale yellow frill, wearing her yellow backpack) peering out excitedly. Other tiny dinosaur friends look on. The planet "Shiny Star" is filled with glowing purple and blue plants. The shot is a medium-wide angle, rich in stop-motion clay textures and cinematic, warm ambient lighting.
+
+Page 2
+page2.jpg
+A closeup, delightful 3D claymation scene of baby T-Rex Rex (wearing his orange space helmet) and baby Triceratops Coco (wearing her yellow backpack) and their dino friends laughing and playfully touching floating, glowing silver leaves that hover in the air. Rex is reaching up with a tiny claw, and Coco is giggling, hand to her mouth. Set in an enchanting purple alien forest under a darkening indigo sky. Magical glowing spores and fantasy plants fill the environment. High-detail clay textures, soft toy-like details, and rich magical illumination.
+
+Page 3
+page3.jpg
+A medium 3D clay animation shot showing the sudden arrival of fear. In the dark violet dusk of the alien forest, a massive, jagged, and scary-looking dark shadow (shaped like a horned beast) is cast onto a distant rock wall by glowing foliage. Coco (wearing her yellow backpack) is gasping in fright, pointing with a tiny trembling hand. Rex (wearing his orange space helmet) and friends look startled, with wide eyes and tense postures. The lighting is dim and atmospheric, contrasting the dark shadow against glowing alien plants. 4:3, cinematic, stop-motion look.
+
+Page 4
+page4.jpg
+A 3D claymation scene of fear taking over the group. The fearful baby Triceratops Coco (wearing her yellow backpack), holding a small pointed stone, speaks urgently to the panicked group of tiny dinosaur friends. Other dinosaurs are buzzing with anxiety, packing up or gesturing wildly. Rex (wearing his orange space helmet) is watching thoughtfully, less panicked but still tense. The forest in the background is dark, and the shadow remains a scary mystery. Toy-like expressions, handheld clutter, and dramatic low-light shadows.
+
+Page 5
+page5.jpg
+A close-up 3D clay animation of baby T-Rex Rex (wearing his orange space helmet) clutching his tiny chest with one claw, trying to calm himself. His eyes are wide but show quiet determination as he looks toward the dark, scary woods. In the background, the panic-stricken dinosaur friends and Coco (wearing her yellow backpack) are already scrambling toward a dark cave. Atmospheric, movie-still quality, hand-sculpted clay, and cinematic contrast between Rex’s determined face and the deep shadows of the environment.
+
+Page 6
+page6.jpg
+A medium-wide 3D claymation shot. The blue Triceratops Coco (wearing her yellow backpack) and several frightened baby dinosaur friends are scurrying into a dark, rocky cave on the right, pushing a large clay boulder to block the entrance. They look back at the olive-green T-Rex Rex (wearing his orange space helmet), who is left standing alone outside in the dim, glowing alien forest. Rex stands in the center-left, small and solitary, looking towards the dark woods on the left. Highly atmospheric, with a contrast between the cozy, fearful huddle and the vast, mysterious forest.
+
+Page 7
+page7.jpg
+An indoor 3D clay animation scene inside the cramped, dark cave. The blue Triceratops Coco (wearing her yellow backpack) and other tiny dinosaur friends are huddled together in the shadows, looking scared, jumpy, and irritable. Some are whispering, while others appear to be arguing, pointing tiny claws in frustration. Small light beams seep through cracks in the rocky barrier. The atmosphere is tense, gloomy, and claustrophobic. Toy-like expressions of stress and fatigue, rich clay textures, and dramatic low-key lighting.
+
+Page 8
+page8.jpg
+A 3D claymation shot of Rex the T-Rex’s solitary courage. The tiny olive-green T-Rex Rex (wearing his orange space helmet) is walking slowly, on tiptoe, toward the mysterious dark foliage where the giant shadow was seen. He is gulping, hand near his chin, but his eyes are focused forward. High-contrast forest lighting with deep purples and blues, flecked with magical glowing specks. Hand-carved rock and leaf textures, natural stop-motion grain, and intimate focus on Rex’s cautious, brave approach.
+
+Page 9
+page9.jpg
+A warm and magical reveal 3D claymation scene. Rex (wearing his orange space helmet) is peeking over a bush, eyes wide with wonder, discoverer of the truth. On a jagged rock, dozens of tiny, round, glowing yellow and green "bioluminescent starbugs" are clustered together, sleeping and pulsing with gentle light. They are creating the shape that previously cast the giant scary shadow, but up close they are adorable. The atmosphere changes from dark to warm, enchanting, and magical. Hand-molded details, intricate bioluminescence.
+
+Page 10
+page10.jpg
+A 3D claymation scene of Rex (wearing his orange space helmet) running back to the dark cave on the right, gesturing excitedly. On the right, some of the baby dinosaurs and the blue Triceratops Coco (wearing her yellow backpack) are peering cautiously from behind the boulder blocking the cave, their eyes filled with surprise and hesitation. The dim dark of the forest is now warm with Rex’s hopeful presence. Rich clay textures, movie-still cinematic framing.
+
+Page 11
+page11.jpg
+A touching close-up 3D claymation shot. Little T-Rex Rex (wearing his orange space helmet) is gently holding the hand of the still-trembling blue Triceratops Coco (wearing her yellow backpack), guiding her out of the dark cave. In the background on the left, the tiny glowing bioluminescent starbugs are visible on their rock, shining softly like miniature stars. Coco’s fearful expression is softening into a tiny, amazed smile. Other little dinosaurs are peek-a-booing out of the cave behind them, eyes filled with wonder. Cinematic, heartfelt, with soft glow-in-the-dark lighting and exquisite clay textures.
+
+Page 12
+page12.jpg
+A joyful and festive finale 3D clay animation. The entire group of tiny dinosaur friends, including Rex (wearing his orange space helmet) and Coco (wearing her yellow backpack), are dancing together in a circle, celebrating around the glowing, sparkling bioluminescent bugs on the rocks. They are under a starlit alien sky, surrounded by glowing bioluminescent plants. Warm, jubilant, with expressive festive movements. Beautiful festive lighting, film-still cinematography, and abundant hand-sculpted clay details. 4:3.
+
+References
+- 바루흐 스피노자(Baruch Spinoza), ⟪에티카(Ethica)⟫: 제3부 감정의 기원과 본성에 관하여 ('겁'의 정의와 앎을 통한 정념의 극복)
+- 윌리엄 골딩(William Golding), ⟪파리대왕(Lord of the Flies)⟫: 미지의 두려움(짐승)이 낳은 방어적 공격성과 집단 내 분열 모티프 차용
