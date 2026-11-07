@@ -1,7 +1,7 @@
 
 ## Metadata
 Book ID: fox-chinchilla-love-01
-Title: 네가 나의 기쁨이 될 때 (가제)
+Title: 네가 나의 기쁨이 될 때
 Theme: 조건 없는 돌봄과 서로가 기쁨이 되는 사랑
 Age Groups: 5~7세
 Recommended Age: 5-10
