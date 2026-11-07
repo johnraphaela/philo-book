@@ -1,5 +1,23 @@
 # Windows 로컬 검토
 
+## EP09 로컬·네트워크 검토
+
+현재 서버를 먼저 종료한다. GitHub Desktop에서 `book/ep09` 브랜치를 선택하고 Pull origin으로 최신 변경을 받는다.
+
+```powershell
+npm.cmd run astro -- dev stop
+```
+
+최초 설치 또는 패키지가 바뀐 경우에만 서버가 종료된 상태에서 `npm.cmd ci`를 실행한다. 설치에 성공한 뒤 다음 명령을 실행한다.
+
+```powershell
+npm.cmd run review:ep09
+```
+
+PC에서는 http://localhost:4321/book/ep09/ 를 연다. 같은 Wi-Fi의 기기에서는 터미널의 Network 주소 뒤에 `/book/ep09/`를 붙여 접속한다. Windows 방화벽 알림이 나오면 개인 네트워크 접근을 허용한다. 다른 포트가 표시되면 실제 출력된 포트를 사용한다.
+
+백그라운드 서버는 Ctrl+C로 종료되지 않는다. 설치·브랜치 전환 전에 `npm.cmd run astro -- dev stop`으로 종료한다. 설치 중 EPERM이 발생해 Astro 명령을 사용할 수 없으면 서버 시작 때 표시된 PID를 확인해 `taskkill /PID <PID> /T /F`로 해당 서버를 종료한 뒤 설치를 다시 실행한다.
+
 ## EP08 바로 열기
 
 GitHub Desktop에서 `work` 브랜치를 선택하고 Fetch origin → Pull origin으로 최신 변경을 받은 뒤, 프로젝트 폴더의 PowerShell에서 실행한다.
