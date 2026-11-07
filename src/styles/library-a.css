@@ -40,7 +40,7 @@ body { font-family: var(--font-body); }
 :root body.library-page .book-grid { gap:28px; }
 :root body.library-page .book-card { padding:0 0 20px; border:0; border-radius:0; background:transparent; border-bottom:1px solid var(--library-divider); }
 :root body.library-page .cover { border-radius:3px; background:var(--library-cover-paper); }
-:root body.library-page .cover img { object-fit:contain; }
+:root body.library-page .cover img { object-fit:cover; object-position:center; }
 :root body.library-page .metadata { font-size:14px; color:var(--library-metadata-ink); }
 :root body.library-page .book-card h2 { margin:8px 0 14px; font-size:22px; font-weight:600; }
 :root body.library-page .question { border-left:2px solid var(--library-question-border); padding-left:14px; }
@@ -53,7 +53,6 @@ body { font-family: var(--font-body); }
 :root body.book-page .reading-paper { max-width:760px; margin-inline:auto; box-shadow:none; border-radius:3px; }
 :root body.book-page .reading-paper p { line-height:1.95; }
 :root body.book-page .content-container { box-shadow:none; border-radius:3px; }
-:root body.library-page .book-card[data-book-id="ep01-robot-mong"] .cover img { object-fit:cover; object-position:center; }
 :root body.library-page h1, :root body.library-page h2 { min-width:0; overflow-wrap:break-word; }
 :root body.library-page input:focus-visible, :root body.library-page select:focus-visible { outline:3px solid var(--color-primary); outline-offset:3px; }
 @media (min-width:1100px) { :root body.library-page .book-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
