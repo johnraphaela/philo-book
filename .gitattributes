@@ -11,3 +11,8 @@
 /content-authoring/imports/ep05/** -text
 /src/content/books/ep05.json -text
 /src/content/essays/ep05.md -text
+# EP09 import ownership hashes cover exact source/publication bytes on Windows.
+/book-imports/ep09/ep09.md -text
+/content-authoring/imports/ep09/** -text
+/src/content/books/ep09.json -text
+/src/content/essays/ep09.md -text
