@@ -7,6 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "review:ep08": "astro dev --background --host 127.0.0.1 --open /book/ep08/",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",

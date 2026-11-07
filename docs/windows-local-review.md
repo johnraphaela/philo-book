@@ -1,5 +1,26 @@
 # Windows 로컬 검토
 
+## EP08 바로 열기
+
+GitHub Desktop에서 `work` 브랜치를 선택하고 Fetch origin → Pull origin으로 최신 변경을 받은 뒤, 프로젝트 폴더의 PowerShell에서 실행한다.
+
+```powershell
+npm.cmd ci
+npm.cmd run review:ep08
+```
+
+브라우저에서 EP08 《하얀 안개 숲의 징검다리》를 연다. 기본 주소는 http://127.0.0.1:4321/book/ep08/ 이며, 포트가 사용 중이면 터미널에 표시된 주소를 사용한다. macOS/Linux에서는 `npm.cmd` 대신 `npm`을 사용한다. 이미 등록된 책이므로 다시 import할 필요가 없다.
+
+이야기 12장면의 이미지·본문·페이지 이동, 부모 힌트, 부모용 에세이, 사고놀이와 모바일 화면을 확인한다.
+
+```powershell
+npm.cmd run astro -- dev status
+npm.cmd run astro -- dev logs
+npm.cmd run astro -- dev stop
+```
+
+## 전체 검사
+
 프로젝트 루트(package.json이 있는 폴더)의 PowerShell에서 실행한다. Node.js는 package.json의 engines 조건을 만족해야 한다.
 
 ```powershell
