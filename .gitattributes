@@ -11,3 +11,9 @@
 /content-authoring/imports/ep05/** -text
 /src/content/books/ep05.json -text
 /src/content/essays/ep05.md -text
+# Preserve EP10 import bytes and ownership hashes on Windows.
+/book-imports/ep10/** -text
+/content-authoring/import-inputs/ep10/** -text
+/content-authoring/imports/ep10/** -text
+/src/content/books/ep10.json -text
+/src/content/essays/ep10.md -text
